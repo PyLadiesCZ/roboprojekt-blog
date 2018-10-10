@@ -11,4 +11,4 @@ MARKDOWN = {
 }
 
 if PRODUCTION:
-    SITEURL = 'https://pyladiescz.github.io/roboprojekt-blog'
+    SITEURL = 'https://roboprojekt.pyladies.cz'
