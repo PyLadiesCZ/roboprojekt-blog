@@ -1,0 +1,18 @@
+language: python
+python:
+- '3.6'
+cache: pip
+script:
+- pip install pipenv
+- pipenv install
+- pipenv run blog lint
+env:
+  global:
+  - secure: YSXGpqYLt7D9MrMz87NL8axEvbN9zrYdz0XbicZriwjNsWJ5p0Jz6pPtAN9F97Ifo1eWafWW6ZMngpleuUSnrD9cUkO/oI7avcLY7oemxL2+17/XuRmvx8/J6foW672S+Ka+VgTPbOCpjNxJ6o7F0LMpkRDVQxYYqeuJaDaIA0XwYvOZwSE637lJK4kMnpgUKcWvU6lgnvSM/QNq5ar6ylX2jqcYfFayniQ1PKy3t35t6tuHUZ/kd9QCGtFZ+IF54nteXMaDCpOgyExoqGIehbY/0y34N6qD3lGYrA2K0rKZWyqVw/b+0Wm6/ZOIXWH+I2PRqt6Qrsaoo8HPuaK7aX+Tjrmd/gyUeIbpChLEKSSBDjevCWEV3O+W/7tKDoZ73Juumhnl7wIkvrylZtKQr3h+6OvUsbF6YCUNuG8589oCcBC60t53pB1VxKph4jkAuo01p459y4dKIsORPNtBgmSA5YGfedwWVRbkriT4KYpCuzaT+QJSqVtFhLMpkv9ltKTl9Rxrl2nchoGu7Uwba9g5ZBXpI58kHroj/U17J3RaDTI/+UFDQVZdHVHwgFp/7vq7rWXP9ibtkhgezXrLL4HhZlXR0mqUoG0FdI8M78N06tRcwRkas4JBczHjLZ+OOfjFytb7YL81lYShZrAUwze82mXZDboczLpqCLbyi1A=
+deploy:
+  provider: script
+  script: pipenv run blog deploy
+  on:
+    branch: master
+    repo: PyLadiesCZ/roboprojekt-blog
+sudo: false

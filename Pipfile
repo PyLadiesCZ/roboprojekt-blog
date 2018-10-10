@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[scripts]
+write = "blog write"
+preview = "blog preview"
+photos = "blog photos"
+
+[packages]
+danube-delta = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"
