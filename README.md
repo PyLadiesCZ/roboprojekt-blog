@@ -55,10 +55,10 @@ Základy Markdownu:
           return a + b
       ```
 * Text odkazů obal do hranatých závorek; hned za ně dej URL v kulatých: `[Tahák na Markdown](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf)`.
-* Obrázky můžeš nahrát lokálně do adresáře content/images použitím následující syntaxe `![Popisek](./images/obrazek.jpg)`
+* Obrázky můžeš nahrát lokálně do adresáře content/images použitím následující syntaxe: `![Popisek](./images/obrazek.jpg)`
 
 Víc najdeš v [taháku](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf) od GitHubu.
 
 ### Přidávání článku
 
-Po přidání článku ho přidej do Gitu, pushni do svého GitHubového repozitáře a pošli jako Pull Request na PyLadiesCZ/robotprojekt-blog.
+Po přidání článku ho přidej do Gitu, pushni do svého GitHubového repozitáře a pošli jako Pull Request na /PyLadiesCZ/robotprojekt-blog.
