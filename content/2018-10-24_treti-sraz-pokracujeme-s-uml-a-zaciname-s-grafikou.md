@@ -97,13 +97,3 @@ hodnota: seznam efektů # ← číslo z JSON
   
 
 Nahrávaná mapa má pouze 1 vrstvu, bez otáčení dlaždic.
-
-### Tipy na blogování
-Navíc přidávám svoje postřehy, jak se poprat s tímto blogem. Dal mi zabrat, protože některé věci [v návodu](https://github.com/pyladiescz/roboprojekt-blog#blog-roboprojektu) nejsou úplně přesně.
-
-1) stáhnout si blog z https://github.com/pyladiescz/roboprojekt-blog#markdown - je důležité použít prvně **Fork** (vpravo nahoře) a ne hned Download, později byste nemohly zadat pull request s příspěvkem (to v návodu zatím není)
-2) ze své fork kopie si stáhnete blog pomocí git clone +odkaz do cílové složky na pc
-3) zapnete virtuální prostředí a nainstalujete si závislosti podle návodu u blogu
-4) připravíte blog v Markdown editoru (třeba [tento](https://stackedit.io/app)) Obrázky nejdou vložit pomocí webového odkazu, ale musíte je vložit do složky blogu (v Content už Karolina založila images) a odkazovat na ni jako třeba `![Popisek](./images/obrazek.jpg)`
-5) uděláte write podle návodu, přidáte 
-6) přidat do gitu (git status → git add nazev_soboru → git commit), nahrát na GitHub k sobě (git push origin) a na webu zkontrolujte, jak to vypadá, jde i něco připsat nebo upravit a požádejte požádat na webu o pull request do blogu
