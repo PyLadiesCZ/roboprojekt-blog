@@ -12,10 +12,10 @@ $ pip install --user pipenv
 ```
 (Případně do virtuálního prostředí bez `--user`.)
 
-Blog si oforkuj na GitHubu k sobě, ze svého účtu naklonuj k sobě lokálně a nainstaluj závislosti:
+Blog si odforkuj na GitHubu k sobě, ze svého účtu naklonuj k sobě lokálně a nainstaluj závislosti:
 
 ```console
-$ git clone https://github.com/\[tvujucet\]/roboprojekt-blog
+$ git clone https://github.com/[tvujucet]/roboprojekt-blog
 $ cd roboprojekt-blog
 $ pipenv install
 ```
