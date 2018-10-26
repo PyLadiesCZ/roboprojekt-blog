@@ -64,6 +64,6 @@ Víc najdeš v [taháku](https://guides.github.com/pdfs/markdown-cheatsheet-onli
 Až článek dopíšeš, ujisti se, že máš správně nakonfigurovaný git (podle sekce: Posílání změn popsané na [stránkách naucse.cz](https://naucse.python.cz/2018/pyladies-brno-podzim/git/collaboration/))
 Pokud nemáš uložen odkaz na svůj repozitář, přidej si ho pomocí `git remote add`, jak je popsáno v odkaze výše.
 
-Pro přidání článku ho pošli do Gitu (známou dvojicí *git add*, *git commit*), a následně pošli do **svého** GitHubového repozitáře pomocí příkazu `git push tvojejmeno master`.
+Pro přidání článku ho pošli do Gitu (známou dvojicí *git add*, *git commit*), a následně pošli do **svého** (osforkovaného dle návodu výše) GitHubového repozitáře pomocí příkazu `git push tvojejmeno master`. 
 
 Na stránkách GitHub.com své změny pošli jako Pull Request na /PyLadiesCZ/robotprojekt-blog.
