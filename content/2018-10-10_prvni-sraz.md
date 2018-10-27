@@ -21,6 +21,8 @@ Proběhlo představovací kolečko, kde jsme mluvily také o tom, co nás do kur
 Většina z nás do toho jde s podobnou motivací - zdokonalit se v tom, co známe ze začátečnických kurzů, naučit se to více prakticky využívat, spolupracovat na vývoji, mít nějaký projekt, který budeme moci prezentovat.
 A to nejen my, jednotlivé členky týmu, ale také celkově PyLadies, když se například účastníme nějaké konference nebo prezentace - budeme moci ukázat nějaký reálný výsledek práce absolventek kurzu. 
 
+![hrajeme](./images/hrajeme.jpg)
+
 Po vzájemném představení přišla už praktičtější část setkání, vyzkoušely jsme si nakreslit mind mapu na příkladu šachů, abychom ji pak doma vytvořily pro RoboRally.
 Poté přišla na řadu samotná hra. Patřila jsem k té části týmu, co ji nikdy předtím nehrála, takže to bylo rozhodně potřeba :)
 Stihly jsme několik kol, abychom si trochu prošly pravidla a ukázaly, jak hra funguje.
