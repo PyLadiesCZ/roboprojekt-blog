@@ -12,10 +12,10 @@ $ pip install --user pipenv
 ```
 (Případně do virtuálního prostředí bez `--user`.)
 
-Blog si odforkuj na GitHubu k sobě, ze svého účtu naklonuj k sobě lokálně a nainstaluj závislosti:
+Vytvoř si na počítači projektový adresář, blog si naklonuj k sobě a nainstaluj závislosti:
 
 ```console
-$ git clone https://github.com/[tvujucet]/roboprojekt-blog
+$ git clone https://github.com/PyLadiesCZ/roboprojekt-blog
 $ cd roboprojekt-blog
 $ pipenv install
 ```
@@ -61,4 +61,9 @@ Víc najdeš v [taháku](https://guides.github.com/pdfs/markdown-cheatsheet-onli
 
 ### Přidávání článku
 
-Po přidání článku ho přidej do Gitu, pushni do svého GitHubového repozitáře a pošli jako Pull Request na /PyLadiesCZ/robotprojekt-blog.
+Až článek dopíšeš, ujisti se, že máš správně nakonfigurovaný git (podle sekce: Posílání změn popsané na [stránkách naucse.cz](https://naucse.python.cz/2018/pyladies-brno-podzim/git/collaboration/))
+Pokud nemáš uložen odkaz na svůj repozitář, přidej si ho pomocí `git remote add`, jak je popsáno v odkaze výše.
+
+Pro přidání článku ho pošli do Gitu (známou dvojicí *git add*, *git commit*), a následně pošli do **svého** (osforkovaného dle návodu výše) GitHubového repozitáře pomocí příkazu `git push tvojejmeno master`. 
+
+Na stránkách GitHub.com své změny pošli jako Pull Request na /PyLadiesCZ/robotprojekt-blog.
