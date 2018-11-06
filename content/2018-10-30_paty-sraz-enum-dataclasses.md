@@ -1,5 +1,5 @@
 ﻿Title: Pátý sraz 
-Date: 2018-11-06 18:00:00
+Date: 2018-10-30 18:00:00
 Modified: 2018-11-06 09:58:00
 Author: Iveta Česalová
 
@@ -12,11 +12,12 @@ Postupně jsme procházely, co je v kódu a Petr zmínil, co je třeba opravit (
 
  
 A nastala otázka - Co dál? Jak si rozdělíme úkoly?
--          Načíst mapu s více vrstvami
--          Načíst mapu s otočenými políčky
--          Napsat testy
--          Celý dosavadní kód rozdělit na jednotlivé funkce
--          Popisek základního repozitáře v Githubu
+
+*       Načíst mapu s více vrstvami
+*       Načíst mapu s otočenými políčky
+*       Napsat testy
+*       Celý dosavadní kód rozdělit na jednotlivé funkce
+*       Popisek základního repozitáře v Githubu
 
  
 Důležitou věcí, jak pokračovat v našem projektu je jeho rozdělení na 4 moduly:
