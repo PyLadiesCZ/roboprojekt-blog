@@ -1,5 +1,5 @@
 Title: Čtvrtý sraz - GitHub
-Date: 2018-11-03 18:05:00
+Date: 2018-10-23 18:05:00
 Modified: 2018-11-06 18:05:00
 Author: Hanka Střondalová
 
