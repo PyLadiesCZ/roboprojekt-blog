@@ -1,9 +1,9 @@
-﻿Title: První sraz
-Date: 2018-10-30 18:00:00
+﻿Title: Pátý sraz 
+Date: 2018-11-06 18:00:00
 Modified: 2018-11-06 09:58:00
 Author: Iveta Česalová
 
-#PÁTÝ SRAZ – PŘITUHUJE#
+
 
 Z předminulé hodiny s Petrem jsme měly za úkol vytvořit slovník políček (STAV = slovník políček klíč: (x, y) hodnota: seznam efektů) a vykreslit v Pygletu mapu s jednou vrstvou bez otáčení prvků. Jelikož spousta z nás s tím měla problémy, probrali jsme na začátku srazu krok po kroku jak na to.
 Na githubu byly nahrané dvě verze kódu, od Terky a Karoliny, které úkol zvládly. Zvolili jsme ponechat Karolinin 
@@ -23,7 +23,7 @@ Důležitou věcí, jak pokračovat v našem projektu je jeho rozdělení na 4 m
 **Backend** – načte mapu, tedy náš slovník Stav, **Frontend** – vykreslí mapu, **Game** – spustí hru, **Testy** – vyzkouší, jestli funguje, co je v backendu.
 Až budou tyto moduly hotové, smažeme původní script  kde je celý kód.
 
-!moduly(./images/moduly.jpg)
+![moduly](./images/moduly.jpg)
 
 
 V další části jsme se naučily něco nového, využití knihoven **enum** a **dataclasses**. Kdo neměl nainstalované, použil v příkazovém řádku následující příkazy:
@@ -35,7 +35,7 @@ Tyto knihovny nám umožní jednodušeji psát výčtové typy a datové třídy
 Poté jsme v editoru vytvořily nový soubor – demo.py kde máme třídu Direction, která dědí z výčtového typu enum.Enum. Definovaly jsme si funkci, která vyhodnotí směr (nejdřív se sečtou hodnoty a zbytek po dělení 4 => získáme směr).
 
 
-!demo(./images/demo.jpg)
+![demo](./images/demo.jpg)
 
 
 Dále následovalo vysvětlování modulu **dataclasses**. Tento modul poskytuje dekorátor a funkce pro automatické přidávání generovaných speciálních metod, jako jsou __init __ () a __repr __ () do uživatelsky definovaných tříd. 
@@ -43,7 +43,7 @@ Vytvořily jsme si soubor demo_dataclasses.py, kde máme třídu datového typu.
 Více informací o dataclasses zde: (https://docs.python.org/3/library/dataclasses.html)
 Nevím, jak to pochopily ostatní, ale asi nám to Petr ještě dovysvětlí, k čemu to přesně slouží :-)
 
-!dataclasses(./images/dataclasses.jpg)
+![dataclasses](./images/dataclasses.jpg)
 
 
 Do příště máme každá svůj úkol, rozdělení máme na githubu v záložce Issues.
