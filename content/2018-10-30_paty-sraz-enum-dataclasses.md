@@ -30,7 +30,7 @@ V další části jsme se naučily něco nového, využití knihoven **enum** a 
 `python -m pip install dataclasses`
 `python -m pip install enum`
  
-Tyto knihovny nám umožní jednodušeji psát výčtové typy a datové třídy. Kdo nezná třídy, zopakuje si (https://naucse.python.cz/course/pyladies/sessions/class/)
+Tyto knihovny nám umožní jednodušeji psát výčtové typy a datové třídy. Kdo nezná třídy, zopakuje si ze začátečnického kurzu [Třídy](https://naucse.python.cz/course/pyladies/sessions/class/)
  
 Poté jsme v editoru vytvořily nový soubor – demo.py kde máme třídu Direction, která dědí z výčtového typu enum.Enum. Definovaly jsme si funkci, která vyhodnotí směr (nejdřív se sečtou hodnoty a zbytek po dělení 4 => získáme směr).
 
@@ -40,7 +40,7 @@ Poté jsme v editoru vytvořily nový soubor – demo.py kde máme třídu Direc
 
 Dále následovalo vysvětlování modulu **dataclasses**. Tento modul poskytuje dekorátor a funkce pro automatické přidávání generovaných speciálních metod, jako jsou __init __ () a __repr __ () do uživatelsky definovaných tříd. 
 Vytvořily jsme si soubor demo_dataclasses.py, kde máme třídu datového typu. Karta má jednotlivé vlastnosti (prioritu, efekt) určitého typu.
-Více informací o dataclasses zde: (https://docs.python.org/3/library/dataclasses.html)
+Více informací o dataclasses [zde](https://docs.python.org/3/library/dataclasses.html)
 Nevím, jak to pochopily ostatní, ale asi nám to Petr ještě dovysvětlí, k čemu to přesně slouží :-)
 
 ![dataclasses](./images/dataclasses.jpg)
