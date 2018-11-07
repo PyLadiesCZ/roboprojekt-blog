@@ -1,6 +1,6 @@
 # Blog RoboProjektu
 
-Tento blog je vidět na adrese [pyladiescz.github.io/roboprojekt-blog](https://pyladiescz.github.io/roboprojekt-blog).
+Tento blog je vidět na adrese [roboprojekt.pyladies.cz/](https://roboprojekt.pyladies.cz/).
 
 ## Jak přispívat
 
