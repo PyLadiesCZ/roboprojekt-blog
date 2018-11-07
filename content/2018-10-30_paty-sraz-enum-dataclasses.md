@@ -7,7 +7,7 @@ Author: Iveta Česalová
 
 Z předminulé hodiny s Petrem jsme měly za úkol vytvořit slovník políček (STAV = slovník políček klíč: (x, y) hodnota: seznam efektů) a vykreslit v Pygletu mapu s jednou vrstvou bez otáčení prvků. Jelikož spousta z nás s tím měla problémy, probrali jsme na začátku srazu krok po kroku jak na to.
 Na githubu byly nahrané dvě verze kódu, od Terky a Karoliny, které úkol zvládly. Zvolili jsme ponechat Karolinin 
-(https://github.com/PyLadiesCZ/roboprojekt/blob/master/karolina_state.py).
+(https://github.com/PyLadiesCZ/roboprojekt/blob/35a98aa967386d82a4dbca23a0ade65cc8b96767/karolina_state.py).
 Postupně jsme procházely, co je v kódu a Petr zmínil, co je třeba opravit (sjednotit terminologii, pojmenování proměnných, správně přeložit do angličtiny, stejně jako komentáře…)
 
  
