@@ -38,7 +38,7 @@ Poté jsme v editoru vytvořily nový soubor – demo.py kde máme třídu Direc
 ![demo](./images/demo.jpg)
 
 
-Dále následovalo vysvětlování modulu **dataclasses**. Tento modul poskytuje dekorátor a funkce pro automatické přidávání generovaných speciálních metod, jako jsou `__init __ ()` a `__repr __ ()` do uživatelsky definovaných tříd. 
+Dále následovalo vysvětlování modulu **dataclasses**. Tento modul poskytuje dekorátor a funkce pro automatické přidávání generovaných speciálních metod, jako jsou `__init__()` a `__repr__()` do uživatelsky definovaných tříd. 
 Vytvořily jsme si soubor demo_dataclasses.py, kde máme třídu datového typu. Karta má jednotlivé vlastnosti (prioritu, efekt) určitého typu.
 Více informací o dataclasses [zde](https://docs.python.org/3/library/dataclasses.html)
 Nevím, jak to pochopily ostatní, ale asi nám to Petr ještě dovysvětlí, k čemu to přesně slouží :-)
