@@ -28,7 +28,7 @@ def __repr__(self):
 ```
   
 
-zformátuje původní slovník na: `{(0, 11): [<Tile> 0 ./img/squares/png/ground.png>]`
+zformátuje původní slovník na: `{(0, 11): [<Tile 0 ./img/squares/png/ground.png>]`
    
 **Efekty políček přidat do mapy jako "properties"**
 
