@@ -137,3 +137,56 @@ Python totiž ví, že objekt třídy **Direction** nemůže mít jen jeden atri
 Díky této metodě atribut *value* jsou nyní stupně. Python ví, že pokud najde objekt třídy Direction, který má *value* 90, pak tento objekt má zároveň *deltu* (+1, 0) a *property*: 1. A to přesně ono!
 Pokud nyní zavoláme naši metodu a otočíme objekt směřující na západ o 90 stupňů doprava, dostaneme objekt Direction.N, který bude mít správně přiřazené další atributy. 
 
+
+
+# Metoda `__add__()`
+
+V jednom z commitů se našla metoda `__add__()` (nedostala se do finální verze, ale vzbudila náš zájem, tak ji nám Petr vysvětlil na srazu).
+Již známe speciální metodu `__init__()`, která umožňuje inicializovat nové objekty dané třídy. Podtržítka u `__add__()` naznačují, že se jedná o další speciální metodu.
+
+Můžeme si představit třídu Direction, která označí čtyři směry:
+
+```python
+class Direction(Enum):
+    FORWARD = 0
+    RIGHT = 1
+    BACK = 2
+    LEFT = 3 
+```
+
+Už víme, jak se můžeme dostat k jednotlivým informacím obsaženým v objektech takové třídy.
+
+```python
+print(Direction.BACK)   		# Direction.BACK
+print(Direction.BACK.value)     # 2
+print(Direction(2))     		# Direction.BACK
+```
+
+Občas se nám může hodit i jiná operace, např. sčítání. Pokud máme objekt směřující dolu a posuneme ho doleva, chceme se dostat do směru vpravo. 
+Můžeme se pokusit o standardní sčítání. Víme, že Python umí pracovat s čísly, pokud mu tak dáme jako argumenty integery, poradí si s nimi bez chyby:
+
+```python
+new_direction = (Direction.BACK.value + 3) % 4  # 1
+print(Direction(new_direction)) 				# Direction.RIGHT
+```
+
+Ale jak Python ví, že má sečíst dvě hodnoty po obou stranách znaku plus? Všechno, co Python umí, někdo v něm naprogramoval. Základní operace tvoří balík standardních funkcí - to jsou ty, které se pak učíme na začátečnickém kurzu. Nemusíme Python znovu učit, jak má zacházet např. se základní matematikou, protože objekty třídy integer nebo float mají nadefinované metody, které to umí udělat. 
+V lekci o [dědičnosti](https://naucse.python.cz/course/pyladies/beginners/inheritance/) jsme se učily, jak vytvářet podtřídy a přepisovat v nich metody nadtříd. Zde se jedná o stejný princip - pro naši třídu Direction můžeme pozměnit chování sčítání, aby si s ní dokázalo poradit.
+
+```python 
+def __add__(self, other):
+    return Direction((self.value + other.value) % 4)
+```
+
+Říkáme touto metodou: 
+
+> Pythone, pokud dostaneš dva objekty třídy Direction, vezmi atribut
+> *value* obou těchto objektů, sečti je, a vrať objekt třídy Direction, jehož *value* je zbytkem dělení provedeného součtu čtyřmi. 
+
+Proč zbytek z dělení? Máme čtyři validní směry a chceme, aby se součet "přesypal" přes nulu, místo aby se dostal do hodnot nad 4.
+
+Když nyní zkusíme sečíst dva směry, dosáhneme stejného výsledku jako výše, při výrazné zvýšení čitelnosti zápisu. 
+
+```python
+print(Direction.BACK + Direction.LEFT)   # Direction.RIGHT
+```
