@@ -66,7 +66,7 @@ Stávající implementace všechny potřebné informace ukládá jako atributy, 
 - mapy s políčky, které se exportují z programů Tiled, mají přidané "custom properties" - námi nadefinované vlastnosti, které pracují s integery.
 
 Tím pádem víme, co směr **je**, ale co má tedy **umět**? 
-Cíl byl jasný: pokud robot, který směruje na západ, se otočí o 90 stupňů, bude směrovat na sever. Zdá se: nic jednoduššího, než napsat na to metodu, kopírující chování, které jsme si vyzkoušely před chvílí v konzole! 
+Cíl byl jasný: pokud se robot, který směruje na západ, otočí o 90 stupňů, bude směrovat na sever. Zdá se: nic jednoduššího, než napsat na to metodu, kopírující chování, které jsme si vyzkoušely před chvílí v konzoli! 
 ```python
     def get_new_direction(self, where_to):
         if where_to == "right":
