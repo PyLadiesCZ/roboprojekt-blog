@@ -7,9 +7,9 @@ Author: Karolina Surma
 # Třída Direction - příklad implementace
 _(dřív zde na blogu pojmenovaná Rotation)_
 
-Na dnešním srazu jsme řešily víc témat, z nichž jeden bylo použití třídy **Direction** datového typu Enum. Protože je to látka nová pro nás všechny na Roboprojektu, zde si podrobněji rozepíšeme, k čemu a jak tuto třídu tohoto typu můžeme použít.
+Na dnešním srazu jsme řešily víc témat, z nichž jedno bylo použití třídy **Direction** datového typu Enum. Protože je to látka nová pro nás všechny na Roboprojektu, zde si podrobněji rozepíšeme, k čemu a jak třídu tohoto typu můžeme použít.
 
-Doposud v projektu třídy byly tři: *Robot*, *Tile* a *State*. Ta poslední obsahuje jak informace o mapě, tak o robotech a jejích koordinátách. Všechny byly napsány podle pravidel nám známých ze [začátečnického kurzu PyLadies](https://naucse.python.cz/course/pyladies/beginners/class/), to znamená, že můžeme (a měly bychom) vytvořit nové objekty dané třídy tak, že ho inicializujeme, např.:
+Doposud byly v projektu třídy tři: *Robot*, *Tile* a *State*. Ta poslední obsahuje jak informace o mapě, tak o robotech a jejích koordinátách. Všechny byly napsány podle pravidel nám známých ze [začátečnického kurzu PyLadies](https://naucse.python.cz/course/pyladies/beginners/class/), to znamená, že můžeme (a měly bychom) vytvořit nové objekty dané třídy tak, že ho inicializujeme, např.:
 
 `my_robot = Robot(<direction>, <picture>, <coordinates>)`
 
@@ -17,7 +17,7 @@ Mezi `<>`  výše se nachází příklady argumentů, které musíme dát objekt
 
 Třída **Direction** je ale jiná. Zde víme předem, kolik objektů této třídy bude ve hře: 4. Víme, že samotné objekty se nebudou měnit, ale je možné změnit směr robota nebo políčka na nový. Nebudeme inicializovat nové objekty této třídy, ale uložíme si naše směry jako konstanty. Z objektu takové třídy by se měly dát vyčíst různé informace dle tabulky obsažené v [předchozím postu](https://roboprojekt.pyladies.cz/devaty-sraz-upravujeme-navrhujeme). 
 
-O třídě, která přijde jako vhodné řešení tohoto zadání, jsme se již před nějakou dobou bavily. Jedná se o datový typ Enum, importovaný na začátku pythonního souboru:
+O třídě, která se zdá být vhodná pro řešení tohoto zadání, jsme se již před nějakou dobou bavily. Jedná se o datový typ Enum, importovaný na začátku pythonního souboru:
 
 ```python
 from enum import Enum 
@@ -28,7 +28,7 @@ from enum import Enum
         S = 180
         W = 270
 ```
-Pokud si tu třídu naimportujeme do konzoly nebo vyzkoušíme .py soubor, můžeme k jejím objektům přistoupit velice jednoduše:
+Pokud si tu třídu naimportujeme do konzole nebo vyzkoušíme .py soubor, můžeme k jejím objektům přistoupit velice jednoduše:
 
 ```python
 print(Direction.N)
@@ -65,7 +65,7 @@ Stávající implementace všechny potřebné informace ukládá jako atributy, 
 - díky deltě koordinát můžeme vypočítat nové místo robota na mapě
 - mapy s políčky, které se exportují z programů Tiled, mají přidané "custom properties" - námi nadefinované vlastnosti, které pracují s integery.
 
-Tím pádem víme, co směr **je**, ale co teda má **umět**? 
+Tím pádem víme, co směr **je**, ale co má tedy **umět**? 
 Cíl byl jasný: pokud robot, který směruje na západ, se otočí o 90 stupňů, bude směrovat na sever. Zdá se: nic jednoduššího, než napsat na to metodu, kopírující chování, které jsme si vyzkoušely před chvílí v konzole! 
 ```python
     def get_new_direction(self, where_to):
@@ -121,7 +121,7 @@ Traceback (most recent call last):
     raise ValueError("%r is not a valid %s" % (value, cls.__name__))
 ValueError: 0 is not a valid Direction 
 ```
-Python totiž ví, že objekt třídy **Direction** nemůže mít jen jeden atribut - daly jsme mu až 3. Na druhou stranu, naši jednoduchou metodu na otočení nelze nyní napsat lépe, protože Python teď neví, jak zjistit, který objekt jeho třídy Direction má 0 stupňů, a následně přiřadit mu zbývající atributy tohoto konkrétního objektu. Uff.
+Python totiž ví, že objekt třídy **Direction** nemůže mít jen jeden atribut - daly jsme mu až 3. Na druhou stranu, naši jednoduchou metodu na otočení nelze nyní napsat lépe, protože Python teď neví, jak zjistit, který objekt jeho třídy Direction má 0 stupňů, a následně mu přiřadit zbývající atributy tohoto konkrétního objektu. Uff.
 
 Řešení přinesl internet, a konkrétně [tento post](http://xion.io/post/code/python-enums-are-ok.html), kde přistál nápad na přepsání metody `__new__()`, aby vynutila chování, které potřebujeme pro vyřešení problému.
 
@@ -134,7 +134,7 @@ Python totiž ví, že objekt třídy **Direction** nemůže mít jen jeden atri
         return obj
 ```
         
-Díky této metodě atribut *value* jsou nyní stupně. Python ví, že pokud najde objekt třídy Direction, který má *value* 90, pak tento objekt má zároveň *deltu* (+1, 0) a *property*: 1. A to přesně ono!
+Díky této metodě atribut *value* jsou nyní stupně. Python ví, že pokud najde objekt třídy Direction, který má *value* 90, pak tento objekt má zároveň *deltu* (+1, 0) a *property*: 1. A to je přesně ono!
 Pokud nyní zavoláme naši metodu a otočíme objekt směřující na západ o 90 stupňů doprava, dostaneme objekt Direction.N, který bude mít správně přiřazené další atributy. 
 
 
@@ -170,7 +170,7 @@ new_direction = (Direction.BACK.value + 3) % 4  # 1
 print(Direction(new_direction)) 				# Direction.RIGHT
 ```
 
-Ale jak Python ví, že má sečíst dvě hodnoty po obou stranách znaku plus? Všechno, co Python umí, někdo v něm naprogramoval. Základní operace tvoří balík standardních funkcí - to jsou ty, které se pak učíme na začátečnickém kurzu. Nemusíme Python znovu učit, jak má zacházet např. se základní matematikou, protože objekty třídy integer nebo float mají nadefinované metody, které to umí udělat. 
+Ale jak Python ví, že má sečíst dvě hodnoty po obou stranách znaku plus? Všechno, co Python umí, v něm někdo naprogramoval. Základní operace tvoří balík standardních funkcí - to jsou ty, které se pak učíme na začátečnickém kurzu. Nemusíme Python znovu učit, jak má zacházet např. se základní matematikou, protože objekty třídy integer nebo float mají nadefinované metody, které to umí udělat. 
 V lekci o [dědičnosti](https://naucse.python.cz/course/pyladies/beginners/inheritance/) jsme se učily, jak vytvářet podtřídy a přepisovat v nich metody nadtříd. Zde se jedná o stejný princip - pro naši třídu Direction můžeme pozměnit chování sčítání, aby si s ní dokázalo poradit.
 
 ```python 
