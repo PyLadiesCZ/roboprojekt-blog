@@ -1,4 +1,4 @@
-Title: Testy a bity - sraz číslo 10
+Title: Desátý sraz - testy a bity
 Date: 2018-12-05 10:17:00
 Modified: 2018-12-05 10:17:00
 Author: Karolina Surma
