@@ -1,4 +1,4 @@
-﻿Title: Pátý sraz - už skutečně začínáme!
+﻿Title: Pátý sraz - první důležité úkoly
 Date: 2018-10-30 18:00:00
 Modified: 2018-11-06 09:58:00
 Author: Iveta Česalová
