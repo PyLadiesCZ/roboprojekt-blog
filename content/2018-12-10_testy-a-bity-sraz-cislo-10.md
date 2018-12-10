@@ -81,7 +81,7 @@ True
 '0b010110'
 ```
 
-Počítače ukládají informace na určitých místech v paměti. Známe pojmy bit a bajt, kde bit je jeden takový znak (0 nebo 1), bajt - 8 znaků. V jednom bajtu, na osmi místech, můžeme zakódovat až 256 čísel (2^8). 
+Počítače ukládají informace na určitých místech v paměti. Známe pojmy bit a bajt, kde bit je jeden takový znak (0 nebo 1), bajt - 8 znaků. V jednom bajtu, na osmi místech, můžeme zakódovat až 256 čísel (2<sup>8</sup>). 
 
 ```python
 >>> 0b11111111     # maximální možná hodnota
@@ -91,7 +91,7 @@ Počítače ukládají informace na určitých místech v paměti. Známe pojmy 
 Spousta věcí se dá zakódovat do 256 znaků. Podívejme se na znaky anglické abecedy, tzv. kódování ASCII: 6 bitů potřebuje na malou abecedu plus nějaké znaky kolem (čísla, závorky atd.), 1 bit pro zjištění, jestli písmenko je malé, nebo velké. 7 bitů stačí pro zapsání v podstatě celé standardní klávesnice, jak ji známe.
 
 Už 4 bajty jsou dostačující třeba na to, aby reprezentovaly barvu: červenou (R), zelenou (G) a modrou (B). Každá složka je osmibitové číslo (tedy 0 až 255), které tak nějak odpovídá tomu, kolik barev je schopné rozeznat lidské oko. Čtvrtý bajt se aktuálně nejvíc používá pro označení průhlednosti. 
-32 bitů je ale spousta jedniček a nul. Zde nám přichází vhod jiná soustava, postavená na šestnáctkách (2^4). Jeden znak obsahuje stejnou informaci, jako 4 bity, s čímž se dá dobře pracovat. 
+32 bitů je ale spousta jedniček a nul. Zde nám přichází vhod jiná soustava, postavená na šestnáctkách (2<sup>4</sup>). Jeden znak obsahuje stejnou informaci, jako 4 bity, s čímž se dá dobře pracovat. 
 
 Pokud symboly `10` v hexadecimální soustavě znamenají `16` v desítkové, jak vyjádřit číslo 15? Šestnáctková soustava používá čísla 0-9 a dál: A, B, C, D, E, F. 
 
