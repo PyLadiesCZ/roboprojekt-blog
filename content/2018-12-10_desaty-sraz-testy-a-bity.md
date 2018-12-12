@@ -116,8 +116,8 @@ Pokud si testovací dlaždici uložíme ve čtyřech různých směrech a podív
 ['0x31', '0xa0000031', '0xc0000031', '0x60000031']
 ```
 
-`000031` je číslo naši dlaždice, její ID (ony tři vyhrazené bajty)
-`00`, `a0'` `c0`, `60` je bajt s otočením. Jednotlivé bity skrývající se pod tímto označením mají speciální význam: jeden bit je na otočení ve vertikální ose, druhý - horizontální, třetí - transpozice. 
+`000031` je číslo naši dlaždice, její ID (ony tři vyhrazené bajty).
+`00`, `a0`, `c0`, `60` je bajt s otočením. Jednotlivé bity skrývající se pod tímto označením mají speciální význam: jeden bit je na otočení ve vertikální ose, druhý - horizontální, třetí - transpozice. 
 
 Existují způsoby, jak vzít konkrétní bity z nějakého čísla, slouží k tomu bitový operátor `&` (AND). Mezi oběma čísly nad každým bitem proběhne logické vyhodnocení pravda/nepravda, které se promítne do výsledku: 
 - `1` neboli _pravda_ je pouze tam, kde na obou místech porovnávaných čísel byla jednička.
