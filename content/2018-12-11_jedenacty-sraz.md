@@ -60,15 +60,3 @@ Petr přišel s návrhem, kdy by nejen u zdi, ale i u laseru pomohlo, kdyby v bu
 Jako jeden z dalších úkolů je rozpracovat efekty políček. Pro naši hru bude dobré zopakovat si dědičnost mezi třídami a vytvořit jednotlivá políčka jako podtřídy naší třídy `Tile`, ze které budou dědit. Třída Tile tak bude obsahovat všechny metody, které mohou v jejích podtřídách nastat, ale bez vracení konkrétního efektu. Konkrétně pak metoda bude rozepsána až v dané podtřídě. Bohužel jsme dědičnost proletěly jen z rychlíku, tak bude tento úkol do příště poměrně náročný :) 
 
 Spolu s ním nás čeká ještě dokončit rozdělení kódu na moduly, další práce s roboty a také s rozhraním hry, potřebujeme také zařídit, aby se dala měnit velikost vykreslených oken a zároveň se tomu přizpůsoboval jejich obsah a stále máme několik dlouhodobých úkolů. Práce tedy není málo :) 
-
-
-
- 
-
-
-
- 
-
-
-
-
