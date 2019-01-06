@@ -9,7 +9,7 @@ Author: Iveta Česalová
 
 
 ####Kouzelné podtržítko####
-<div class="text-justify">Pokud chceme, aby ve zbytku kódu nepoužíval konkrétní proměnnou, dáme před ni podtržítko, jako např u ` _board`. Značí věci, které jsou pro nějakou třídu interní. Podtržítkem říkám – vyhrazuji si právo cokoli změnit.</div>
+<div class="text-justify">Pokud chceme, aby někdo ve zbytku kódu nepoužíval konkrétní proměnnou, dáme před ni podtržítko, jako např u ` _board`. Značí věci, které jsou pro nějakou třídu interní a ten, kdo nemá dobrý důvod pracovat s vnitřnostmi určité třídy, měl by použít něco jiného. Podtržítkem říkám – vyhrazuji si právo cokoli změnit..</div>
 ```python
 class State:
     def __init__(self, board, robots, sizes):
