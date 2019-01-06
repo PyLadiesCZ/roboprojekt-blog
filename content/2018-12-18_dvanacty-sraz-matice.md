@@ -5,7 +5,7 @@ Author: Iveta Česalová
 
 <div class="text-justify">Po počátečním zmatku, kdy si Petr zapomněl svůj počítač, jsme poslední sraz roku zahájily opět rekapitulací, co kdo dělal. Doposud byla hra rozdělena na čtyři moduly – backend, frontend, game a testy. Nyní je v backendu pouze třída Robot, State a funkce pro načtení souřadnic, cesty k robotům, počtu políček a počáteční stav hry.</div>
 
-<div class="text-justify">V repozitáři přibylo několik souborů. Loading.py obsahuje funkce, které kompletně načtou mapu se všemi potřebnými komponenty a vlastnostmi a soubor Util.py zase třídy Tile a Direction. Soubor Validator.py kontroluje, zda je mapa správně načtena.</div>
+<div class="text-justify">V repozitáři přibylo několik souborů. Loading.py obsahuje funkce, které kompletně načtou mapu se všemi potřebnými komponenty a vlastnostmi a soubor Util.py zase třídy Tile a Direction. Soubor Validator.py kontroluje, zda je mapa správně vytvořena.</div>
 
 
 ####Kouzelné podtržítko####
@@ -21,7 +21,7 @@ class State:
 
 ####Nekombinovat více knihoven####
 
-<div class="text-justify">Není dobré v kódu kombinovat více knihoven, když lze použít jen jednu :-) Konkrétně v souboru export_img.py, který nám automaticky převádí soubory svg do png formátu jsou použity knihovny *os* a *subprocess*, tvorba adresáře příkazem `os.mkdir()` lze nahradit `Path.mkdir()` a není potřeba importovat os.</div>
+<div class="text-justify">Není dobré v kódu kombinovat více knihoven, když lze použít jen jednu :-) Konkrétně v souboru export_img.py, který nám automaticky převádí soubory SVG do PNG formátu jsou použity knihovny *os* a *subprocess*, tvorba adresáře příkazem `os.mkdir()` lze nahradit `Path.mkdir()` a není potřeba importovat os.</div>
 
 
 ####Matice####
@@ -29,10 +29,10 @@ class State:
 
 **Druhy transformace**: posun, zvětšení, rotace, zkosení, zrcadlení.
 
-*Maticové násobení*– transformace se zkombinují.
+*Maticové násobení* – transformace se zkombinují.
 
 <div class="text-justify">Máme obrázek o souřadnicích x, y a vynásobím je maticí, která reprezentuje posun či jinou transformaci. „z“ bude vždy 1.
-Petr nám to vysvětloval na dvou čtvercích, skládajících se z koleček. Bílé kolečka jsou původní, modré transformované pomocí matice. Matici můžu v kódu jednoduše měnit. </div> Jednoduchý návod k nalezení [zde](https://en.wikipedia.org/wiki/Transformation_matrix#/media/File:2D_affine_transformation_matrix.svg).
+Petr nám to vysvětloval na dvou čtvercích, skládajících se z koleček. Bílá kolečka jsou původní, modrá transformované pomocí matice. Matici můžu v kódu jednoduše měnit. </div> Jednoduchý návod k nalezení [zde](https://en.wikipedia.org/wiki/Transformation_matrix#/media/File:2D_affine_transformation_matrix.svg).
 
 Původní matice a výpis bílých koleček:
 
@@ -82,4 +82,4 @@ def on_draw():
 
 
 
-<div class="text-justify">Na začátku kurzu jsme plánovali jeho trvání do konce prosince, ovšem bylo to přehnaně optimistické. V dalším roce nás bude o něco méně a pravděpodobně se nebudeme scházet každý týden, takže nečekejte pravidelný blog :-) </div>
+<div class="text-justify">Na začátku kurzu jsme plánovaly jeho trvání do konce prosince, ovšem bylo to přehnaně optimistické. V dalším roce nás bude o něco méně a pravděpodobně se nebudeme scházet každý týden, takže nečekejte pravidelný blog :-) </div>
