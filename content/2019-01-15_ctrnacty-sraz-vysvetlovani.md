@@ -1,12 +1,12 @@
-Title: Ètrnáctı sraz – opakování a vysvìtlování
+Title: ÄŒtrnÃ¡ctÃ½ sraz â€“ opakovÃ¡nÃ­ a vysvÄ›tlovÃ¡nÃ­
 Date: 2019-01-15 08:39:00
 Modified: 2019-01-15 08:39:00
-Author: Iveta Èesalová
+Author: Iveta ÄŒesalovÃ¡
 
 
 
-Tento tıden jsme se sešly v komorním poètu, navíc bez Petra. Ale cíl srazu byl jasnı – abychom všechny rozumìly stávajícímu kódu.
-Zaèaly jsme souborem *util.py* a procházeli metodu po metodì jednotlivıch tøíd. Vášnivá diskuze nastala u tøídy HoleTile, která volá metodu robota – robot.die(). Pùvodnì bylo v kódu napsáno, e si robot volal metodu díry, co Petrovi pøišlo zvláštní :-) Nyní je to tedy metoda políèka vyvolá metodu robota, co je logiètìjší, ne aby si robot vyvolal metodu políèka :-D
+Tento tÃ½den jsme se seÅ¡ly v komornÃ­m poÄtu, navÃ­c bez Petra. Ale cÃ­l srazu byl jasnÃ½ â€“ abychom vÅ¡echny rozumÄ›ly stÃ¡vajÃ­cÃ­mu kÃ³du.
+ZaÄaly jsme souborem *util.py* a prochÃ¡zely metodu po metodÄ› jednotlivÃ½ch tÅ™Ã­d. VÃ¡Å¡nivÃ¡ diskuze nastala u tÅ™Ã­dy HoleTile, kterÃ¡ volÃ¡ metodu robota â€“ robot.die(). PÅ¯vodnÄ› bylo v kÃ³du napsÃ¡no, Å¾e si robot volal metodu dÃ­ry, coÅ¾ Petrovi pÅ™iÅ¡lo zvlÃ¡Å¡tnÃ­ :-) NynÃ­ je to tedy metoda polÃ­Äka vyvolÃ¡ metodu robota, coÅ¾ je logiÄtÄ›jÅ¡Ã­, neÅ¾ aby si robot vyvolal metodu polÃ­Äka :-D
 
 ```python
 class HoleTile(Tile):
@@ -15,14 +15,14 @@ class HoleTile(Tile):
         return robot.die()
 ```
 
-Byla to dlouhá hodina, ale smysluplná. Potom jsme se pøesunuly k souboru *backend.py* a následovalo další vysvìtlování, co souviselo s opìtovnım probíráním pravidel hry.
-Pokud robot umøe, pøiøadí se mu souøadnice [-1, -1], aby byl tedy mimo hrací plochu. Narazily jsme ovšem na problém, e kdy robot oije, nemùou se zobrazit dva roboti na sobì, pokud na jeho startovním políèku stojí jinı robot. Bude nutno se zamyslet, jak to vyøešit, jestli zobrazením dalšího okınka, které se hráèe zeptá, kam chce robota umístit, nebo náhodné rozmístìní na volné startovní políèko…
+Byla to dlouhÃ¡ hodina, ale smysluplnÃ¡. Potom jsme se pÅ™esunuly k souboru *backend.py* a nÃ¡sledovalo dalÅ¡Ã­ vysvÄ›tlovÃ¡nÃ­, coÅ¾ souviselo s opÄ›tovnÃ½m probÃ­rÃ¡nÃ­m pravidel hry.
+Pokud robot umÅ™e, pÅ™iÅ™adÃ­ se mu souÅ™adnice [-1, -1], aby byl tedy mimo hracÃ­ plochu. Narazily jsme ovÅ¡em na problÃ©m, Å¾e kdyÅ¾ robot oÅ¾ije, nemÅ¯Å¾ou se zobrazit dva roboti na sobÄ›, pokud na jeho startovnÃ­m polÃ­Äku stojÃ­ jinÃ½ robot. Bude nutno se zamyslet, jak to vyÅ™eÅ¡it, jestli zobrazenÃ­m dalÅ¡Ã­ho okÃ½nka, kterÃ© se hrÃ¡Äe zeptÃ¡, kam chce robota umÃ­stit, nebo nÃ¡hodnÃ© rozmÃ­stÄ›nÃ­ na volnÃ© startovnÃ­ polÃ­Äkoâ€¦
 
-Dalším tématem bylo Rozhraní, aneb pull request s nìkolika stovkami øádkù. Pro pøehlednost jsme narazily na jednu vychytávku, pokud se na githubu mìní velké mnoství souborù, staèí zmáèknout `alt` a kliknout na šipku a všechno se sroluje a snáze najdeme soubor, kterı potøebujeme.
+DalÅ¡Ã­m tÃ©matem bylo RozhranÃ­, aneb pull request s nÄ›kolika stovkami Å™Ã¡dkÅ¯. Pro pÅ™ehlednost jsme narazily na jednu vychytÃ¡vku, pokud se na githubu mÄ›nÃ­ velkÃ© mnoÅ¾stvÃ­ souborÅ¯, staÄÃ­ zmÃ¡Äknout `alt` a kliknout na Å¡ipku a vÅ¡echno se sroluje a snÃ¡ze najdeme soubor, kterÃ½ potÅ™ebujeme.
 
  ![github](./images/github.jpg
 
 
-Prošly jsme kód a ukázaly jsme si, co všechno funguje, jak u obrazovka reaguje na rùzné klávesy atd. Trochu jsme se pozastavily nad balíèkem karet. Budeme pokadé rozdávat z nového, stejného balíèku karet, kterı se zamíchá a nebudou se tam vracet rozdané, které si hráè nevybere.
+ProÅ¡ly jsme kÃ³d a ukÃ¡zaly jsme si, co vÅ¡echno funguje, jak uÅ¾ obrazovka reaguje na rÅ¯znÃ© klÃ¡vesy atd. Trochu jsme se pozastavily nad balÃ­Äkem karet. Budeme pokaÅ¾dÃ© rozdÃ¡vat z novÃ©ho, stejnÃ©ho balÃ­Äku karet, kterÃ½ se zamÃ­chÃ¡ a nebudou se tam vracet rozdanÃ©, kterÃ© si hrÃ¡Ä nevybere.
 
-Pøíštì se sejdeme ji v plném poètu a urèitì nás Petr nakopne správnım smìrem, jak dále pokraèovat :-)
+PÅ™Ã­Å¡tÄ› se sejdeme jiÅ¾ v plnÃ©m poÄtu a urÄitÄ› nÃ¡s Petr nakopne sprÃ¡vnÃ½m smÄ›rem, jak dÃ¡le pokraÄovat :-)
