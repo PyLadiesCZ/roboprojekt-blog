@@ -20,7 +20,7 @@ Pokud robot umře, přiřadí se mu souřadnice [-1, -1], aby byl tedy mimo hrac
 
 Dalším tématem bylo Rozhraní, aneb pull request s několika stovkami řádků. Pro přehlednost jsme narazily na jednu vychytávku, pokud se na githubu mění velké množství souborů, stačí zmáčknout `alt` a kliknout na šipku a všechno se sroluje a snáze najdeme soubor, který potřebujeme.
 
- ![github](./images/github.jpg
+ ![github](./images/github.jpg)
 
 
 Prošly jsme kód a ukázaly jsme si, co všechno funguje, jak už obrazovka reaguje na různé klávesy atd. Trochu jsme se pozastavily nad balíčkem karet. Budeme pokaždé rozdávat z nového, stejného balíčku karet, který se zamíchá a nebudou se tam vracet rozdané, které si hráč nevybere.
