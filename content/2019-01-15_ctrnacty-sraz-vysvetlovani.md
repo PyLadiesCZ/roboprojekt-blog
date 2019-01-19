@@ -6,7 +6,7 @@ Author: Iveta Česalová
 
 
 Tento týden jsme se sešly v komorním počtu, navíc bez Petra. Ale cíl srazu byl jasný – abychom všechny rozuměly stávajícímu kódu.
-Začaly jsme souborem *util.py* a procházely metodu po metodě jednotlivých tříd. Vášnivá diskuze nastala u třídy HoleTile, která volá metodu robota – robot.die(). Původně bylo v kódu napsáno, že si robot volal metodu díry, což Petrovi přišlo zvláštní :-) Nyní je to tedy metoda políčka vyvolá metodu robota, což je logičtější, než aby si robot vyvolal metodu políčka :-D
+Začaly jsme souborem *util.py* a procházely metodu po metodě jednotlivých tříd. Vášnivá diskuze nastala u třídy HoleTile, která volá metodu robota – `robot.die()`. Původně bylo v kódu napsáno, že si robot volal metodu díry, což Petrovi přišlo zvláštní :-) Nyní tedy metoda políčka vyvolá metodu robota, což je logičtější, než aby si robot vyvolal metodu políčka :-D
 
 ```python
 class HoleTile(Tile):
