@@ -19,7 +19,7 @@ Stav je v tomto případě vykresleným okénkem modifikován - výběrem karet 
 while True:
     print(stav)
     prikaz = input()
-    if prikaz == "1"_
+    if prikaz == "1":
         stav.vyber(1)
     elif...
 ```
