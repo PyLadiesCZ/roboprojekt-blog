@@ -32,7 +32,7 @@ Z diskuse nad tímto rozpracovaným kódem vzešel zajímavý nápad, jak vyře�
 
 Dalším bodem ve hře je zařídit, aby roboti posouvali nejen sebe, ale i ostatní roboty. 
 
-Rozborem kódu jsme teké došly k tomu, proč se některým z nás vykresluje hra velmi pomalu a trhaně. Ve frontendu máme zakomponované načítání souboru z adresáře, což je hodně operací naráz, a nyní se tato činnost dělá 60x za vteřinu pro každé políčko. Řešením bude načíst všechny obrázky hned na začátku a pak na ně už jen odkazovat. 
+Rozborem kódu jsme také došly k tomu, proč se některým z nás vykresluje hra velmi pomalu a trhaně. Ve frontendu máme zakomponované načítání souboru z adresáře, což je hodně operací naráz, a nyní se tato činnost dělá 60x za vteřinu pro každé políčko. Řešením bude načíst všechny obrázky hned na začátku a pak na ně už jen odkazovat. 
 
 **Kam chceme dojít?**
 
