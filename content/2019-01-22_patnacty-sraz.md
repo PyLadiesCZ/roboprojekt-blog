@@ -50,12 +50,13 @@ class Robot:
 
 Na [jedenáctém srazu](https://roboprojekt.pyladies.cz/jedenacty-sraz) jsme se naučily, že v pokud na určité místo v pythonním kódu dám hvězdičku, dějí se věci. Zatím víme, že hvězdička umí označit nějakou sekvenci kódu a určit tím, že se budou používat jednotlivé prvky dané skevence. 
 Hvězdička ale umí i jinou magii. Pokud ji použijeme v definici funkce, umí si vynutit pojmenovaný argument. 
-Na příkladu níže to tak znamená, že pokud se přidá do metody `walk` jakýkoliv další argument za hvězdičku, vždy musí být zavolán pojmenovaný.  
+Na příkladu níže to tak znamená, že pokud se přidá do metody `walk` jakýkoliv další argument za hvězdičku, vždy musí být zavolán pojmenovaný.
+
 ![hvezdicka](./images/hvezdicka.png)
 
 K čemu je to dobré? Když budeme danou funkci volat, bude už přímo ze zápisu volání funkce jasné, co daný argument znamená, není potřeba dívat se do kódu a hledat dokumentační řetězec pro danou funkci. Hodí se to pro případ, kdy má funkce řadu různých argumentů - usnadňuje to pak další práci s nimi a nevznikají zbytečné nejasnosti a chyby.
 
 **Jak dělat věci lépe**
 
-V závěrečné debatě o změnách v kódu jsme se bavily o některých "best practices" při vývoji v týmu - například pokud přejmenováváme nějaké funkce nebo proměnné, se kterými mohou pracovat i ostatní, je dobré o tom dát vědět. Stejne tak, když začlěňujeme změny, které nejsou ideální, je dobré rovnou vytvořit Issue, které zmiňuje, co není v pořádku a co je třeba opravit. 
+V závěrečné debatě o změnách v kódu jsme se bavily o některých "best practices" při vývoji v týmu - například pokud přejmenováváme nějaké funkce nebo proměnné, se kterými mohou pracovat i ostatní, je dobré o tom dát vědět. Stejně tak, když začleňujeme změny, které nejsou ideální. V tom případě je dobré rovnou vytvořit Issue, které zmiňuje, co není v pořádku a co je třeba opravit. 
 Aby byl kód hezky čitelný a přehledný, je dobré dodržovat určité dané [konvence](https://www.python.org/dev/peps/pep-0008/). Kód jde naformátovat všelijak, Python se s tím popere, ale proto, aby se dalo s kódem dobře pracovat a jednoduše se v něm vyznat, jsou určité konvence velmi užitečné (například určité odsazování, mezery kolem operátorů apod.)
