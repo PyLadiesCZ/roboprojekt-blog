@@ -13,10 +13,10 @@ Po úvodním ujasňování průběhu hry jsme se dostaly ke kódu. Karolina upoz
 ```python
 def get_active_robots():
 	active_robots = []
-		for robot in robots:
-			if robot.is_alive():
-				active_robots.append(robot)
-		return active_robots
+    for robot in robots:
+        if robot.is_alive():
+            active_robots.append(robot)
+    return active_robots
 ```
 může vypadat i takhle:
 ```python
