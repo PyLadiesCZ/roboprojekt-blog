@@ -32,7 +32,7 @@ V případě, že jde na sever nebo na jih, není problém. Ovšem pokud má jí
 Občas se nám objevuje duplicitní část kódu, například v metodách `def_walk`a `def_move`. Je tedy nutno vyřešit. Stejně tak máme v `def_apply_card_effect` dvakrát použitou podmínku `if_isinstance`, měli bychom na tuto část vytvořit metodu.
 
 
-###Třída Robot###
+####Třída Robot####
 V backendu ve vlastnostech robota se objevuje `  self.path = path` a `self.path_front = path_front`. Jelikož se jedná o cestu k obrázkům, patří to do frontedu a pokud to chceme propojit, je vhodné místo toho robota pojmenovat.
 
 V metodě ` def_inactive(self)` jsou jako souřadnice neaktivního robota použity `(-1, -1)` . Nedávají nikdy smysl jako čísla (x, y), nutno změnit na `None`, protože robot v té chvíli není na hrací ploše.
