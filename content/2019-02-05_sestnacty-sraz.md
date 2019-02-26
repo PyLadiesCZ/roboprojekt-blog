@@ -35,7 +35,7 @@ Občas se nám objevuje duplicitní část kódu, například v metodách `def_w
 ####Třída Robot####
 V backendu ve vlastnostech robota se objevuje `  self.path = path` a `self.path_front = path_front`. Jelikož se jedná o cestu k obrázkům, patří to do frontedu a pokud to chceme propojit, je vhodné místo toho robota pojmenovat.
 
-V metodě ` def_inactive(self)` jsou jako souřadnice neaktivního robota použity `(-1, -1)` . Nedávají nikdy smysl jako čísla (x, y), nutno změnit na `None`, protože robot v té chvíli není na hrací ploše.
+V metodě `def_inactive(self)` jsou jako souřadnice neaktivního robota použity `(-1, -1)` . Nedávají nikdy smysl jako čísla (x, y), nutno změnit na `None`, protože robot v té chvíli není na hrací ploše.
 
 
 ###Třída Tile###
