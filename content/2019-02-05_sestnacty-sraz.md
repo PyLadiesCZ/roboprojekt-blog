@@ -40,7 +40,7 @@ V metodě ` def_inactive(self)` jsou jako souřadnice neaktivního robota použi
 
 ###Třída Tile###
 Třída `Tile` a všechny její podtřídy je velice obsáhlá a je v souboru `util.py`. Bylo by více než vhodné vytvořit samostatný soubor `tile.py`. 
-Políčka (`Tile`) by měla jako `properties` dostat slovník jako např. `{'crossroads': True, 'direction': 90, 'count': 2} a neměla by ignorovat jména vlastností.
+Políčka (`Tile`) by měla jako `properties` dostat slovník jako např. `{'crossroads': True, 'direction': 90, 'count': 2}` a neměla by ignorovat jména vlastností.
 
 
 Nejčastější chybou v celém kódu je pojmenování proměnných, jejichž název nesouhlasí přesně s tím, co dělá kód, nebo se liší od komentářů apod.
