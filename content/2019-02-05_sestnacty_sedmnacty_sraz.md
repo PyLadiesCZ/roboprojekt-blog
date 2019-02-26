@@ -54,12 +54,12 @@ Ve frontendu jsme stále nevyřešily načítání obrázků mimo funkci `def cr
 
 ###INTERFACE.PY###
 Ve funkci `def switch_power_down` by se mohl následující kód zjednodušit.
- ```python
+```python
 if self.indicator == False:
-if self.power_down == False:
-              		self.power_down = True
-else:
-              		self.power_down = False
+	if self.power_down == False:
+		self.power_down = True
+	else:
+		self.power_down = False
 ```
 
 Lze nahradit:
