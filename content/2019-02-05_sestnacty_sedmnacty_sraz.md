@@ -63,7 +63,7 @@ if self.indicator == False:
 ```
 
 Lze nahradit:
-` self.power_down = not self.power_down`
+`self.power_down = not self.power_down`
 Co dělá `not`? Když je hodnota `True`, vrátí `False` a obráceně.
 
 
