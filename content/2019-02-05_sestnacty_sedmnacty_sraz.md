@@ -38,7 +38,7 @@ V backendu ve vlastnostech robota se objevuje `self.path = path` a `self.path_fr
 V metodě `def_inactive(self)` jsou jako souřadnice neaktivního robota použity `(-1, -1)` . Nedávají nikdy smysl jako čísla (x, y), nutno změnit na `None`, protože robot v té chvíli není na hrací ploše.
 
 
-Kód ve funkcích `def get_starting_coordinates(board)` a ` def get_robot_paths()` obsahuje načítání obrázků, což má být ve frontendu, takže vyřešit pojmenováním robotů a políček. Bylo by hezké mít soubor (json) s informacemi o robotech, kteří jsou na začátku hry na výběr a jména robotů načítat z něj. `get_robot_paths()` se změní na `get_robot_names()`.
+Kód ve funkcích `def get_starting_coordinates(board)` a `def get_robot_paths()` obsahuje načítání obrázků, což má být ve frontendu, takže vyřešit pojmenováním robotů a políček. Bylo by hezké mít soubor (json) s informacemi o robotech, kteří jsou na začátku hry na výběr a jména robotů načítat z něj. `get_robot_paths()` se změní na `get_robot_names()`.
 
 
 ###Třída Tile###
