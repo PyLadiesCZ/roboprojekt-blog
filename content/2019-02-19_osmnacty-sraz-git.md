@@ -14,15 +14,15 @@ Dostaly jsme ještě nějaké tipy k příkazové řádce obecně. Používáme 
 ### git stash
 
 Poté, co jsme si pohrály s nastavením, posunuly jsme se k novým příkazům. Jako první přišel na řadu `git stash`. Tento příkaz může být užitečný například ve chvíli, kdy máme rozdělanou nějakou práci, ale náhle potřebujeme udělat něco jiného. Nechceme ještě dělat commit, ale můžeme využít stash, který uloží změny mimo větev, pouze lokálně. Stashů můžeme udělat tolik, kolik potřebujeme.
-Stash se zobrazuje s pořadovým číslem, podle kterého je identifikovatelný: `stash@{0}` označuje nejnověji uložený, `stash@{1}` druhý nejnovější, atd. Pokud mu nepřidáme žádný popis, přiřadí se automaticky místo popisu commit message z aktuálního commitu, který se vypíše za pořadové číslo. Pokud mu popis dáme, nahradí tuto commit message. 
+Stash se zobrazuje s pořadovým číslem, podle kterého je identifikovatelný: `stash@{0}` označuje nejnověji uložený, `stash@{1}` druhý nejnovější, atd. Pokud mu nepřidáme žádný popis, přiřadí se automaticky místo popisu commit message z aktuálního commitu, který se vypíše za pořadové číslo. Pokud mu popis dáme, nahradí tuto commit message. Jednou vytvořený stash již nelze přejmenovat.
 Související příkazy:
+`git stash push -m "název"` vytvoří nový stash s vlastním názvem
 `git stash list` vypíše seznam všech stashů
-`git stash push -m "název"` dá stashi popis
 `git stash pop` vytahuje věci ze stashe od nejnovějšího záznamu. Pokud za tento příkaz přidám pořadové číslo stashe, například `git stash pop stash@{3}`, vytáhne ten konkrétní stash. Jedná se o tzv. destruktivní čtení - po tomto příkazu je dotyčný stash odstraněn.
 `git stash drop` maže věci ze stashe od nejnovějšího záznamu, ale podobně jako pop umí mazat i konkrétní stash, pokud mu dám jeho pořadové číslo.
 `git stash clear` kompletně vyčistí stash, smaže všechny uložené stashe
 Git takto pracuje pouze se soubory, které zná, které už do něj byly přidány. Pokud máme nějaké, které ještě do gitu přidány nebyly a git je netrackuje, ale přesto je chceme dát do stashe, je potřeba zadat `git stash push --include-untracked`.
-Výhoda i nevýhoda stashe spočívá právě v tom, že ukládá práci mimo větve, do našeho lokálního repozitáře. Můžeme pracovat v jedné větvi, dát věci do stashe, přesunout se do nové větve a tam si změny vytáhnout. V tom ale spočívá i slabina - o data lze snadno přijít. Jakmile zavřeme příkazovou řádku, stash se smaže. Jde v podstatě jen o dočasné úložiště rozpracovaných vecí.
+Stash ukládá práci mimo větve, do našeho lokálního repozitáře. Můžeme pracovat v jedné větvi, dát věci do stashe, přesunout se do nové větve a tam si změny vytáhnout. Jde v podstatě o dočasné úložiště rozpracovaných vecí. Je dobré používat stash s rozmyslem, abychom si zachovali přehled, co vše zde máme uloženo.
 Více ke stasthi lze najít v [dokumentaci](https://git-scm.com/docs/git-stash). 
 
 ### git remote
