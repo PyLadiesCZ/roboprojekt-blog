@@ -47,7 +47,7 @@ Další tip na zrychlení práce na GitHubu se týká issues. Existuje také ryc
 
 ### Nebojme se dělat code reviews
 
-Narazily jsme na problém, že část z nás si netroufá dělat code reviews, hlavně proto, že tolik nerozumí kódu jako jeho autorka, že je pro nás kód moc složitý. Code reviews ale nejsou jen o tom schválit, že kód je v pořádku a opravit případné chyby. Mohou také sloužit právě k lepšímu prozumění kódu. Když kód procházíme, je dobré se u věcí, kterým nerozimíme, zeptat, proč vypadají zrovna takhle, nebo co ten konkrétní kus kódu dělá. Ten, kdo kód psal, v něm už chyby tak snadno nevidí. Tím, že kód někomu vysvětlí, se také dají chyby odhalit. 
+Narazily jsme na problém, že část z nás si netroufá dělat code reviews, hlavně proto, že tolik nerozumí kódu jako jeho autorka, že je pro nás kód moc složitý. Code reviews ale nejsou jen o tom schválit, že kód je v pořádku a opravit případné chyby. Mohou také sloužit právě k lepšímu prozumění kódu. Když kód procházíme, je dobré se u věcí, kterým nerozumíme, zeptat, proč vypadají zrovna takhle, nebo co ten konkrétní kus kódu dělá. Ten, kdo kód psal, v něm už chyby tak snadno nevidí. Tím, že kód někomu vysvětlí, se také dají chyby odhalit. 
 
 ### Testovací framework pro funkční testy
 
@@ -57,7 +57,7 @@ Bylo by dobré vytvořit testovací framework, kód, který by zjednodušil vytv
 ![testy](./images/testy.png)
 
 Ve větším by pak test uměl projít všechny testovací adresáře, kde by se daly testovat například všechny efekty políček, všechnu efekty karet apod. 
-Práci bude dobré rozdelit na dvě části, udělat test, který se provede v daném adresáři, a pak test, který bude procházet všechny adresáře a postupně je otestuje.
+Práci bude dobré rozdělit na dvě části, udělat test, který se provede v daném adresáři, a pak test, který bude procházet všechny adresáře a postupně je otestuje.
 
 Co se týče testů obecně, rády bychom je probraly podrobněji, stejně, jako jsme to v předchozích lekcích udělaly se zbytkem kódu, budeme jim tedy věnovat příští setkání.
 
