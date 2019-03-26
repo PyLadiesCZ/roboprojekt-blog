@@ -46,7 +46,9 @@ Nejedná se o klíčové slovo, můžeme ho použít jako název proměnné, ale
 Při procházení jednoho z testovacích modulů se ukázalo, že neumíme správně pracovat s komentáři a dokumentačními řetězci. Narazily jsme například v těle kódu na komentář, který hovoří o celém souboru. Takový text je ale poměrně důležitý, říká, k čemu soubor slouží. Měl tedy být dokumentačním řetězcem celého modulu a měl by být umístěn hned na začátku celého souboru (ještě před importy).  
 Důležité je také rozlišovat mezi dokumentačními řetězci a komentáři. Dokumentační řetězec popisuje chování modulu, funkce nebo třídy a je umístěn na začátku té části kódu, ke které se vztahuje. Dokumentační řetězce slouží člověku, který danou věc používá, aby věděl, k čemu slouží.
 Oproti tomu komentáře slouží těm, kteří čtou kód a potřebují zjistit, jak funguje. Vysvětlují například různé proměnné, použití konkrétních věcí v kódu apod.  
-Důležité také je dokumentační řetězce i komentáře __aktualizovat__. S kódem pracujeme pořád, vylepšujeme ho a měníme. Na komentáře ale často zapomínáme. Může se tak stát, že v komentáři nebo dokumentačním řetězci narazíme na něco, co již dávno v kódu nepoužíváme. Pro člověka, který kód vidí poprvé nebo jej nezná tak dobře, jako autor, může být taková věc hodně matoucí. Proto je potřeba při změnách kódu myslet i na úpravy doprovodných textů, aby dávaly smysl.
+Důležité také je dokumentační řetězce i komentáře __aktualizovat__. S kódem pracujeme pořád, vylepšujeme ho a měníme. Na komentáře ale často zapomínáme. Může se tak stát, že v komentáři nebo dokumentačním řetězci narazíme na něco, co již dávno v kódu nepoužíváme. Pro člověka, který kód vidí poprvé nebo jej nezná tak dobře jako autor, může být taková věc hodně matoucí. Proto je potřeba při změnách kódu myslet i na úpravy doprovodných textů, aby dávaly smysl.
+
+
 
 #### Zbytečné testy?
 
