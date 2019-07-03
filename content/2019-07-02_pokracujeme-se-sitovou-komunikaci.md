@@ -4,7 +4,7 @@ Modified: 2019-07-02 22:28:00
 Author: Karolina Surma
 
 
-Po dvoutýdenní pauze jsme se opět sešly nad komunikací server-klient. Krok po kroku připisujeme nové funkcionality. Náš server už umí poslat klientovi přiřazeného mu robota a karty, ze kterých si klient vybírá 5 pro zahraní herního kola. Chybí nám odhazovací balíček: pokud serveru dojdou karty na rozdání dalšímu robotovi, měl by vzít všechny doposud odhozené karty a vytvořit z nich nový herní balíček. 
+Po dvoutýdenní pauze jsme se opět sešly nad komunikací server-klient. Krok po kroku připisujeme nové funkcionality. Náš server už umí poslat klientovi jemu přiřazeného robota a karty, ze kterých si klient vybírá 5 pro odehrání herního kola. Chybí nám odhazovací balíček: pokud serveru dojdou karty na rozdání dalšímu robotovi, měl by vzít všechny doposud odhozené karty a vytvořit z nich nový herní balíček. 
 
 ## Interface
 
