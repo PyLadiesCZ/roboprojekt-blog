@@ -18,7 +18,7 @@ Přejmenovaly jsme roboty. Doposud nesli jména osob, které je nakreslily v Ink
 
 ## Alternativní pohled na server
 
-Petr se před několika srazy zmínil, že on by svůj server navrhl jinak. Abychom si ale užily proces vymyšlení serveru a přidávání mu nových funkcí, hned nám neřekl, jak by tyto otázky řešil on. Jelikož jsme už poměrně daleko v implementaci (konec se blíží!), dnes jsme se dozvěděly, jak bychom to mohly řešit jinak.
+Petr se před několika srazy zmínil, že on by svůj server navrhl jinak. Abychom si ale užily proces vymyšlení serveru a přidávání nových funkcí, hned nám neřekl, jak by tyto otázky řešil on. Jelikož jsme už poměrně daleko v implementaci (konec se blíží!), dnes jsme se dozvěděly, jak bychom to mohly řešit jinak.
 Pro komunikaci server - klient používáme asynchronní knihovnu AsyncIO. Ta v sobě obsahuje třídu [Queue](https://docs.python.org/3/library/asyncio-queue.html). Asynchronní fronta je z jedné strany otevřená pro vstup, z druhé strany pro výstup, což bychom mohly využít v situaci, když čekáme na informace od klientů. Server v podání Petra by měl zvlášť herní logiku a zvlášť síťovou komunikaci. Pokaždé, když by od klienta přišla nová zpráva na server (např. vybrané karty hráče), přidala by se do fronty, která by _se pošťouchla_, že může zpracovat další kus dat. Až by z fronty vypadly vybrané karty posledního hráče, provedl by se další kus herní logiky (např. herní kolo - efekty karet a políček). 
 
 ## Spojování slovníku
