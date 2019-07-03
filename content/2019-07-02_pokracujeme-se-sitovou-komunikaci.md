@@ -8,7 +8,7 @@ Po dvoutýdenní pauze jsme se opět sešly nad komunikací server-klient. Krok 
 
 ## Interface
 
-Změnilo se pozadí - v interface'u dole se nyní vykresluje tolik okének pozadí robotů, kolik na mapě bude hráčů. Ještě řešíme vykreslení avatarů samotných robotů, což určitě budeme mít před dalším srazem hotové.
+Změnilo se pozadí - ve spodní části interface se nyní vykresluje tolik okének pozadí robotů, kolik bude na mapě hráčů. Ještě řešíme vykreslení avatarů samotných robotů, což určitě budeme mít před dalším srazem hotové.
 Klient posílá taky serveru vybrané karty s informaci že skončil výběr a zprávu, jestli hraje toto kolo (power down). Server tyto informace umí dekódovat a přeložit na příslušné atributy stavu hry.
 V dalších krocích naučíme klienta číst zprávu o stavu svého robota ze stavu hry (nyní klientovi posíláme separovaná data, aby si sám vytvořil robota).
 
