@@ -36,7 +36,7 @@ U stavu rozhraní máme další zajímavou věc: obsah jeho atributů totiž pro
 Je důležité proto odesílané zprávy pečlivě naplánovat a vždy důkladně promýšlet, která data posíláme a která přijímáme.
 
 Když se podíváme na stávající rozhraní, vykreslujeme ho hned s příkladovým (_fake_) robotem a kartami. 
-Může se ale stát, že chceme vykreslit interface, ale ještě neznáme svého robota ani nemáme karty. Interface se proto musí umět vykreslit i v případě, že tyto údaje nejsou k dispozici.
+Může se však stát, že chceme vykreslit interface, ale ještě neznáme svého robota ani nemáme karty. Interface se proto musí umět vykreslit i v případě, že tyto údaje nejsou k dispozici.
 
 Co víc, máme v souboru s rozhraním i nějaké zavolané funkce: vytváří se v něm balíček karet, karty se rozdají a vykreslí, a vytvoří i instance třídy samotného interface. Tyto exekuce v souboru s logikou chování nechceme, dělá to kód netestovatelný a začíná se nám to přít s kódem, který postupně připisujeme serveru. Logika vytváření karet, které nepatří k logice klienta, taky nepatří tomuto souboru, měla by se přenést pod stav hry.
 
