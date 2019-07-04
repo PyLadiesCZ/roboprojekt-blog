@@ -5,7 +5,7 @@ Author: Karolina Surma
 
 
 Naše srazy postupně získaly stálý rámec, kdy si řekneme: 
-- co nového se udalo na projektu za poslední období, 
+- co nového se událo na projektu za poslední období, 
 - vysvětlíme případné nesrovnalosti v otevřených PR, 
 - a naplánujeme, na čem budeme pracovat dál.
 
