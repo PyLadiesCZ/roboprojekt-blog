@@ -14,7 +14,7 @@ Případně je ještě možné společnou část kódu vydělit do pomocné funk
 
 ### OrderedDict
 
-Doposud jsme v kódu pracovaly se seznamem startovních políček bez jakýchkoliv dalších detailů. Pro hru ale potřebujeme krom polohy startovních políček ještě několik doplňujícíh informací, například kterým směrem jsou orientována, a také potřebujeme, aby záznamy zůstávaly ve stejném pořadí. Karolina se rozhodla předělat seznam na slovník, kde klíčem bude číslo políčka a hodnotami budou směr a souřadnice. Starší verze Pythonu ale náhodně mění pořadí položek ve slovníku, bylo tedy třeba použít knihovnu `Collections` a z ní třídu [OrderedDict](https://docs.python.org/3/library/collections.html#collections.OrderedDict), která starším verzím Pythonu přidávám schopnost držet záznamy ve slovníku v takovém pořadí, v jakém jsou do něj vkládány. Od Pythonu 3.7 výše je tato vlastnost slovníků přímo zaintegrovaná do Pythonu. 
+Doposud jsme v kódu pracovaly se seznamem startovních políček bez jakýchkoliv dalších detailů. Pro hru ale potřebujeme krom polohy startovních políček ještě několik doplňujícíh informací, například kterým směrem jsou orientována, a také potřebujeme, aby záznamy zůstávaly ve stejném pořadí. Karolina se rozhodla předělat seznam na slovník, kde klíčem bude číslo políčka a hodnotami budou směr a souřadnice. Starší verze Pythonu ale náhodně mění pořadí položek ve slovníku, bylo tedy třeba použít knihovnu `Collections` a z ní třídu [OrderedDict](https://docs.python.org/3/library/collections.html#collections.OrderedDict), která starším verzím Pythonu přidává schopnost držet záznamy ve slovníku v takovém pořadí, v jakém jsou do něj vkládány. Od Pythonu 3.7 výše je tato vlastnost slovníků přímo zaintegrovaná do Pythonu. 
 
 ### Tvoříme server!
 
