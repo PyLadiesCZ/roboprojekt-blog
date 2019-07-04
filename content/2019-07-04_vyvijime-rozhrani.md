@@ -1,6 +1,6 @@
 Title: Vyvíjíme rozhraní
-Date: 2019-07-04 16:36:00
-Modified: 2019-07-04 16:36:00
+Date: 2019-06-18 16:36:00
+Modified: 2019-06-18 16:36:00
 Author: Karolina Surma
 
 
@@ -46,5 +46,5 @@ Jelikož náš klient obsahuje v sobě už dost kódu a začaly jsme využívat 
 
 ## Kam patří robotí program?
 
-Petr sugeroval, že seznam karet, které má robot na ruce, možná vůbec robotovi nepatří. Provedení efektů karet a políček (funkce `apply_all_effects`) by měla dostat jako argumenty roboty a říct, co s nimi má udělat. `Program` má totiž smysl tehdy, když se provádí, samotný není vlastnost robota. 
+Petr podotkl, že seznam karet, které má robot na ruce, možná vůbec robotovi nepatří. Provedení efektů karet a políček (funkce `apply_all_effects`) by měla dostat jako argumenty roboty a říct, co s nimi má udělat. `Program` má totiž smysl tehdy, když se provádí, samotný není vlastnost robota. 
 Zatím tuto změnu zavádět nebudeme, ale je dobré si na ní pamatovat do budoucna, až budeme mít chuť něco refaktorovat :)
