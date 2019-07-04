@@ -25,7 +25,7 @@ Server obecně funguje tak, že:
 Náš návrh ještě není ideální: máme naplánované odeslání karet každému robotovi na začátku, čekání na data a aktualizaci stavu. Nikde ale neposíláme všem klientům nové karty, z nichž můžou vybírat. Doplnily jsme tedy návrh algoritmu. 
 
 Dozvěděly jsme se taky, že máme v kódu chybu, o níž nevíme. 
-Jedná se o čas, který potřebuje server na zpracování karet. Může se stát, že serveru dojde interní časovač, ale ještě než dá o tom vědět klientům, dostane další zprávu s aktualizovanými kartami. Protože časové okénko na výběr už je zavřené, karty se přiřadí až k dalšímu kolu. Abychom tomu zamezily, je dobré přidat do zpráv s kartami číslo herního kola. Tím si zajistíme korektní přiřazení všech zpráv.
+Jedná se o čas, který potřebuje server na zpracování karet. Může se stát, že serveru dojde interní časovač, ale ještě než o tom dá vědět klientům, dostane další zprávu s aktualizovanými kartami. Protože časové okénko na výběr už je zavřené, karty se přiřadí až k dalšímu kolu. Abychom tomu zamezily, je dobré přidat do zpráv s kartami číslo herního kola. Tím si zajistíme korektní přiřazení všech zpráv.
 
 ## Kolik stavů potřebujeme? A co patří k Interface?
 
