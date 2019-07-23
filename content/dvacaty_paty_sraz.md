@@ -1,4 +1,4 @@
-Title: Dvacátý šestý sraz - po delší době
+Title: Dvacátý pátý sraz - po delší době
 Date: 2019-05-14 18:00:00
 Modified: 2019-05-14 18:00:00
 Author: Anežka Müller
