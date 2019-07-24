@@ -3,7 +3,7 @@ Date: 2019-05-14 18:00:00
 Modified: 2019-05-14 18:00:00
 Author: Anežka Müller
 
-Dnešní sraz proběhl po delší pauze bez Petra, ale v kódu jsme se hodně posunuly.
+Dnešní sraz proběhl po delší pauze, kdy Petr nebyl v Brně, ale v kódu jsme se hodně posunuly.
 Stkání jsme tedy začly shrnutím, co hra nyní umí. Součástí backendu je teď důležitá a komplexní funkce `apply_all_effects`, která zařídí, že proběhne herní kolo. Tedy střídavě se v daném pořadí provedou všechny naplánované akce z registru robota (efekty karet) a efekty políček. 
 Při optimalizaci jejího kódu jsme narazily na dvě věci. První z nich je vyvolání vyjímky. Je třeba si vždy dobře rozmyslet, jakou vyjímku vyvoláváme a najakém místě. Specifikace by měla být co nejpřesnější, aby se nám nestalo, že vyjímka bude odchytávat jiné chyby nebo chyby vzniklé na jiném místě, než to, které chceme ošetřit. 
 Druhá připomínka se nám v kódu stále vrací, a to je pojmenovávání funkcí. Je to dobrá praxe, kterou bychom si měly vštípit a držet se jí, protože výrazně zlepšuje přehlednost kódu. Pokud pojmenováváme nějakou funkcí, jméno by mělo odpovídat tomu, co daná funkce dělá. Například máme-li funkci `sort_robots_by_cards_priority`, lze očekávat, že vezme nějaký seznam robotů a seřadí jej dle daného parametru. V našem případě ale funkce vytvářela nový seznam a teprve ten řadila, jméno tedy není zcela příhodné.
