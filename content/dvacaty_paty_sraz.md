@@ -56,7 +56,3 @@ Najdeme si místo, kde chceme funkci rozdělit, a určíme tak, kterou část m�
 
 Potřebovaly jsme si trošku ujasnit, jak přesně bude fungovat, když hru přepíšeme tak, aby běžela na serveru a hráči se k ní připojovali přes klienty.
 Server zpracovává samotnou logiku hry a drží všechny informace o ní, posílá je přihlášeným klientům a také zpracovává informace, které od nich dostane. Klienty budeme mít dvou typů. První bude čistě zobrazovací, prozatím mu říkáme `receiver`. Jeho úkolem bude pouze vykreslovat aktuální stav hry, tedy herní plochu a roboty. Druhý, o něco složitější klient, bude pro ty, kteří chtějí hru hrát, a poběží na něm náš současný interface. Říkáme mu `sender`, protože prostřednictvím tohoto klienta budou hráči dostávat od serveru karty, programovat roboty a odesílat data zpět na server. Zobrazení herní plochy a robotího interface budou tedy dva nezávislé programy. 
-
-Celý projekt je nakonec výrazně komplexnější a náročnější, než jsme si na začátku dovedly představit. Ale výsledek bude určitě stát za to! :)
-
-![owl](./images/owl.jpg)
