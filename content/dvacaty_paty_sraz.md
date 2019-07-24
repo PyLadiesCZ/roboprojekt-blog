@@ -24,7 +24,7 @@ OrderedDict(
 	)
 )		
 ``` 
-bude dělat to stejné, jako kód níže, kde si nadefinujeme pomonou funkci sort_key
+bude dělat to stejné, jako kód níže, kde si nadefinujeme pomocnou funkci sort_key:
 ```python
 def sort_key(stn):
 	return stn[0]
