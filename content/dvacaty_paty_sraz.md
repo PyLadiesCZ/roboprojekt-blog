@@ -43,7 +43,7 @@ Další nejasností v zápisu výše pro nás bylo `sorted`. Známe funkci `sort
 
 ### Co musíme udělat, aby hra konečně fungovala jako hra?
 
-Karolina položila důležitou otázku. Co je třeba udělat, aby hra byla hratelná.  Tedy jaké úkoly máme pro příští týdny. 
+Karolina položila důležitou otázku. Co je třeba udělat, aby hra byla hratelná. Tedy jaké úkoly máme pro příští týdny. 
 Hlavní je nyní kompletně hru předělat do podoby server - klient. V současné chvíli máme jednoduchý prototyp serveru, který po připojení klienta umí poslat soubor. 
 Máme jednoduchého klienta, který se umí k serveru připojit a přijmout soubor. Jedná se zatím o jednoduchý soubor ve formátu JSON. Tento typ klienta, který dostává popis stavu hry, by jej měl dokázat převést do grafické podoby. Tedy zobrazit aktuální stav hry na základě dat dodaných serverem. Dnes jsme se tedy zaměřily na tento úkol. Soubor, který nyní server odesílá, obsahuje dohromady informace o herním plánu a robotech. Pro vykreslení je potřebujeme rozdělit a získat tak podklady pro vytvoření `board` a `robots`. 
 Pro vytvoření `board` již máme funkci napsanou. Abychom ji ale mohly využít i v modelu server - klient, je třeba ji trošku upravit, aby odpovídala vstupním datům, která bude posílat server. 
