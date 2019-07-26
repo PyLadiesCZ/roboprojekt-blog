@@ -123,7 +123,7 @@ S pomocí nám přijde `context manager`.
 Můžeme použit dekorátor z knihovny `contextlib`.
 Když nějaké funkci dáme dekorátor `contextmanager`, taková funkce se může použít s příkazem `with`. Příkaz `with` už známe například z [operací na souborech](https://naucse.python.cz/course/pyladies/beginners/files/). 
 Když otevřeme soubor s `with`, zajistíme si, že se v každém případě hezky uzavře, i kdyby náš program spadl v půlce běhu kvůli nějaké chybě. 
-Python umožňuje nám vytvářet vlastní context managery, kterým řekneme, co mají udělat před zavoláním naši funkce a po jejím doběhnutí.
+Python nám umožňuje vytvářet vlastní context managery, kterým řekneme, co mají udělat před zavoláním naší funkce a po jejím doběhnutí.
 Můžeme s nimi pracovat dvěma způsoby. Buď vytvoříme třídu, která má dvě metody:
 ```python
 >>> class Kontext:
