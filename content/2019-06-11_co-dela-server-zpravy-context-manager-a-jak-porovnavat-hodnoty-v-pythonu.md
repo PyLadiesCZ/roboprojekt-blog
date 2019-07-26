@@ -80,7 +80,7 @@ if atribut is not None:
 ```
 
 `is` je trochu rychlejší a vyhodnocení podmínky tak trvá o něco méně, než v případě tradičního porovnávání.
-Jako zajímavost jsme se dozvěděly, že o `is` a `==` se točí v Pythonním světě diskuze, a dokonce autor Pythonu, Guido, se vyjádřil pro sjednocení porovnávání ve prospěch `==`. 
+Jako zajímavost jsme se dozvěděly, že o `is` a `==` se točí v pythonním světě diskuze, a dokonce autor Pythonu, Guido, se vyjádřil pro sjednocení porovnávání ve prospěch `==`. 
 Není to totiž triviální a začátečníci mívají problém s uchopením, kdy používat který způsob.
 
 
