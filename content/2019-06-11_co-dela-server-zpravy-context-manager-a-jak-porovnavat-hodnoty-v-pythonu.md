@@ -221,5 +221,5 @@ Polovinu srazu nám zabrala analýza návrhu fungování serveru. V rámci anal�
 2. Server dostává zprávy od klienta a nějak s nimi nakládá (vybrané karty, nehraju dál, etc.)
 3. Server posílá aktualizovaný stav hry všem připojeným klientům.
 
-Na tomto základě postavíme celý nás server.
+Na tomto základě postavíme celý náš server.
 
