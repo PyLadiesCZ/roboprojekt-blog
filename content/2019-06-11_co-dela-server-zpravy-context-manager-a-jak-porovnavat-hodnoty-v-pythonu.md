@@ -64,18 +64,18 @@ U některých objektů proto `is` může být zrádné. U `True`, `False` a `Non
 Když chceme vyhodnotit _bool_ proměnnou jako podmínku, neměly bychom ale používat ani `==`, ani `is` - správný způsob, jak takovou podmínku napsat, je:
 
 ```python
-if atribut: # místo "if atribut is True"
+if hodnota: # místo "if hodnota is True"
     print("Ha!")
-if not atribut: # místo "if atribut is False"
+if not hodnota: # místo "if hodnota is False"
     print("Nene!")
 ```
 
 U `None` je situace trochu jiná, zde opravdu chceme zjišťovat, jestli hodnotou atributu je `None`, nebo ne, takže:
 
 ```python
-if atribut is None:
+if hodnota is None:
     print("Jsem prázdný")
-if atribut is not None:
+if hodnota is not None:
     print("Nejsem prázdný")
 ```
 
@@ -156,7 +156,7 @@ Další věc, kterou umí dělat context manager, je to, že dokáže naši chyb
 ```
 
 výsledek bude: 
-```python
+```
 začátek
 NĚCO
 konec RuntimeError()
