@@ -86,7 +86,7 @@ Není to totiž triviální a začátečníci mívají problém s uchopením, kd
 
 ## Třídy, víc tříd!
 
-Naši klienti používají čím dál víc globálních proměnných. Některé věci, jako např. pygletí okno s hracím rozhraním, nastavujeme na začátku na `None`, a plníme je postupně díky zprávám od serveru.
+Naši klienti používají čím dál víc globálních proměnných. Některé věci, jako např. pygletí okno s hracím rozhraním, nastavujeme na začátku na `None` a plníme je postupně díky zprávám od serveru.
 Už bychom se měly zamyslet, jak klienty přepsat na třídy, kde tyto globální proměnné převedeme na atributy třídy, které budou k dispozici pro všechny metody. 
 Na názorné ukázce jsme se přesvědčily, že přepsání není hodně složité: atributy se přenesou do metody `__init__`, jako _self.atributy_, metodám dáme `self` jako první argument a předěláme bývalé globální proměnné v jejich tělech. 
 Další výhoda třídy oproti kódu, který doposud máme, je jednoduchost importování. 
