@@ -104,7 +104,7 @@ Potřebujeme donutit náš server, aby mluvil i s klientem, který vykresluje hr
 Každému posílá společný stav hry, ale hráči pošle dodatečně informace o jeho robotovi a karty. 
 Hráč serveru navíc odpovídá zprávami s obsahem karet nebo o tom, zda hraje další kolo.
 Potřebujeme tedy rozlišit, aby server posílal každému jen informace, které mu patří. 
-No a jak se klienti při připojení "představí"? Vyřešily jsme to pomocí `route` dekorátoru, který určuje, na jaké adrese budou spolu komunikovat server s klientem. 
+No a jak se klienti při připojení "představí"? Vyřešily jsme to pomocí `route` dekorátoru, který určuje, na jaké adrese spolu budou server s klientem komunikovat. 
 Doposud jsme tam měly: `routes.get(/ws/)` a jednu funkci, která komunikovala s klienty. Nově rozlišujeme:
 ```python
 @routes.get(/interface/)
