@@ -205,7 +205,7 @@ Takový kontext využijeme pro náš server. Protože tvoříme hru s využitím
 ## Zprávy server - klient
 
 Zatím posíláme klientům zprávy jako stringy, kde prvních pár znaků je vždy stejných, např. "Robot: Bot123". Tyto zprávy máme překlopit na JSON, protože:
-- jednoduše jdou překládat na Pythonní slovníky
+- jednoduše jdou překládat na pythonní slovníky
 - nemusíme je následně složitě parsovat (kdokoli se pokoušel parsovat textové zprávy, ten ví, jak to bolí)
 Druhy zpráv můžeme od sebe oddělit tak, že vždy nastavíme na začátku stejný klíč, např "kind"="state", nebo "kind=robot" a podle toho naučit klienta na zprávy reagovat.
 
