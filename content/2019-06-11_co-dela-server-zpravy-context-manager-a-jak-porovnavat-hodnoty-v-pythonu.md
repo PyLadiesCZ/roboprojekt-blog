@@ -96,7 +96,7 @@ Můžeme takovou třídu `Interface()` naimportovat do jiného programu, např. 
 ## Dva klienti - jeden server
 
 V další části srazu jsme se podívali na _draft Pull Requestu_. 
-Během našeho psaní Roboprojektu Github přišel se zajímavou funkcí - nyní při vytváření PR můžu vybrat, jestli chci zpřístupnit svůj PR pro začlenění (považuji ho za finální), nebo chci na něm ještě pracovat (a merge není povolen).
+Během našeho psaní Roboprojektu Github přišel se zajímavou funkcí - nyní při vytváření PR můžu vybrat, jestli chci zpřístupnit svůj PR pro začlenění (považuji ho za finální), nebo na něm chci ještě pracovat (a merge není povolen).
 
 ![draft](./images/draft.JPG)
 
