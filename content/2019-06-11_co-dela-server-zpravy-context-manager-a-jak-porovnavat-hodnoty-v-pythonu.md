@@ -202,7 +202,7 @@ oops
 konec
 ```
 
-Takový kontext využijeme pro náš server. Protože tvoříme hru s využitím asynchronní knihovny `asyncio`, náš dekorátor bude patříčně jiný: `@contextlib.asynccontextmanager`
+Takový kontext využijeme pro náš server. Protože tvoříme hru s využitím asynchronní knihovny `asyncio`, náš dekorátor bude patřičně jiný: `@contextlib.asynccontextmanager`
 
 
 ## Zprávy server - klient
