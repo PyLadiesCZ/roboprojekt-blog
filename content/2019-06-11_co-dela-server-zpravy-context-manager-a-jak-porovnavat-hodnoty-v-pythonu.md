@@ -70,7 +70,7 @@ if not atribut: # místo "if atribut is False"
     print("Nene!")
 ```
 
-U `None` věc vypadá trochu jinak, zde opravdu chceme zjišťovat, jestli hodnotou atributu je `None`, nebo ne, takže:
+U `None` je situace trochu jiná, zde opravdu chceme zjišťovat, jestli hodnotou atributu je `None`, nebo ne, takže:
 
 ```python
 if atribut is None:
