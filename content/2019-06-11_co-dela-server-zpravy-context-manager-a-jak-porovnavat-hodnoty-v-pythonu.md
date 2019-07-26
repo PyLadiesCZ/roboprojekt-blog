@@ -24,7 +24,7 @@ Příklad níže se vyhodnotí jako nepravda, protože dva prázdné seznamy jso
 False
 ```
 
-Dva prázdné seznamy se sice rovnají, pokud se vyhodnotíme pomocí `==`, ale v budoucnosti nemusí tomu tak být:
+Dva prázdné seznamy se sice rovnají, pokud je vyhodnotíme pomocí `==`, ale v budoucnosti tomu tak nemusí být:
 
 ```python
 >>> a = []
