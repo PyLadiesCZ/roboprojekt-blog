@@ -31,7 +31,7 @@ Obě spouštěcí funkce, `pyglet.app.run()` i `asyncio.run()` spouští nějak�
 Koncept asynchronního programování je poměrně starý a dřívě existovala řada knihoven, které pracovaly se zpracováváním více úloh a čekáním na komunikaci po internetu a které mezi sebou nebyly kompatibilní, každá používala svoji konkrétní smyčku událostí. 
 Aby se do budoucna předešlo problémům, ustanovila se právě knihovna asyncio a stala se obecně používanou. 
 Jakákoliv aplikace, která chce komunikovat po internetu a umí zpracovávat asyncio smyčku, se dá použít s jakoukoliv jinou knihovnou, která umí asyncio. 
-Bohužel Pyglet mezi tyto aplikace zatím nepatří a asyncio neumí. 
+Bohužel Pyglet mezi tyto knihovny zatím nepatří a asyncio neumí. 
 Čeho můžeme využít - asyncio čeká na nějakou událost a když ji zpracuje o chviličku později, nic zásadního se nestane. 
 Můžeme tedy říct Pygletu, aby např.třicetkrát za vteřinu spustil kousek asyncio smyčky.
 Pyglet tedy bude řídit to, kdy mohou běžet asynchronní operace. 
