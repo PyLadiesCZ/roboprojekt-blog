@@ -16,7 +16,7 @@ Když používáme testy ze stejného adresáře, ze kterého je voláme, není 
 Při předělávání hry do podoby server - klient potřebujeme na straně klienta "dekódovat" data zaslaná serverem v podobě JSON souboru a vytvořit z nich stav hry, se kterým budeme moci dál pracovat. 
 Proto jsme vytvořily funkci `state_from_dict`, která umí vše potřebné vyextrahovat a vytvořit objekt třídy `State`. 
 Takové funkci se říká `factory`, protože vytváří nové objekty. 
-Je to alternativa `__init__` funkce dané třídy, jen vytváří objekt z jiných vstupů. 
+Je to alternativa metody `__init__`, jen vytváří objekt z jiných vstupů. 
 Funkce stála mimo danou třídu, což je malinko nepřehledné. 
 Petr nám proto ukázal, jak z ní udělat metodu dané třídy. 
 Problematické je zde `self`, které daná funkce nemůže brát jako argument, protože ještě žádné `self` neexistuje.
