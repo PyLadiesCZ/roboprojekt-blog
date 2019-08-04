@@ -39,7 +39,7 @@ Pro tuto implementaci bude potřeba použít něco trochu složitějšího než 
 Smyčku nadefinujeme pomocí `loop`, kde využijeme funkce `run_until_complete`, která zajistí, aby se smyčka událostí běžela, dokud neskončí úkol nadefinovaný jako argument této funkce. 
 Takto nadefinovaný úkol se naplánuje na poslední místo za všechny úkoly, které už čekají na zpracování. 
 Pro naplánování spuštění klienta pak použijeme funkci `ensure_future()`, kde se jako argument zadá funkce, kterou takto chceme spustit.
-Více o použitých funkcích najdeme v dokumentaci k asyncio o [smyčkách](https://docs.python.org/3/library/asyncio-eventloop.html) a [zajištění budoucnosti](https://docs.python.org/3/library/asyncio-future.html). 
+Více o použitých funkcích najdeme v dokumentaci k asyncio o [smyčkách](https://docs.python.org/3/library/asyncio-eventloop.html) a [funkci `ensure_future`](https://docs.python.org/3/library/asyncio-future.html). 
 Kód pak může vypadat například takto:
 
 ![loops](./images/loops.jpg)
