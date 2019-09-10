@@ -17,7 +17,7 @@ Alespoň se tak domníváme.
 Bohužel se nám nyní vykresluje naráz výsledek provedení všech tahů herního kola a nemáme ještě zpracovaný log, špatně se nám tedy zpětně rekonstruují pohyby robotů.
 Budeme ale pracovat s touto teorií a uvidíme :)
 
-![herni_screenshot](./images/herni_screenshot.png)
+![herni_screenshot](./images/game_screenshot.png)
 
 Než jsme setkání rozpustily, otevřely jsme téma, v jaké fázi budeme s výsledkem RoboProjektu spokojeny. 
 Každá z nás to má trošku jinak, budeme se nad tím tedy ještě muset zamyslet a vytyčit nějakou konkrétní uspokojivou podobu hry, abychom byly schopny někdy vůbec dosáhnout cíle :) 
