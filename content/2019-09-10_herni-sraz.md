@@ -12,7 +12,7 @@ Většina věcí funguje dle našich představ, krom několika drobností, kter�
 Hrály jsme celkem asi hodinu, než jsme narazily na bug, který hru shodil.
 Zbytek setkání jsme tedy věnovaly tomu, abychom zjistily, co je špatně a jak to opravit :) 
 Zkoumáním error message jsme došly k tomu, že si naše hra neumí poradit s tím, když robot umře během provádění příkazu jednoho registru. 
-Například má jít o tři políčka rovně, ale hned na prvním je díra - po prvním kroku tedy umře, ale hra nyní počítá s tím, že musí pohyb dokončit a chce robota přesunout na další koordináty, které se ale v okamžiku smrti nastaví na `none`. 
+Například má jít o tři políčka rovně, ale hned na prvním je díra - po prvním kroku tedy umře, ale hra nyní počítá s tím, že musí pohyb dokončit a chce robota přesunout na další koordináty, které se ale v okamžiku smrti nastaví na `None`. 
 Alespoň se tak domníváme. 
 Bohužel se nám nyní vykresluje naráz výsledek provedení všech tahů herního kola a nemáme ještě zpracovaný log, špatně se nám tedy zpětně rekonstruují pohyby robotů.
 Budeme ale pracovat s touto teorií a uvidíme :)
