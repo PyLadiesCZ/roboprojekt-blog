@@ -9,9 +9,9 @@ A nejen spustit, ale i dohrát do fáze, kdy jedna z nás vyhrála.
 
 Aktuálně je hra nastavená tak, že i po vítězství jednoho z hráčů pokračuje dál.
 Většina věcí funguje dle našich představ, krom několika drobností, které budeme ještě upravovat.
-Hrály jsme celkem asi hodinu, než jsme narazily na bug, který hru shodil.
+Hrály jsme celkem asi hodinu, než jsme narazily na chybu, kvůli které hra spadla.
 Zbytek setkání jsme tedy věnovaly tomu, abychom zjistily, co je špatně a jak to opravit :) 
-Zkoumáním error message jsme došly k tomu, že si naše hra neumí poradit s tím, když robot umře během provádění příkazu jednoho registru. 
+Zkoumáním chybové hlášky jsme došly k tomu, že si naše hra neumí poradit s tím, když robot umře během provádění příkazu jednoho registru. 
 Například má jít o tři políčka rovně, ale hned na prvním je díra - po prvním kroku tedy umře, ale hra nyní počítá s tím, že musí pohyb dokončit a chce robota přesunout na další koordináty, které se ale v okamžiku smrti nastaví na `None`. 
 Alespoň se tak domníváme. 
 Bohužel se nám nyní vykresluje naráz výsledek provedení všech tahů herního kola a nemáme ještě zpracovaný log, špatně se nám tedy zpětně rekonstruují pohyby robotů.
