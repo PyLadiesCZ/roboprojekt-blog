@@ -18,9 +18,9 @@ Je proto lepší texty psát tak, ze každá věta bude na jednom řádku.
 Máme s interface problém: pořád posílá serveru zprávy. 
 I když hráč potvrdí svůj výběr, při každém zmáčknutí jakékoli klávesy posílá serveru zprávu se svým stavem. 
 To se nám nelíbí a chceme to změnit. 
-Zde ale přichází na řadu aspekt, o němž jsme doposud vůbec neuvažovaly, tedy bezpečnost síťové komunikace.
+Zde ale přichází na řadu aspekt, o němž jsme doposud vůbec neuvažovaly, a to bezpečnost síťové komunikace.
 U komunikace server - klient chceme, aby server byl náš zdroj pravdy a byl ten prvek, který "šéfuje" všechno, co se k němu dostane. 
-Můžeme si představit, že se k našemu pythonnímu serveru někdo bude chtít napsat klienta v jiném programovacím jazyce (např. webového v JavaScriptu nebo ovladače robotů z 3D tiskárny).
+Můžeme si představit, že se k našemu pythonnímu serveru někdo bude chtít napsat jiného klienta (třeba v jiném programovacím jazyce, např. webového v JavaScriptu nebo ovladače robotů z 3D tiskárny).
 Kdyby k tomu někdo napsal falešného klienta, který umí vyměnit karty za jiné, pozměnit nějaké atributy hry, nebo poslat přímo škodlivé zprávy, náš server musí vědět, že na takovou zprávu nemá reagovat. 
 Pokud zpráva od klienta nebude dávat smysl, je lepší ji ošetřit na straně serveru. 
 Takže náš problém není ve skutečnosti, že chceme přestat posílat zprávy z klienta, ale v tom, že server už nemá v jisté chvíli zprávy přijímat. 
@@ -38,7 +38,7 @@ Potýkáme se čím dál víc s tím, že je náš kód už hodně složitý, m�
 
 ## Projekte, spusť se sám
 
-Během analýzy, jak spustit funkční hru, téměř hodinu jsme spouštěly: v jednom terminálu server, ve druhém receiver (obecenstvo), ve třetím interface, ve čtvrtém druhý interface (simulace hry dvou hráčů). 
+Během analýzy, jak spustit funkční hru, jsme téměř hodinu spouštěly: v jednom terminálu server, ve druhém receiver (obecenstvo), ve třetím interface, ve čtvrtém druhý interface (simulace hry dvou hráčů). 
 Je to úmorné, pokud to člověk musí dělat pořád dokola. 
 A jako všechno, i to lze trochu usnadnit. Klienty můžeme přepsat do importovatelné podoby. 
 Importovatelná podoba je taková, která nevyvolává vedlejší efekty. Pythonní soubory se čtou řádek po řádku a příkazy provádí i při importu do jiného modulu. 
@@ -62,11 +62,11 @@ Zde jsme narazily na problém s dekorátorem `@routes.get`, který po přepsán�
 Je to kus kódu, který zajišťuje, že se každý druh klienta připojí k metodě, která mu poskytne to, co potřebuje k vykreslení své části hry. 
 Každá "routa" má tedy nadefinovaný řetězec, kterým se obě strany propojí.
 Python nejprve čte "recept" na vytvoření třídy `Server` a až potom vytváří jeho konkrétní instanci. 
-Při čtení receptu ještě ale žádné `routes` nejsou (neexistuje konkrétní instance), a tak nám Python vynadá a nepovolí server pustit.
+Při čtení receptu ještě ale žádné `routes` nejsou (neexistuje konkrétní instance), a tak nám při použití `@routes.get` Python vynadá a nepovolí server pustit.
 
 Musíme ten kus kódu tedy rozepsat. 
 Podíváme se na dokumentaci k `aiohttp.web.Application().add_routes()`.
-Podle kapitoly [Resources and Resources](https://docs.aiohttp.org/en/latest/web_quickstart.html#resources-and-routes) předěláme naše _routy_ přímo do aplikace mimo samotnou třídu `Server`. 
+Podle kapitoly [Resources and Routes](https://docs.aiohttp.org/en/latest/web_quickstart.html#resources-and-routes) předěláme naše _routy_ přímo do aplikace mimo samotnou třídu `Server`. 
 
 ```python
 def get_app(argv=None):
