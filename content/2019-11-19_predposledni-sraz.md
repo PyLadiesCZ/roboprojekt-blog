@@ -16,7 +16,7 @@ return default if len(sys.argv) == 1 else sys.argv[1]
 
 Petr nám vysvětlil, že jde o specifický druh operátoru.
 Operátory můžeme dělit podle počtu operandů, se kterými pracují. 
-Běžne se i v kódu setkáváme s operátory __unární__, například -1, a __binární__ (1 + 1, 3 % 6, nebo True or False). 
+Běžne se i v kódu setkáváme s operátory __unární__, například `-1`, a __binární__ (`1 + 1`, `3 % 6`, nebo `True or False`). 
 Zde se jedná o __ternární operátor__, takovým se v Pythonu říká také podmíněné výrazy, __conditional expressions__. 
 V podstatě umožňují napsat podmínkovou if-else část kódu pouze na jeden řádek. 
 Vysvětleno například [zde](https://www.geeksforgeeks.org/ternary-operator-in-python/).
