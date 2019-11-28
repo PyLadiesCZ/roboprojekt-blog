@@ -43,7 +43,7 @@ Dá se tedy čekat, že se do vývoje zapojí i další lidé a Roboprojekt si t
 
 ### Poděkování na závěr
 
-Roboprojekt byl experiementální kurz.
+Roboprojekt byl experimentální kurz.
 Nikdo z nás na začátku netušil, kam se to celé vyvine a co nás všechno čeká.
 Ráda bych poděkovala Petrovi, že se rozhodl takový kurz vést, že to s námi vydržel tak dlouho, za to, kolik nás toho naučil a jakou s námi měl trpělivost.
 Poděkování patří také společnosti [Kinali](https://www.kinali.cz/cs/), která nám dovolila využívat tak dlouho jejich meetingovou místnost.
