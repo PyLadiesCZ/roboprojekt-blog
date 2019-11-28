@@ -7,7 +7,7 @@ Dnes se scházíme naposled.
 Čeká nás finální opravování zásadních chyb, které mohou ovlivnit aktuální hratelnost hry, chceme doladit nějaké drobnosti a především otestovat hru v maximálním možném počtu hráčů.
 Od minulého setkání prošla hra většími proměnami z hlediska grafiky a podařilo se vyřešit téměř všechno, co jsme si vytyčily pro úspěšné ukonční projektu.
 
-Na začátku jsme ještě doplily poslední důležitou věc, možnost nastavení nižšího počtu hráčů i v mapách pro více hráčů a pak už nic nebránilo testování hry.
+Na začátku jsme ještě doplnily poslední důležitou věc, možnost nastavení nižšího počtu hráčů i v mapách pro více hráčů a pak už nic nebránilo testování hry.
 
 
 Aby nás bylo co nejvíce, pozvaly jsme si i posilu a tak nás i dohromady s Petrem bylo sedm.
