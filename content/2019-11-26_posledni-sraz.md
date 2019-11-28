@@ -16,7 +16,7 @@ První byla v takto velkém počtu hráčů téměř nehratelná, ale byla to ve
 
 ![screenshot_hard](./images/screenshot_hard.png)
 
-Takováto mapa by byla obtížná i v menším počtu hráčů, ale v sedmi lidech na ní bylo prakticky nemožné vyhrát.
+Taková mapa by byla obtížná i v menším počtu hráčů, ale v sedmi lidech na ní bylo prakticky nemožné vyhrát.
 Přibližně po hodině hraní jsme vzdali pokusy dostat se dál než na čtvrtou vlajku a zvolili jednodušší mapu.
 
 ![screenshot_mid](./images/screenshot_mid.png)
