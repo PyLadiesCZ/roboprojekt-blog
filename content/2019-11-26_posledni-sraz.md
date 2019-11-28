@@ -11,7 +11,7 @@ Na začátku jsme ještě doplily poslední důležitou věc, možnost nastaven�
 
 
 Aby nás bylo co nejvíce, pozvaly jsme si i posilu a tak nás i dohromady s Petrem bylo sedm.
-Vtéto sestavě jsme vyzykoušeli dvě mapy.
+V této sestavě jsme vyzkoušeli dvě mapy.
 První byla v takto velkém počtu hráčů téměř nehratelná, ale byla to velká zábava (a velká řež).
 
 ![screenshot_hard](./images/screenshot_hard.png)
