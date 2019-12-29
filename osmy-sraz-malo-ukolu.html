@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Osmý sraz - Málo úkolů? - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Osmý sraz - Málo úkolů? - RoboProjekt">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:description" content="Osmý sraz - Málo úkolů? - RoboProjekt">
+        <meta property="og:image" content="./images/tiled.png">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Osmý sraz&nbsp;- Málo úkolů?</h1>
+        <p class="supressed">
+            <time datetime="2018-11-20T18:00:00+01:00" pubdate>11/20/18</time>
+            <br>
+            <a href="#about">Terezie Vahalová</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><p>Sraz začal tématem <strong>Máme málo úkolů</strong>. Takže se Petr trochu rozjel a začal psát jeden Issue za druhým.</p>
+<p>Problém je, že některé úkoly můžeme začít dělat, až po dodělání jiných. Na to nám v GitHubu založil štítek <strong>blocked</strong>.</p>
+<p>Veškerý další vývoj teď stojí na úkolu <strong>Předělat strukturu dat.</strong></p>
+<p>Aktuálně máme mapu vyřešenou ve slovnících po vrstvách. Ke každé souřadnici ve vrstvě mapy je přiděleno jedno políčko a to včetně prázdných políček. Vhodnější je ale zápis obrátit. Pro každou souřadnici vytvořit seznam všech políček, co na ni jsou a nepřidávat do seznamu prázdná políčka <code>board = {(x,y):[Tile, Tile, Tile],… }</code>. Po předělání struktury dat, se nám bude lépe určovat efekt políčka a nemusíme kvůli zjišťování všech efektů políčka procházet všechny vrstvy mapy.</p>
+<p><strong>Dopsat <code>__repr__</code> do tříd</strong></p>
+<p>Aktuálně se nám printované výstupy z funkcí zobrazují ve velice nehezkém formátu</p>
+<p><code>{(0, 11): [&lt;backend.Tile object at 0x7f10c49297f0&gt;],… }</code></p>
+<p>Aby byla práce příjemnější, je potřeba použít metodu <code>__repr__</code>, která nám převede výstupy z tříd do lidsky čitelného formátu.  </p>
+<p>Např. úprava:</p>
+<pre class="highlight"><code><span></span><span class="k">class</span> <span class="nc">Tile</span><span class="p">:</span>  
+<span class="o">...</span>  
+<span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+    <span class="k">return</span> <span class="s1">'&lt;Tile {} {}&gt;'</span><span class="o">.</span><span class="n">fomat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span> <span class="n">path</span><span class="p">)</span>
+</code></pre>
+
+
+<p>zformátuje původní slovník na: <code>{(0, 11): [&lt;Tile 0 ./img/squares/png/ground.png&gt;]</code></p>
+<p><strong>Efekty políček přidat do mapy jako "properties"</strong></p>
+<p>V Tiled je potřeba u každého obrázku, který mapa používá, nastavit typ políčka. Tato informace se nám pak přenese do jsonu a můžeme s ní dál pracovat.<br>
+Typ políčka nastavíme jako “ground”, “hole”,… u některých je potřeba ještě typ doplnit o další vlastnosti (Custom Properties) jako třeba u pásů, o kolik se posunou =&gt; int, u laserů počet a bool varianta pro start laserů, u otáčecího políčka směr…</p>
+<figure class="figure"><img alt="tiled" src="./images/tiled.png" class="figure-img img-fluid img-rounded"></figure>
+<p><strong>Validace mapy</strong></p>
+<p>U mapy potřebujeme zkontrolovat, že jsou všechny prvky správně umístěny nad sebou. Na mapě nemusí být vidět vše. Destrukční políčky by mohla být omylem schována pod jiná a efekt by se provel i když by nebyl na mapě “vidět”. Validační program/test potvrdí, že díry, lasery a ostatní efektní políčka jsou ve správném pořadí a budou na mapě vidět.</p>
+<p>V případě, že mapa správně nebude, program vyhodí chybu ideálně i se souřadnicí, kde je potřeba udělat opravu.</p>
+<p><strong>Udělat pohyb robota – metodu "Robot.posuň se" z diagramu</strong></p>
+<p>Úkolem je vymyslet metodu třídy Robot, která posune robota dopředu.
+Metoda by měla brát stav a vzdálenost a vytvořit nový stav. </p>
+<p><strong>Automaticky exportovat PNG obrázky</strong> </p>
+<p>Úkolem je udělat program, který při spuštění vygeneruje z svg obázků všechny png obrázky, které ještě nemáme. Tím si ulehčíme práci při přidávání dalších obrázků.</p>
+<p>Vzorový program pro jeden obrázek vypadá takto:</p>
+<pre class="highlight"><code><span></span>    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="kn">import</span> <span class="nn">subprocess</span>  
+    <span class="err">​</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+        <span class="p">[</span><span class="s1">'inkscape'</span><span class="p">,</span> <span class="s1">'img/robots_map/svg/MintBot.svg'</span><span class="p">,</span>
+         <span class="s1">'--export-png=ex.png'</span><span class="p">,</span> <span class="s1">'--export-area-page'</span><span class="p">],</span>
+        <span class="n">check</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre>
+
+
+<p>V příkazové řádce pak spustíme program:</p>
+<pre class="highlight"><code><span></span><span class="err">$</span><span class="n">inkscape</span> <span class="n">svg</span><span class="o">/</span><span class="n">MintBot</span><span class="p">.</span><span class="n">svg</span> <span class="c1">--export-png=ex.png --export-area-page</span>
+</code></pre>
+
+
+<p>Úkolů máme pro příští týden hodně a navíc ještě máme každá vymyslet a nakreslit grafické rozhraní pro hru.</p></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/osmy-sraz-malo-ukolu&amp;t=RoboProjekt%3A%20Osm%C3%BD%20sraz%20-%20M%C3%A1lo%20%C3%BAkol%C5%AF%3F" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/osmy-sraz-malo-ukolu&amp;text=RoboProjekt%3A%20Osm%C3%BD%20sraz%20-%20M%C3%A1lo%20%C3%BAkol%C5%AF%3F" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

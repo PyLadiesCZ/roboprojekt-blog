@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Pokračujeme se síťovou komunikací - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Pokračujeme se síťovou komunikací - RoboProjekt">
+        <meta name="twitter:card" content="summary">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Pokračujeme&nbsp;se síťovou komunikací</h1>
+        <p class="supressed">
+            <time datetime="2019-07-02T22:28:00+02:00" pubdate>07/02/19</time>
+            <br>
+            <a href="#about">Karolina Surma</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><p>Po dvoutýdenní pauze jsme se opět sešly nad komunikací server-klient. Krok po kroku připisujeme nové funkcionality. Náš server už umí poslat klientovi jemu přiřazeného robota a karty, ze kterých si klient vybírá 5 pro odehrání herního kola. Chybí nám odhazovací balíček: pokud serveru dojdou karty na rozdání dalšímu robotovi, měl by vzít všechny doposud odhozené karty a vytvořit z nich nový herní balíček. </p>
+<h2>Interface</h2>
+<p>Změnilo se pozadí - ve spodní části interface se nyní vykresluje tolik okének pozadí robotů, kolik bude na mapě hráčů. Ještě řešíme vykreslení avatarů samotných robotů, což určitě budeme mít před dalším srazem hotové.
+Klient také posílá serveru vybrané karty s informací, že skončil výběr, a zprávu, jestli hraje toto kolo (power down). Server tyto informace umí dekódovat a přeložit na příslušné atributy stavu hry.
+V dalších krocích naučíme klienta číst zprávu o stavu svého robota ze stavu hry (nyní klientovi posíláme separovaná data, aby si sám vytvořil robota).</p>
+<h2>Jména a indikátory</h2>
+<p>Přejmenovaly jsme roboty. Doposud nesli jména osob, které je nakreslily v Inkscape během prvních týdnů projektu. Nyní mají opravdu kybernetická pojmenování. A zde nás, po přejmenování desítek souborů a spoustě změn v kódu, zastavil Petr. Je totiž rozdíl mezi jménem - tím, které ukazujeme hráči navenek, hezky zformátovaným, s velkými písmeny atd., a indikátorem, s nímž pracujeme uvnitř svého programu a nepropagujeme dál k uživateli. Indikátory není vhodné měnit, jsou zapletené do funkcí programů a každá jejich změna vyžaduje řetězec dalších. Naopak jména jsou čistě jen na nás - herní logika je znát nemusí, patři pouze frontendu. Je to vhodné jak pro vlastní formátovaní jmen, tak pro např. jazykové mutace. A jak dát takové jméno robotovi? Pokud má náš robot poznávací indikátor <em>franta</em>, ale přejeme si ho zobrazovat pod jménem <em>Roy Batty</em>, můžeme vytvořit soubor <code>yaml</code> s název rovným indikátoru, a do těla napsat <code>name: Roy Batty</code>. Python v našem frontendu si jméno jednoduše přečte a vykreslí. </p>
+<h2>Alternativní pohled na server</h2>
+<p>Petr se před několika srazy zmínil, že on by svůj server navrhl jinak. Abychom si ale užily proces vymyšlení serveru a přidávání nových funkcí, hned nám neřekl, jak by tyto otázky řešil on. Jelikož jsme už poměrně daleko v implementaci (konec se blíží!), dnes jsme se dozvěděly, jak bychom to mohly řešit jinak.
+Pro komunikaci server - klient používáme asynchronní knihovnu AsyncIO. Ta v sobě obsahuje třídu <a href="https://docs.python.org/3/library/asyncio-queue.html">Queue</a>. Asynchronní fronta je z jedné strany otevřená pro vstup, z druhé strany pro výstup, což bychom mohly využít v situaci, když čekáme na informace od klientů. Server v podání Petra by měl zvlášť herní logiku a zvlášť síťovou komunikaci. Pokaždé, když by od klienta přišla nová zpráva na server (např. vybrané karty hráče), přidala by se do fronty, která by <em>se pošťouchla</em>, že může zpracovat další kus dat. Až by z fronty vypadly vybrané karty posledního hráče, provedl by se další kus herní logiky (např. herní kolo - efekty karet a políček). </p>
+<h2>Spojování slovníku</h2>
+<p>Nová vlastnost Pythonu - spojování slovníků. 
+Když máme dva slovníky:</p>
+<pre class="highlight"><code><span></span><span class="n">barvy</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"zelena"</span><span class="p">:</span> <span class="s2">"green"</span><span class="p">,</span> <span class="s2">"cervena"</span><span class="p">:</span> <span class="s2">"red"</span><span class="p">}</span>
+<span class="n">tvary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"kruh"</span><span class="p">:</span> <span class="s2">"circle"</span><span class="p">,</span> <span class="s2">"ctverec"</span><span class="p">:</span> <span class="s2">"square"</span><span class="p">}</span>
+</code></pre>
+
+
+<p>můžeme je postaru spojit dohromady tak, že vytvoříme nový slovník a následně ho aktualizujeme o dva slovníky:</p>
+<pre class="highlight"><code><span></span><span class="n">cze_eng</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">cze_eng</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">barvy</span><span class="p">)</span>
+<span class="n">cze_eng</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">tvary</span><span class="p">)</span>
+
+<span class="n">cze_eng</span>
+<span class="o">&gt;</span> <span class="p">{</span><span class="s2">"zelena"</span><span class="p">:</span> <span class="s2">"green"</span><span class="p">,</span> <span class="s2">"cervena"</span><span class="p">:</span> <span class="s2">"red"</span><span class="p">,</span> <span class="s2">"kruh"</span><span class="p">:</span> <span class="s2">"circle"</span><span class="p">,</span> <span class="s2">"ctverec"</span><span class="p">:</span> <span class="s2">"square"</span><span class="p">}</span>
+</code></pre>
+
+
+<p>Nově to lze udělat rychlé a jednoduše:</p>
+<pre class="highlight"><code><span></span><span class="n">cze_eng</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">barvy</span><span class="p">,</span> <span class="o">**</span><span class="n">tvary</span><span class="p">}</span>
+<span class="n">cze_eng</span>
+<span class="o">&gt;</span> <span class="p">{</span><span class="s2">"zelena"</span><span class="p">:</span> <span class="s2">"green"</span><span class="p">,</span> <span class="s2">"cervena"</span><span class="p">:</span> <span class="s2">"red"</span><span class="p">,</span> <span class="s2">"kruh"</span><span class="p">:</span> <span class="s2">"circle"</span><span class="p">,</span> <span class="s2">"ctverec"</span><span class="p">:</span> <span class="s2">"square"</span><span class="p">}</span>
+</code></pre></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/pokracujeme-se-sitovou-komunikaci&amp;t=RoboProjekt%3A%20Pokra%C4%8Dujeme%20se%20s%C3%AD%C5%A5ovou%20komunikac%C3%AD" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/pokracujeme-se-sitovou-komunikaci&amp;text=RoboProjekt%3A%20Pokra%C4%8Dujeme%20se%20s%C3%AD%C5%A5ovou%20komunikac%C3%AD" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

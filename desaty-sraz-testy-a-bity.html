@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Desátý sraz - testy a bity - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Desátý sraz - testy a bity - RoboProjekt">
+        <meta name="twitter:card" content="summary">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Desátý sraz&nbsp;- testy&nbsp;a bity</h1>
+        <p class="supressed">
+            <time datetime="2018-12-05T10:17:00+01:00" pubdate>12/05/18</time>
+            <br>
+            <a href="#about">Karolina Surma</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><h1>Úvod</h1>
+<p>Po období zvýšené projektové aktivity jsme se trochu nechaly ovlivnit počasím a přestaly sypat pull requesty jeden za druhým. Další sraz proto Terka začala krátkým zjišťovacím kolečkem, když jsme řekly, na čem jsme pracovaly a co nám momentálně dělá problém. Projekt se nám poslední dobou hodně rozrostl a všechny se potýkáme s tím, že i když tušíme, jak napsat novou vlastnost, vplést ji do stávajícího kódu je o dost těžší, než bylo na začátku. 
+Daly jsme se na rekapitulaci otevřených pull requestů na témata:
+- přidat načítání map jiné velikosti, než 12x12,
+- přidat třídu Rotace (přejmenovaná na Směr - Direction) - podrobně popsaná <a href="https://roboprojekt.pyladies.cz/par-slov-o-datovem-typu-enum">zde</a>,
+- napsat testy k jednotlivým funkcím v modulu backend,</p>
+<p>kde jsme dospěly k závěru, že cítíme blok k recenzování kódu kolegyň, když jsou změny složitější a nedokážeme vyhodnotit, zda použité metody jsou skutečně na správném místě. Zjistit, že program pořád funguje, není těžké. Vyhodnotit, zda změny dávají smysl v kontextu celého projektu - je. </p>
+<h1>K čemu vlastně potřebujeme testy?</h1>
+<p>Při procházení otevřených PR jsme se chvíli zdržely u tématu testování. Nejdřív jsme dostaly za úkol dopsat testy do každé funkce modulu backend, ale když už byly napsané, Petr poznamenal: </p>
+<blockquote>
+<p>Nestudoval jsem to detailně (to je na vás), ale všiml jsem si, že se tu přidává spousta chybějících testů, ale nemění se kód. To mi přijde trošku podezřelé.</p>
+</blockquote>
+<p>Nám zřejmě ne ;). Na srazu jsme si proto společně dali krátký pokec, jak vypadá smysluplné testování. 
+Například při tvoření nových metod většinou shora víme, čeho chceme dosáhnout:
+- pokud otočím robotem, bude směřovat na správnou světovou stranu, 
+- pokud vykreslím konkrétní mapu, na koordinátách (5, 5) bude skutečně v první vrstvě políčko <em>ground</em>,
+- pokud postavím roboty na start, budou skutečně přiřazení na startovací políčka. </p>
+<p>To znamená, že společně s vývojem vznikají dobré testovací scénáře, které stojí za to rovnou dopsat do testovacího balíku. Je dobré psát testy, i když náš kód ještě nefunguje, ale již víme, jak chceme, aby se používal. Tím si při dalších krocích vývoje zlehčíme práci: testy v určitou chvíli zezelenají, díky čemuž víme, že jsme dosáhly naplánované funkčnosti a můžeme se vrhnout na integraci nového a starého kódu.</p>
+<p>Člověk, jenž v danou chvíli přemýšlí o testech ke kódu, který byl už napsán někým jiným, může objevit nelogičnosti a najít lepší způsoby uspořádání dat. V tuto chvíli jeho úkol je tyto změny zanést i do testovaného kódu. </p>
+<p>Čeká nás tedy revize stávajících testů a případné úpravy. </p>
+<h1>Rychlý kuk na glosář pojmů</h1>
+<p>Kromě projektu na GitHubu si zvlášť udržujeme glosář pojmů s cílem sjednocení názvosloví a významu v kódu. Měl by reflektovat třídní diagram nakreslený v začátcích (česky) a stávající stav našich modulů (anglicky). Zároveň by měl poskytovat co nejpřesnější popis, co daný pojem v našem projektu znamená.
+Jako příklad nám Petr uvedl pojem <em>tile</em>, jehož definice nebyla ideální. Původně jsme měly:</p>
+<blockquote>
+<p><em>tile</em> - třída definující dlaždici pomocí otočení dlaždice (‘rotation’) a cestou k souboru s obrázkem dlaždice (‘path’)</p>
+</blockquote>
+<p>Po přepracování zní: </p>
+<blockquote>
+<p><em>tile</em> je konkrétní efekt políčka (např laser nebo pohyblivý pás) s konkrétním směrem otočení. Na jednom políčku mapy může být víc těchto efektů políčka. </p>
+</blockquote>
+<p>Další úkol je zapracovat na glosáři, aby definice co nejlépe odpovídaly pravdě. </p>
+<h1>Různé způsoby zápisu čísel</h1>
+<p>Téma poslední části srazu bylo mnou objednáno již před nějakou dobou. Do kódu jsme si přidaly po třetím srazu "magické formulky": </p>
+<pre class="highlight"><code><span></span><span class="o">&gt;&gt;&gt;</span><span class="n">cislo</span> <span class="o">=</span> <span class="mi">2684354562</span>
+<span class="o">&gt;&gt;&gt;</span><span class="nb">hex</span><span class="p">(</span><span class="n">cislo</span><span class="p">)</span>
+<span class="s1">'0xa0000002'</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">cislo</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFF</span> <span class="c1"># kouzelná formulka pro zjištění ID dlaždice</span>
+<span class="mi">2</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">cislo</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="mi">7</span><span class="p">)</span> <span class="c1"># kouzelná formulka pro zjištění otočení</span>
+<span class="mi">10</span>
+</code></pre>
+
+
+<p>Při pokusu o napsání testu na tuto část jsem zjistila, že když formulce nerozumím, nedokážu ani jednou větou popsat, co se v ní odehrává.
+Petr nám proto zařádil malé vyprávění o bitových operacích a číselných soustavách.</p>
+<p>Začalo to číslem <em>tři</em>. Číslo je <em>něco</em>, co můžeme <em>nějak</em> zapsat. Konkrétně trojku můžeme ukázat na prstech, napsat tři čárky, nebo použít arabskou číslici: 3. V každém z těchto případů se bavíme o stejné myšlenkové reprezentaci počtu. 
+V běžném životě používáme desítkovou soustavu, což znamená, že pokud před číslo 0 dáme na začátek 1, navýšily jsme ho o deset. Pokud přidáme další 1 před 10, navýšily jsme ho o deset desítek (sto), atd. Každé další číslo je další mocnina desítky. </p>
+<p>Počítače zase používají dvojkovou, neboli binární soustavu. Počítač zná dva stavy: buď něco (např. magnet, světlo, napětí) je, nebo není. K tomu mu stačí jen dva symboly: 0 a 1. Každé nové číslo postavené na začátek je další mocnina dvojky.</p>
+<p>Python umí pracovat s čísly zapsanými různými způsoby. Např. binární soustavu pozná podle <code>0b</code> na začátku výrazu. Pořád se ale jedná o stejnou hodnotu, porovnání stejných čísel ve dvojkové a desítkové soustavě je tedy vždy pravda.</p>
+<pre class="highlight"><code><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mb">0b010110</span> 
+<span class="mi">22</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">10</span><span class="o">+</span><span class="mi">12</span> 
+<span class="mi">22</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">10</span><span class="o">+</span><span class="mi">12</span> <span class="o">==</span> <span class="mb">0b010110</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">bin</span><span class="p">(</span><span class="mi">22</span><span class="p">)</span>
+<span class="s1">'0b010110'</span>
+</code></pre>
+
+
+<p>Počítače ukládají informace na určitých místech v paměti. Známe pojmy bit a bajt, kde bit je jeden takový znak (0 nebo 1), bajt - 8 znaků. V jednom bajtu, na osmi místech, můžeme zakódovat až 256 čísel (2<sup>8</sup>). </p>
+<pre class="highlight"><code><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mb">0b11111111</span>     <span class="c1"># maximální možná hodnota</span>
+<span class="mi">255</span>
+</code></pre>
+
+
+<p>Spousta věcí se dá zakódovat do 256 znaků. Podívejme se na znaky anglické abecedy, tzv. kódování ASCII: 6 bitů potřebuje na malou abecedu plus nějaké znaky kolem (čísla, závorky atd.), 1 bit pro zjištění, jestli písmenko je malé, nebo velké. 7 bitů stačí pro zapsání v podstatě celé standardní klávesnice, jak ji známe.</p>
+<p>Už 4 bajty jsou dostačující třeba na to, aby reprezentovaly barvu: červenou (R), zelenou (G) a modrou (B). Každá složka je osmibitové číslo (tedy 0 až 255), které tak nějak odpovídá tomu, kolik barev je schopné rozeznat lidské oko. Čtvrtý bajt se aktuálně nejvíc používá pro označení průhlednosti. 
+32 bitů je ale spousta jedniček a nul. Zde nám přichází vhod jiná soustava, postavená na šestnáctkách (2<sup>4</sup>). Jeden znak obsahuje stejnou informaci, jako 4 bity, s čímž se dá dobře pracovat. </p>
+<p>Pokud symboly <code>10</code> v hexadecimální soustavě znamenají <code>16</code> v desítkové, jak vyjádřit číslo 15? Šestnáctková soustava používá čísla 0-9 a dál: A, B, C, D, E, F. </p>
+<pre class="highlight"><code><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mh">0x10</span>
+<span class="mi">16</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">hex</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+<span class="mh">0x10</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mh">0xF</span>
+<span class="mi">15</span>
+</code></pre>
+
+
+<p>Kódy barev můžeme tedy buď uvádět v rozsahu 0-255 pro každou barevnou složku, nebo v hexadecimální soustavě, kde na dvou místech máme červenou, na dvou zelenou, na dvou modrou a na dvou posledních - průhlednost. </p>
+<p>A zde, u hexadecimální soustavy, se dostáváme k programu Tiled a způsobu, jakým zapisuje čísla. Používá totiž čtveřice bajtů na reprezentaci políčka ve vrstvě mapy: tři jsou číslo dlaždice, a jeden - rotace. </p>
+<p>Pokud si testovací dlaždici uložíme ve čtyřech různých směrech a podíváme na čísla, které nám uvede Tiled po exportu mapy do JSONu, budou vypadat pro lidské oko dost šíleně. Pokud je ovšem převedeme do hexadecimální soustavy, začnou dávat trochu smysl:</p>
+<pre class="highlight"><code><span></span><span class="o">&gt;&gt;&gt;</span><span class="n">cisla</span> <span class="o">=</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">2684354609</span><span class="p">,</span> <span class="mi">3221225521</span><span class="p">,</span> <span class="mi">16160612785</span>
+<span class="o">&gt;&gt;&gt;</span><span class="p">[</span><span class="nb">hex</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cisla</span><span class="p">]</span>
+<span class="p">[</span><span class="s1">'0x31'</span><span class="p">,</span> <span class="s1">'0xa0000031'</span><span class="p">,</span> <span class="s1">'0xc0000031'</span><span class="p">,</span> <span class="s1">'0x60000031'</span><span class="p">]</span>
+</code></pre>
+
+
+<p><code>000031</code> je číslo naši dlaždice, její ID (ony tři vyhrazené bajty).
+<code>00</code>, <code>a0</code>, <code>c0</code>, <code>60</code> je bajt s otočením. Jednotlivé bity skrývající se pod tímto označením mají speciální význam: jeden bit je na otočení ve vertikální ose, druhý - horizontální, třetí - transpozice. </p>
+<p>Existují způsoby, jak vzít konkrétní bity z nějakého čísla, slouží k tomu bitový operátor <code>&amp;</code> (AND). Mezi oběma čísly nad každým bitem proběhne logické vyhodnocení pravda/nepravda, které se promítne do výsledku: 
+- <code>1</code> neboli <em>pravda</em> je pouze tam, kde na obou místech porovnávaných čísel byla jednička.
+- <code>0</code> neboli <em>nepravda</em> pro všechny ostatní případy. 
+Jinými slovy, pokud v naší porovnávací operaci uvedeme na některé místo nulu, zaručíme si tím, že výsledek bude vyhodnocen jako nepravda.</p>
+<p>Pokud vím, že informace o rotaci dlaždice je na dvou prvních místech, můžu si nadefinovat takovou operaci, která mi vrátí pouze první číslice, zbytek ignoruje:</p>
+<pre class="highlight"><code><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">hex</span><span class="p">(</span><span class="mh">0x12345678</span> <span class="o">&amp;</span> <span class="mh">0xff000000</span><span class="p">)</span>
+<span class="s1">'0x12000000'</span>
+</code></pre>
+
+
+<p>Další věc, kterou s ním můžu udělat, je posunout si bity na některou stranu pomocí operátoru <code>&lt;&lt;</code> nebo <code>&gt;&gt;</code>. Pokud mě skutečně zajímají jen dvě první číslice, odstraním zbytek tak, že posunu výraz o 3 krát 8 bitů:</p>
+<pre class="highlight"><code><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">hex</span><span class="p">((</span><span class="mh">0x12345678</span> <span class="o">&amp;</span> <span class="mh">0xff000000</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="mi">8</span><span class="p">))</span>
+<span class="mh">0x12</span>
+</code></pre>
+
+
+<p>Byla to fascinující odbočka od Pythonu, ale musím říct, že mi magie teď nepřipadá ani o kousek méně magická :). </p></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/desaty-sraz-testy-a-bity&amp;t=RoboProjekt%3A%20Des%C3%A1t%C3%BD%20sraz%20-%20testy%20a%20bity" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/desaty-sraz-testy-a-bity&amp;text=RoboProjekt%3A%20Des%C3%A1t%C3%BD%20sraz%20-%20testy%20a%20bity" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

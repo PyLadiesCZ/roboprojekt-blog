@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Pár slov o datovém typu Enum - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Pár slov o datovém typu Enum - RoboProjekt">
+        <meta name="twitter:card" content="summary">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Pár slov&nbsp;o datovém typu Enum</h1>
+        <p class="supressed">
+            <time datetime="2018-12-04T20:48:00+01:00" pubdate>12/04/18</time>
+            <br>
+            <a href="#about">Karolina Surma</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><h1>Třída Direction - příklad implementace</h1>
+<p><em>(dřív zde na blogu pojmenovaná Rotation)</em></p>
+<p>Na dnešním srazu jsme řešily víc témat, z nichž jedno bylo použití třídy <strong>Direction</strong> datového typu Enum. Protože je to látka nová pro nás všechny na Roboprojektu, zde si podrobněji rozepíšeme, k čemu a jak třídu tohoto typu můžeme použít.</p>
+<p>Doposud byly v projektu třídy tři: <em>Robot</em>, <em>Tile</em> a <em>State</em>. Ta poslední obsahuje jak informace o mapě, tak o robotech a jejích koordinátách. Všechny byly napsány podle pravidel nám známých ze <a href="https://naucse.python.cz/course/pyladies/beginners/class/">začátečnického kurzu PyLadies</a>, to znamená, že můžeme (a měly bychom) vytvořit nové objekty dané třídy tak, že ho inicializujeme, např.:</p>
+<p><code>my_robot = Robot(&lt;direction&gt;, &lt;picture&gt;, &lt;coordinates&gt;)</code></p>
+<p>Mezi <code>&lt;&gt;</code>  výše se nachází příklady argumentů, které musíme dát objektu třídy <em>Robot</em>, aby se korektně objevil na mapě (tzn. vykreslil správný obrázek na správném místě mapy se zobáčkem nasměrovaným na sever/ jih/ západ/ východ). </p>
+<p>Třída <strong>Direction</strong> je ale jiná. Zde víme předem, kolik objektů této třídy bude ve hře: 4. Víme, že samotné objekty se nebudou měnit, ale je možné změnit směr robota nebo políčka na nový. Nebudeme inicializovat nové objekty této třídy, ale uložíme si naše směry jako konstanty. Z objektu takové třídy by se měly dát vyčíst různé informace dle tabulky obsažené v <a href="https://roboprojekt.pyladies.cz/devaty-sraz-upravujeme-navrhujeme">předchozím postu</a>. </p>
+<p>O třídě, která se zdá být vhodná pro řešení tohoto zadání, jsme se již před nějakou dobou bavily. Jedná se o datový typ Enum, importovaný na začátku pythonního souboru:</p>
+<pre class="highlight"><code><span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span> 
+
+    <span class="k">class</span> <span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">E</span> <span class="o">=</span> <span class="mi">90</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="mi">180</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="mi">270</span>
+</code></pre>
+
+
+<p>Pokud si tu třídu naimportujeme do konzole nebo vyzkoušíme .py soubor, můžeme k jejím objektům přistoupit velice jednoduše:</p>
+<pre class="highlight"><code><span></span><span class="k">print</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">0</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Direction</span><span class="p">(</span><span class="mi">180</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Direction</span><span class="o">.</span><span class="n">S</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">E</span> <span class="o">+</span> <span class="mi">90</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Direction</span><span class="o">.</span><span class="n">S</span>
+</code></pre>
+
+
+<p>K objektu takovéhle třídy se můžeme dostat jak skrz jeho <em>name</em> (N, E, S, W), tak <em>value</em> (0, 90, 180, 270). 
+Díky tomu můžeme jednoduchým sčítáním otočit robota a aktualizovat jeho směr (tzn. přiřadit mu nový objekt této třídy).</p>
+<p>K čemu je datový typ <em>Enum</em> dobrý? Jeho objekty jsou už uvnitř inicializované (nemusí se definovat metoda <code>__init__()</code>) a dostupné pro využití v dalším kódu. 
+O směru ale, jak jsme si psaly v tabulce, můžeme uvažovat na spoustu způsobů: 
+- světová strana
+- stupně otočení
+- kudy se posune náš objekt, pokud na něm uplatním metodu pohyb v Xové a Yové ose (delta koordinát) 
+- výčet (rozsah 0-3)</p>
+<p>Pro různé účely potřebujeme různé zápisy té stejné věci. Měly jsme si rozmyslet, které z výše uvedených informací informaci dáme třídě jako atribut, a které získáme metodou. Není jeden správný způsob, jak si tyto informace uložit. Mně se nelíbilo, že nové koordináty nebo výčet musím získat metodou, když hned při náhledu na objekt "vím", kam se nově posune. Udělala jsem tedy jinou fintu:</p>
+<pre class="highlight"><code><span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span> 
+
+<span class="k">class</span> <span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="mi">0</span>
+    <span class="n">E</span> <span class="o">=</span> <span class="mi">90</span><span class="p">,</span> <span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">1</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="mi">180</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">2</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="mi">270</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">3</span>
+</code></pre>
+
+
+<p>Stávající implementace všechny potřebné informace ukládá jako atributy, ke kterým můžou sahat další části programu:
+- stupně potřebujeme pro vykreslení objektů (robotů a políček) v pygletu
+- díky deltě koordinát můžeme vypočítat nové místo robota na mapě
+- mapy s políčky, které se exportují z programů Tiled, mají přidané "custom properties" - námi nadefinované vlastnosti, které pracují s integery.</p>
+<p>Tím pádem víme, co směr <strong>je</strong>, ale co má tedy <strong>umět</strong>? 
+Cíl byl jasný: pokud se robot, který směruje na západ, otočí o 90 stupňů, bude směrovat na sever. Zdá se: nic jednoduššího, než napsat na to metodu, kopírující chování, které jsme si vyzkoušely před chvílí v konzoli! </p>
+<pre class="highlight"><code><span></span>    <span class="k">def</span> <span class="nf">get_new_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">where_to</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">where_to</span> <span class="o">==</span> <span class="s2">"right"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Direction</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">90</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span><span class="p">)</span>
+        <span class="k">if</span> <span class="o">...</span>
+</code></pre>
+
+
+<p>Můj robotí příklad přeložen do Pythonu by měl znít takto:</p>
+<pre class="highlight"><code><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">Direction</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">get_new_direction</span><span class="p">(</span><span class="s2">"right"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Direction</span><span class="o">.</span><span class="n">N</span>
+</code></pre>
+
+
+<p>Jenže kód výše nefunguje. <em>Value</em> totiž teď není jen <code>270</code>, ale celá hodnotá - jakási trojice: <code>270, (-1, 0), 3</code>.</p>
+<p>V <a href="https://docs.python.org/3/library/enum.html#planet">dokumentaci Pythonu</a> se můžeme dočíst, že lze dát objektu typu Enum víc atributů, ale aby nebyly zapsané jako trojice, musíme přepsat metodu <code>__init__()</code> a atributy v ní rozbalit. </p>
+<pre class="highlight"><code><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">coordinates_delta</span><span class="p">,</span> <span class="n">tile_property</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">degrees</span> <span class="o">=</span> <span class="n">degrees</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coordinates_delta</span> <span class="o">=</span> <span class="n">coordinates_delta</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tile_property</span> <span class="o">=</span> <span class="n">tile_property</span>
+</code></pre>
+
+
+<p>Díky tomu, když vypíšeme:</p>
+<pre class="highlight"><code><span></span><span class="k">print</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">E</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">E</span><span class="o">.</span><span class="n">coordinates_delta</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">E</span><span class="o">.</span><span class="n">tile_property</span><span class="p">)</span>
+</code></pre>
+
+
+<p>Dostaneme:</p>
+<pre class="highlight"><code><span></span><span class="mi">90</span>
+<span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="mi">1</span>
+</code></pre>
+
+
+<p>Ale co naše metoda? Žádný atribut <em>value</em> nemáme, tak se přepíše na <code>self.degrees</code>, a můžeme slavnostně spustit testovací otočení. V tu chvíli by to všechno mělo vybuchnout velkou chybou:</p>
+<pre class="highlight"><code><span></span><span class="nv">Traceback</span> <span class="ss">(</span><span class="nv">most</span> <span class="nv">recent</span> <span class="k">call</span> <span class="nl">last</span><span class="ss">)</span>:
+  <span class="nv">File</span> <span class="s2">"</span><span class="s">numer.py</span><span class="s2">"</span>, <span class="nv">line</span> <span class="mi">38</span>, <span class="nv">in</span> <span class="o">&lt;</span><span class="nv">module</span><span class="o">&gt;</span>
+    <span class="nv">aa</span> <span class="o">=</span> <span class="nv">Direction</span>.<span class="nv">W</span>.<span class="nv">get_new_coordinates</span><span class="ss">(</span><span class="s2">"</span><span class="s">right</span><span class="s2">"</span><span class="ss">)</span>
+  <span class="nv">File</span> <span class="s2">"</span><span class="s">numer.py</span><span class="s2">"</span>, <span class="nv">line</span> <span class="mi">22</span>, <span class="nv">in</span> <span class="nv">rotate</span>
+    <span class="k">return</span> <span class="nv">Direction</span><span class="ss">((</span><span class="nv">self</span>.<span class="nv">degrees</span> <span class="o">+</span> <span class="mi">270</span><span class="ss">)</span> <span class="o">%</span> <span class="mi">360</span><span class="ss">)</span>
+  <span class="nv">File</span> <span class="s2">"</span><span class="s">/usr/lib/python3.6/enum.py</span><span class="s2">"</span>, <span class="nv">line</span> <span class="mi">293</span>, <span class="nv">in</span> <span class="nv">__call__</span>
+    <span class="k">return</span> <span class="nv">cls</span>.<span class="nv">__new__</span><span class="ss">(</span><span class="nv">cls</span>, <span class="nv">value</span><span class="ss">)</span>
+  <span class="nv">File</span> <span class="s2">"</span><span class="s">/usr/lib/python3.6/enum.py</span><span class="s2">"</span>, <span class="nv">line</span> <span class="mi">535</span>, <span class="nv">in</span> <span class="nv">__new__</span>
+    <span class="k">return</span> <span class="nv">cls</span>.<span class="nv">_missing_</span><span class="ss">(</span><span class="nv">value</span><span class="ss">)</span>
+  <span class="nv">File</span> <span class="s2">"</span><span class="s">/usr/lib/python3.6/enum.py</span><span class="s2">"</span>, <span class="nv">line</span> <span class="mi">548</span>, <span class="nv">in</span> <span class="nv">_missing_</span>
+    <span class="nv">raise</span> <span class="nv">ValueError</span><span class="ss">(</span><span class="s2">"</span><span class="s">%r is not a valid %s</span><span class="s2">"</span> <span class="o">%</span> <span class="ss">(</span><span class="nv">value</span>, <span class="nv">cls</span>.<span class="nv">__name__</span><span class="ss">))</span>
+<span class="nv">ValueError</span>: <span class="mi">0</span> <span class="nv">is</span> <span class="nv">not</span> <span class="nv">a</span> <span class="nv">valid</span> <span class="nv">Direction</span> 
+</code></pre>
+
+
+<p>Python totiž ví, že objekt třídy <strong>Direction</strong> nemůže mít jen jeden atribut - daly jsme mu až 3. Na druhou stranu, naši jednoduchou metodu na otočení nelze nyní napsat lépe, protože Python teď neví, jak zjistit, který objekt jeho třídy Direction má 0 stupňů, a následně mu přiřadit zbývající atributy tohoto konkrétního objektu. Uff.</p>
+<p>Řešení přinesl internet, a konkrétně <a href="http://xion.io/post/code/python-enums-are-ok.html">tento post</a>, kde přistál nápad na přepsání metody <code>__new__()</code>, aby vynutila chování, které potřebujeme pro vyřešení problému.</p>
+<pre class="highlight"><code><span></span> <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">coor_delta</span><span class="p">,</span> <span class="n">tile_property</span><span class="p">):</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">_value_</span> <span class="o">=</span> <span class="n">degrees</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">coor_delta</span> <span class="o">=</span> <span class="n">coor_delta</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">map_property</span> <span class="o">=</span> <span class="n">tile_property</span>
+        <span class="k">return</span> <span class="n">obj</span>
+</code></pre>
+
+
+<p>Díky této metodě atribut <em>value</em> jsou nyní stupně. Python ví, že pokud najde objekt třídy Direction, který má <em>value</em> 90, pak tento objekt má zároveň <em>deltu</em> (+1, 0) a <em>property</em>: 1. A to je přesně ono!
+Pokud nyní zavoláme naši metodu a otočíme objekt směřující na západ o 90 stupňů doprava, dostaneme objekt Direction.N, který bude mít správně přiřazené další atributy. </p>
+<h1>Metoda <code>__add__()</code></h1>
+<p>V jednom z commitů se našla metoda <code>__add__()</code> (nedostala se do finální verze, ale vzbudila náš zájem, tak ji nám Petr vysvětlil na srazu).
+Již známe speciální metodu <code>__init__()</code>, která umožňuje inicializovat nové objekty dané třídy. Podtržítka u <code>__add__()</code> naznačují, že se jedná o další speciální metodu.</p>
+<p>Můžeme si představit třídu Direction, která označí čtyři směry:</p>
+<pre class="highlight"><code><span></span><span class="k">class</span> <span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">FORWARD</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">RIGHT</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">BACK</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">LEFT</span> <span class="o">=</span> <span class="mi">3</span> 
+</code></pre>
+
+
+<p>Už víme, jak se můžeme dostat k jednotlivým informacím obsaženým v objektech takové třídy.</p>
+<pre class="highlight"><code><span></span><span class="k">print</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">BACK</span><span class="p">)</span>           <span class="c1"># Direction.BACK</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">BACK</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>     <span class="c1"># 2</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Direction</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>             <span class="c1"># Direction.BACK</span>
+</code></pre>
+
+
+<p>Občas se nám může hodit i jiná operace, např. sčítání. Pokud máme objekt směřující dolu a posuneme ho doleva, chceme se dostat do směru vpravo. 
+Můžeme se pokusit o standardní sčítání. Víme, že Python umí pracovat s čísly, pokud mu tak dáme jako argumenty integery, poradí si s nimi bez chyby:</p>
+<pre class="highlight"><code><span></span><span class="n">new_direction</span> <span class="o">=</span> <span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">BACK</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">%</span> <span class="mi">4</span>  <span class="c1"># 1</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Direction</span><span class="p">(</span><span class="n">new_direction</span><span class="p">))</span>                 <span class="c1"># Direction.RIGHT</span>
+</code></pre>
+
+
+<p>Ale jak Python ví, že má sečíst dvě hodnoty po obou stranách znaku plus? Všechno, co Python umí, v něm někdo naprogramoval. Základní operace tvoří balík standardních funkcí - to jsou ty, které se pak učíme na začátečnickém kurzu. Nemusíme Python znovu učit, jak má zacházet např. se základní matematikou, protože objekty třídy integer nebo float mají nadefinované metody, které to umí udělat. 
+V lekci o <a href="https://naucse.python.cz/course/pyladies/beginners/inheritance/">dědičnosti</a> jsme se učily, jak vytvářet podtřídy a přepisovat v nich metody nadtříd. Zde se jedná o stejný princip - pro naši třídu Direction můžeme pozměnit chování sčítání, aby si s ní dokázalo poradit.</p>
+<pre class="highlight"><code><span></span><span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Direction</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">%</span> <span class="mi">4</span><span class="p">)</span>
+</code></pre>
+
+
+<p>Říkáme touto metodou: </p>
+<blockquote>
+<p>Pythone, pokud dostaneš dva objekty třídy Direction, vezmi atribut
+<em>value</em> obou těchto objektů, sečti je, a vrať objekt třídy Direction, jehož <em>value</em> je zbytkem dělení provedeného součtu čtyřmi. </p>
+</blockquote>
+<p>Proč zbytek z dělení? Máme čtyři validní směry a chceme, aby se součet "přesypal" přes nulu, místo aby se dostal do hodnot nad 4.</p>
+<p>Když nyní zkusíme sečíst dva směry, dosáhneme stejného výsledku jako výše, při výrazné zvýšení čitelnosti zápisu. </p>
+<pre class="highlight"><code><span></span><span class="k">print</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">BACK</span> <span class="o">+</span> <span class="n">Direction</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>   <span class="c1"># Direction.RIGHT</span>
+</code></pre></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/par-slov-o-datovem-typu-enum&amp;t=RoboProjekt%3A%20P%C3%A1r%20slov%20o%20datov%C3%A9m%20typu%20Enum" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/par-slov-o-datovem-typu-enum&amp;text=RoboProjekt%3A%20P%C3%A1r%20slov%20o%20datov%C3%A9m%20typu%20Enum" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

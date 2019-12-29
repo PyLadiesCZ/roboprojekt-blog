@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Šestnáctý a sedmnáctý sraz - co máme a funguje - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Šestnáctý a sedmnáctý sraz - co máme a funguje - RoboProjekt">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:description" content="Šestnáctý a sedmnáctý sraz - co máme a funguje - RoboProjekt">
+        <meta property="og:image" content="./images/mapa.jpg">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Šestnáctý&nbsp;a sedmnáctý sraz&nbsp;-&nbsp;co máme&nbsp;a funguje</h1>
+        <p class="supressed">
+            <time datetime="2019-02-05T18:00:00+01:00" pubdate>02/05/19</time>
+            <br>
+            <a href="#about">Iveta Česalová</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><p>Tyto srazy byly opět v duchu velkého vysvětlování, co všechno již v kódu je a co funguje. Začaly jsme základními soubory jako je README.md a narazily na malé nedostatky. Je nutno doplnit informaci o automatickém exportu obrázků pomocí <code>export_img.py</code>. Dále je lepší změnit <code>python -m pip install pyglet</code> na <code>python -m pip install -r requirements.txt</code>, v případě doplnění dalších potřebných programů (momentálně je v souboru requirements.txt pouze pyglet).</p>
+<p>Hra se bude pouštět souborem <code>game.py</code>. V tomto souboru je nutno mít co nejméně kódu, který nejsme schopny testovat a bude spojovat všechny ostatní soubory dohromady. Je tam nyní pomocná funkce <code>def move_once(t)</code>, kterou je nutno odstranit. 
+A narazily jsme na zásadní věc, jak vlastně hra bude fungovat, jak zadat příkazy, aby se již dalo hrát. Je nutno propojit s interface. Drobná chybička je v souboru <code>interface_frontend.py</code>, protože spouští aplikaci, což by neměl, protože jinak nepůjde importovat. Takže <code>window = init_window()</code> a <code>pyglet.app.run()</code> přesunout do <code>game.py</code>, z kterého se pustí dvě okna.</p>
+<p>Pro zpřehlednění jsme vytvořily následující mapu, abychom věděly, která část kódu co obsahuje.</p>
+<figure class="figure"><a href="./images/mapa.jpg" target="_blank" title="mapa"><img alt="mapa" src="https://roboprojekt.pyladies.cz/images/thumbnails/mapa.jpg" class="figure-img img-fluid img-rounded"></a></figure>
+<h3>BACKEND.PY</h3>
+<p>Tady jsme narazily na problém ve třídě <code>Robot</code>, kdy v <code>def_walk</code> je problém, když robot couvá. </p>
+<pre class="highlight"><code><span></span><span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">Rotation</span><span class="o">.</span><span class="n">U_TURN</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">walk</span><span class="p">((</span><span class="o">-</span><span class="n">distance</span><span class="p">),</span> <span class="n">state</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">Rotation</span><span class="o">.</span><span class="n">U_TURN</span><span class="p">)</span>
+</code></pre>
+
+
+<p>V případě, že jde na sever nebo na jih, není problém. Ovšem pokud má jít na západ, je kód špatně. Je nutné ještě doplnit směr, kterým má jít.  V prvním kroku se otočí čelem vzad(<code>self.rotate(Rotation.U_TURN)</code>) tedy na jih, druhý krok popojde (<code>self.walk((-distance), state</code>) a při třetím kroku se opět otočí (<code>self.rotate(Rotation.U_TURN</code>) a kouká tedy na sever - viz obrázek. </p>
+<figure class="figure"><img alt="posun" src="./images/posun.jpg" class="figure-img img-fluid img-rounded"></figure>
+<p>Občas se nám objevuje duplicitní část kódu, například v metodách <code>def_walk</code>a <code>def_move</code>. Je tedy nutno vyřešit. Stejně tak máme v <code>def_apply_card_effect</code> dvakrát použitou podmínku <code>if_isinstance</code>, měli bychom na tuto část vytvořit metodu.</p>
+<h4>Třída Robot</h4>
+<p>V backendu ve vlastnostech robota se objevuje <code>self.path = path</code> a <code>self.path_front = path_front</code>. Jelikož se jedná o cestu k obrázkům, patří to do frontedu a pokud to chceme propojit, je vhodné místo toho robota pojmenovat.</p>
+<p>V metodě <code>def_inactive(self)</code> jsou jako souřadnice neaktivního robota použity <code>(-1, -1)</code> . Nedávají nikdy smysl jako čísla (x, y), nutno změnit na <code>None</code>, protože robot v té chvíli není na hrací ploše.</p>
+<p>Kód ve funkcích <code>def get_starting_coordinates(board)</code> a <code>def get_robot_paths()</code> obsahuje načítání obrázků, což má být ve frontendu, takže vyřešit pojmenováním robotů a políček. Bylo by hezké mít soubor (json) s informacemi o robotech, kteří jsou na začátku hry na výběr a jména robotů načítat z něj. <code>get_robot_paths()</code> se změní na <code>get_robot_names()</code>.</p>
+<h3>Třída Tile</h3>
+<p>Třída <code>Tile</code> a všechny její podtřídy je velice obsáhlá a je v souboru <code>util.py</code>. Bylo by více než vhodné vytvořit samostatný soubor <code>tile.py</code>. 
+Políčka (<code>Tile</code>) by měla jako <code>properties</code> dostat slovník jako např. <code>{'crossroads': True, 'direction': 90, 'count': 2}</code> a neměla by ignorovat jména vlastností.</p>
+<h3>FRONTEND.PY</h3>
+<p>Ve frontendu jsme stále nevyřešily načítání obrázků mimo funkci <code>def create_sprites</code>. Cyklus pro načítání obrázků dát na začátek kódu a v této funkci už na ně budeme odkazovat např. jménem (<code>tile_image</code>, <code>robot_image</code>). Nejtěžší bude vymyslet logiku s vracením jména.</p>
+<h3>INTERFACE.PY</h3>
+<p>Ve funkci <code>def switch_power_down</code> by se mohl následující kód zjednodušit.</p>
+<pre class="highlight"><code><span></span><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">indicator</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">power_down</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">power_down</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">power_down</span> <span class="o">=</span> <span class="bp">False</span>
+</code></pre>
+
+
+<p>Lze nahradit:
+<code>self.power_down = not self.power_down</code>
+Co dělá <code>not</code>? Když je hodnota <code>True</code>, vrátí <code>False</code> a obráceně.</p>
+<p>Jak uvažuje programátor? :-) Když separujem backend a frontend, je dobré se zamyslet, jak by se mohl frontend napsat zcela jinak, například zcela jednoduše jen v příkazové řádce. </p>
+<figure class="figure"><img alt="alternativni_frontend" src="./images/afrontend.jpg" class="figure-img img-fluid img-rounded"></figure>
+<p>Nejčastější chybou v celém kódu je pojmenování proměnných, jejichž název nesouhlasí přesně s tím, co dělá kód, nebo se liší od komentářů apod.</p>
+<ul>
+<li><code>tile_count</code> se mezi <code>get_start_state</code> a <code>State.__init__</code> přejmenuje na <code>sizes</code></li>
+<li><code>State.game_round</code> se podle pravidel řekne <code>register</code></li>
+<li>v kódu je <code>next_coordinates</code>, v komentáři "new coordinates“</li>
+<li><code>def_walk</code> - proměnná <code>robot_in_the_way = None</code> – je to číslo robota, ne robot</li>
+<li>v <code>util.py</code>- funkce se jmenuje <code>select_tile</code>, ovšem ona ho vybere a zároveň vytvoří</li>
+<li><code>def init_window</code> by se měla přejmenovat na <code>create_window</code></li>
+<li><code>def draw_board(state, window)</code> vykreslí stav, přejmenovat :-)</li>
+</ul></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/sestnacty_sedmnacty_sraz&amp;t=RoboProjekt%3A%20%C5%A0estn%C3%A1ct%C3%BD%20a%20sedmn%C3%A1ct%C3%BD%20sraz%20-%20co%20m%C3%A1me%20a%20funguje" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/sestnacty_sedmnacty_sraz&amp;text=RoboProjekt%3A%20%C5%A0estn%C3%A1ct%C3%BD%20a%20sedmn%C3%A1ct%C3%BD%20sraz%20-%20co%20m%C3%A1me%20a%20funguje" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

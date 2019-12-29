@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Vylepšování klientů, propojení Pygletu a asyncio - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Vylepšování klientů, propojení Pygletu a asyncio - RoboProjekt">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:description" content="Vylepšování klientů, propojení Pygletu a asyncio - RoboProjekt">
+        <meta property="og:image" content="./images/loops.jpg">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Vylepšování klientů, propojení Pygletu&nbsp;a asyncio</h1>
+        <p class="supressed">
+            <time datetime="2019-05-21T18:00:00+02:00" pubdate>05/21/19</time>
+            <br>
+            <a href="#about">Anežka Müller</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><h2><strong>init</strong>.py</h2>
+<p>Při zpracovávání testovacího frameworku jsme narazily na problém, kdy chceme spouštět testy z hlavního adresáře RoboProjektu, ale soubory s testy máme přesunuty do podsložky <code>tests</code>. 
+Po přesunutí do této složky začal pytest při spouštění testů hlásit chybu, kterou vyřešilo přidání prázdného souboru <code>__init__.py</code>. 
+Zajímala nás tedy magie za tím.
+Petr nám vysvětlil, že tento soubor udělá z daného adresáře pythonní modul. 
+Když používáme testy ze stejného adresáře, ze kterého je voláme, není tento soubor potřeba, protože dosáhneme na jednotlivé soubory, které importujeme jako moduly. </p>
+<h2>@classmethod</h2>
+<p>Při předělávání hry do podoby server - klient potřebujeme na straně klienta "dekódovat" data zaslaná serverem v podobě JSON souboru a vytvořit z nich stav hry, se kterým budeme moci dál pracovat. 
+Proto jsme vytvořily funkci <code>state_from_dict</code>, která umí vše potřebné vyextrahovat a vytvořit objekt třídy <code>State</code>. 
+Takové funkci se říká <em>factory</em>, protože vytváří nové objekty. 
+Je to alternativa metody <code>__init__</code>, jen vytváří objekt z jiných vstupů. 
+Funkce stála mimo danou třídu, což je malinko nepřehledné. 
+Petr nám proto ukázal, jak z ní udělat metodu dané třídy. 
+Problematické je zde <code>self</code>, které daná funkce nemůže brát jako argument, protože ještě žádné <code>self</code> neexistuje.
+Problém řeší použití třídní metody s dekorátorem <code>@classmethod</code>, která místo <code>self</code> bere jako argument <code>cls</code>, tedy třídu. 
+Je to metoda, která neumí pracovat na nějaké instanci dané třídy, ale pracuje přímo se třídou.
+Používá se často právě v případech, kdy existuje více možností, jak vytvořit objekt nějaké třídy. </p>
+<h2>Propojení Pygletu a asynchronních funkcí</h2>
+<p>Pyglet nepodporuje asynchronní programování, proto pro náš projekt potřebujeme zjistit, jak spojit tyto dvě věci dohromady. 
+Obě spouštěcí funkce, <code>pyglet.app.run()</code> i <code>asyncio.run()</code> spouští nějaké smyčky událostí zahrnující reakci na nějaký vstup.
+Koncept asynchronního programování je poměrně starý a dřívě existovala řada knihoven, které pracovaly se zpracováváním více úloh a čekáním na komunikaci po internetu a které mezi sebou nebyly kompatibilní, každá používala svoji konkrétní smyčku událostí. 
+Aby se do budoucna předešlo problémům, ustanovila se právě knihovna asyncio a stala se obecně používanou. 
+Jakákoliv knihovna, která chce komunikovat po internetu a umí zpracovávat asyncio smyčku, se dá použít s jakoukoliv jinou knihovnou, která umí asyncio. 
+Bohužel Pyglet mezi tyto knihovny zatím nepatří a asyncio neumí. 
+Čeho můžeme využít - asyncio čeká na nějakou událost a když ji zpracuje o chviličku později, nic zásadního se nestane. 
+Můžeme tedy říct Pygletu, aby např.třicetkrát za vteřinu spustil kousek asyncio smyčky.
+Pyglet tedy bude řídit to, kdy mohou běžet asynchronní operace. 
+Pro tuto implementaci bude potřeba použít něco trochu složitějšího než <code>asyncio.run()</code>, konkrétně pracovat s celými smyčkami událostí, které je třeba naplánovat a spustit. 
+Smyčku nadefinujeme pomocí <code>loop</code>, kde využijeme funkce <code>run_until_complete</code>, která zajistí, aby se smyčka událostí běžela, dokud neskončí úkol nadefinovaný jako argument této funkce. 
+Takto nadefinovaný úkol se naplánuje na poslední místo za všechny úkoly, které už čekají na zpracování. 
+Pro naplánování spuštění klienta pak použijeme funkci <code>ensure_future()</code>, kde se jako argument zadá funkce, kterou takto chceme spustit.
+Více o použitých funkcích najdeme v dokumentaci k asyncio o <a href="https://docs.python.org/3/library/asyncio-eventloop.html">smyčkách</a> a <a href="https://docs.python.org/3/library/asyncio-future.html">funkci <code>ensure_future</code></a>. 
+Kód pak může vypadat například takto:</p>
+<figure class="figure"><a href="./images/loops.jpg" target="_blank" title="loops"><img alt="loops" src="./images/loops.jpg" class="figure-img img-fluid img-rounded"></a></figure></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/dvacaty-sesty-sraz&amp;t=RoboProjekt%3A%20Vylep%C5%A1ov%C3%A1n%C3%AD%20klient%C5%AF%2C%20propojen%C3%AD%20Pygletu%20a%20asyncio" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/dvacaty-sesty-sraz&amp;text=RoboProjekt%3A%20Vylep%C5%A1ov%C3%A1n%C3%AD%20klient%C5%AF%2C%20propojen%C3%AD%20Pygletu%20a%20asyncio" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

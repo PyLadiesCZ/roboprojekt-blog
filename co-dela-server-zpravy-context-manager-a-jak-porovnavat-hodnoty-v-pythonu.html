@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Co dělá server: zprávy, context manager a jak porovnávat hodnoty v Pythonu - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Co dělá server: zprávy, context manager a jak porovnávat hodnoty v Pythonu - RoboProjekt">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:description" content="Co dělá server: zprávy, context manager a jak porovnávat hodnoty v Pythonu - RoboProjekt">
+        <meta property="og:image" content="./images/draft.JPG">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Co dělá server: zprávy, context manager&nbsp;a&nbsp;jak porovnávat hodnoty&nbsp;v Pythonu</h1>
+        <p class="supressed">
+            <time datetime="2019-06-11T18:00:00+02:00" pubdate>06/11/19</time>
+            <br>
+            <a href="#about">Karolina Surma</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><h2>is vs ==</h2>
+<p><code>==</code> je porovnání, které ověří hodnotu objektů, které jsou porovnávány.</p>
+<pre class="highlight"><code><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mf">1.0</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mf">1.0</span> <span class="o">==</span> <span class="bp">True</span>
+<span class="go">True</span>
+</code></pre>
+
+
+<p>U každého datového typu můžeme upravit chování porovnávání přepsáním speciální metody <code>__eq__</code>. Psaly jsme o tom post <a href="https://roboprojekt.pyladies.cz/dvacaty-sraz-testy">zde</a>.</p>
+<p>A <code>is</code> vyhodnotí, jestli je to tentýž, stejný objekt.
+Příklad níže se vyhodnotí jako nepravda, protože dva prázdné seznamy jsou dva různé objekty.</p>
+<pre class="highlight"><code><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[]</span> <span class="ow">is</span> <span class="p">[]</span>
+<span class="go">False</span>
+</code></pre>
+
+
+<p>Dva prázdné seznamy se sice rovnají, pokud je vyhodnotíme pomocí <code>==</code>, ale v budoucnosti tomu tak nemusí být:</p>
+<pre class="highlight"><code><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+<span class="go">False</span>
+</code></pre>
+
+
+<p>Zatímco <code>is</code> kontroluje, že je to úplně přesně to samé. </p>
+<pre class="highlight"><code><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mf">1.0</span> <span class="ow">is</span> <span class="mi">1</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="ow">is</span> <span class="mi">1</span> 
+<span class="go">True</span>
+</code></pre>
+
+
+<p>U posledního příkladu vzniká problém, protože u celých čísel se Python chová trochu nestandardně: nezáleží mu, jestli jde o tentýž objekt, nebo jiný objekt s hodnotou čísla 1.
+Navíc malá a velká čísla se chovají trochu jinak:</p>
+<pre class="highlight"><code><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="ow">is</span> <span class="n">b</span>
+<span class="go">True</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="ow">is</span> <span class="n">b</span>
+<span class="go">False</span>
+</code></pre>
+
+
+<p>U některých objektů proto <code>is</code> může být zrádné. U <code>True</code>, <code>False</code> a <code>None</code> tento problém není, protože nemůžeme vytvořit další objekt "True", vždy se jedná o stejnou instanci logické hodnoty.
+Když chceme vyhodnotit <em>bool</em> proměnnou jako podmínku, neměly bychom ale používat ani <code>==</code>, ani <code>is</code> - správný způsob, jak takovou podmínku napsat, je:</p>
+<pre class="highlight"><code><span></span><span class="k">if</span> <span class="n">hodnota</span><span class="p">:</span> <span class="c1"># místo "if hodnota is True"</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"Ha!"</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">hodnota</span><span class="p">:</span> <span class="c1"># místo "if hodnota is False"</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"Nene!"</span><span class="p">)</span>
+</code></pre>
+
+
+<p>U <code>None</code> je situace trochu jiná, zde opravdu chceme zjišťovat, jestli hodnotou atributu je <code>None</code>, nebo ne, takže:</p>
+<pre class="highlight"><code><span></span><span class="k">if</span> <span class="n">hodnota</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"Jsem prázdný"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">hodnota</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"Nejsem prázdný"</span><span class="p">)</span>
+</code></pre>
+
+
+<p><code>is</code> je trochu rychlejší a vyhodnocení podmínky tak trvá o něco méně, než v případě tradičního porovnávání.
+Jako zajímavost jsme se dozvěděly, že o <code>is</code> a <code>==</code> se točí v pythonním světě diskuze.
+Není to totiž triviální a začátečníci mívají problém s uchopením, kdy používat který způsob.</p>
+<h2>Třídy, víc tříd!</h2>
+<p>Naši klienti používají čím dál víc globálních proměnných. Některé věci, jako např. pygletí okno s hracím rozhraním, nastavujeme na začátku na <code>None</code> a plníme je postupně díky zprávám od serveru.
+Už bychom se měly zamyslet, jak klienty přepsat na třídy, kde tyto globální proměnné převedeme na atributy třídy, které budou k dispozici pro všechny metody. 
+Na názorné ukázce jsme se přesvědčily, že přepsání není hodně složité: atributy se přenesou do metody <code>__init__</code>, jako <em>self.atributy</em>, metodám dáme <code>self</code> jako první argument a předěláme bývalé globální proměnné v jejich tělech. 
+Další výhoda třídy oproti kódu, který doposud máme, je jednoduchost importování. 
+Můžeme takovou třídu <code>Interface()</code> naimportovat do jiného programu, např. nové hry, a budeme mít přístup ke všem jejím metodám pomocí jednoho řádku kódu: <code>from interface import Interface</code>.</p>
+<h2>Dva klienti - jeden server</h2>
+<p>V další části srazu jsme se podívali na <em>draft Pull Requestu</em>. 
+Během našeho psaní Roboprojektu Github přišel se zajímavou funkcí - nyní při vytváření PR můžu vybrat, jestli chci zpřístupnit svůj PR pro začlenění (považuji ho za finální), nebo na něm chci ještě pracovat (a merge není povolen).</p>
+<figure class="figure"><a href="./images/draft.JPG" target="_blank" title="draft"><img alt="draft" src="./images/draft.JPG" class="figure-img img-fluid img-rounded"></a></figure>
+<p>Potřebujeme donutit náš server, aby mluvil i s klientem, který vykresluje hrací plochu, i s hráčem. 
+Každému posílá společný stav hry, ale hráči pošle dodatečně informace o jeho robotovi a karty. 
+Hráč serveru navíc odpovídá zprávami s obsahem karet nebo o tom, zda hraje další kolo.
+Potřebujeme tedy rozlišit, aby server posílal každému jen informace, které mu patří. 
+No a jak se klienti při připojení "představí"? Vyřešily jsme to pomocí <code>route</code> dekorátoru, který určuje, na jaké adrese spolu budou server s klientem komunikovat. 
+Doposud jsme tam měly: <code>routes.get("/ws/")</code> a jednu funkci, která komunikovala s klienty. Nově rozlišujeme:</p>
+<pre class="highlight"><code><span></span><span class="nd">@routes.get</span><span class="p">(</span><span class="s2">"/interface/"</span><span class="p">)</span>
+<span class="nd">@routes.get</span><span class="p">(</span><span class="s2">"/receiver/"</span><span class="p">)</span>
+</code></pre>
+
+
+<p>Které dekorují zvláštní funkce: jednu pro plochu, druhou pro hráče.
+Každý klient má povolenou jednu - svou - cestu. </p>
+<p>Je to sice čisté řešení, každý komunikuje se serverem na <em>svém</em> kanálu, ale začal se nám opakovat kód: server musí v obou případech navázat spojení s klientem, přidat ho do seznamu klientů, a na konci bezpečně spojení ukončit vč. odstranění ze seznamu klientů. 
+Chceme tak ošetřit začátek a konec funkce, zatímco vnitřek je jiný.</p>
+<p>Na pomoc nám přijde <em>context manager</em>.</p>
+<h2>contextlib.contextmanager</h2>
+<p>Můžeme použit dekorátor z knihovny <code>contextlib</code>.
+Když nějaké funkci dáme dekorátor <code>contextmanager</code>, taková funkce se může použít s příkazem <code>with</code>. Příkaz <code>with</code> už známe například z <a href="https://naucse.python.cz/course/pyladies/beginners/files/">operací na souborech</a>. 
+Když otevřeme soubor s <code>with</code>, zajistíme si, že se v každém případě hezky uzavře, i kdyby náš program spadl v půlce běhu kvůli nějaké chybě. 
+Python nám umožňuje vytvářet vlastní context managery, kterým řekneme, co se má udělat před nějakým kouskem kódu a co po jeho doběhnutí.
+Můžeme je vytvořit několika způsoby. První je vytvořit třídu, která má dvě metody:</p>
+<pre class="highlight"><code><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Kontext</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s2">"začátek"</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="s2">"NĚCO"</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s2">"konec"</span><span class="p">)</span>
+<span class="gp">... </span>        
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Kontext</span><span class="p">()</span> <span class="k">as</span> <span class="n">neco</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">neco</span><span class="p">)</span>
+<span class="go">začátek</span>
+<span class="go">NĚCO</span>
+<span class="go">konec</span>
+</code></pre>
+
+
+<p>Na začátku se provede metoda <code>__enter__</code>, a na konci <code>with</code> bloku se provede <code>__exit__</code>.
+Důležité je, že i když uděláme chybu uprostřed své funkce, konec se vždy zavolá a vyčistí po nás prostředí. 
+Další věc, kterou umí dělat context manager, je to, že dokáže naši chybu chytit a předat ji nám na další zpracování.</p>
+<pre class="highlight"><code><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Kontext</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s2">"začátek"</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="s2">"NĚCO"</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_a</span><span class="p">,</span> <span class="n">exc</span><span class="p">,</span> <span class="n">_b</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s2">"konec"</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">exc</span><span class="p">))</span>
+<span class="gp">... </span>        
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Kontext</span><span class="p">()</span> <span class="k">as</span> <span class="n">neco</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">neco</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">()</span>
+</code></pre>
+
+
+<p>výsledek bude: </p>
+<pre class="highlight"><code><span></span><span class="n">začátek</span>
+<span class="n">NĚCO</span>
+<span class="n">konec</span> <span class="n">RuntimeError</span><span class="p">()</span>
+</code></pre>
+
+
+<p>Toto např. dělá <code>with pytest.raises</code>, o němž jsme se učily <a href="https://naucse.python.cz/course/pyladies/beginners/testing/">v začátečnickém kurzu</a> - podívá se, jestli chyba, která vznikla, je chyba, kterou očekáváme. Pokud ano - test prochází, pokud ne - Pytest vyvolá vlastní chybu a řekne nám o tom.</p>
+<p>Problém tohoto přístupu je, že je... dlouhý. Zde přichází na pomoc Pythonní <code>yield</code>. 
+Můžeme si napsat jednodušší context manager, který udělá totéž jako naše třída výše.</p>
+<pre class="highlight"><code><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@contextlib.contextmanager</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">kontext_funkce</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="s2">"začátek"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">yield</span> <span class="s2">"NĚCO"</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="s2">"konec"</span><span class="p">)</span>
+<span class="gp">... </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">kontext_funkce</span><span class="p">()</span> <span class="k">as</span> <span class="n">neco</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">neco</span><span class="p">)</span>
+</code></pre>
+
+
+<p>Dekorátor je tak chytrý kus kódu, udělá všechny ty kroky za nás.
+Zajímavé cvičení by bylo napsat tento dekorátor od začátku, my se ale spokojíme s tím, že už někdo napsal dekorátor připravený k využití.
+Dokonce můžeme vylepšit náš context manager a přidat odchycení své chyby:</p>
+<pre class="highlight"><code><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@contextlib.contextmanager</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">kontext_funkce</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="s2">"zacatek"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">yield</span> <span class="s2">"NĚCO"</span>
+<span class="gp">... </span>    <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s2">"oops"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="s2">"konec"</span><span class="p">)</span>
+<span class="gp">... </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">kontext_funkce</span><span class="p">()</span> <span class="k">as</span> <span class="n">neco</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">neco</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">()</span>
+<span class="go">zacatek</span>
+<span class="go">NĚCO</span>
+<span class="go">oops</span>
+<span class="go">konec</span>
+</code></pre>
+
+
+<p>Takový kontext využijeme pro náš server. Protože tvoříme hru s využitím asynchronní knihovny <code>asyncio</code>, náš dekorátor bude patřičně jiný: <code>@contextlib.asynccontextmanager</code></p>
+<h2>Zprávy server - klient</h2>
+<p>Zatím posíláme klientům zprávy jako stringy, kde prvních pár znaků je vždy stejných, např. "Robot: Bot123". Tyto zprávy máme překlopit na JSON, protože:</p>
+<ul>
+<li>jednoduše jdou překládat na pythonní slovníky</li>
+<li>nemusíme je následně složitě parsovat (kdokoli se pokoušel parsovat textové zprávy, ten ví, jak to bolí)
+Druhy zpráv můžeme od sebe oddělit tak, že vždy nastavíme na začátku stejný klíč, např "kind"="state", nebo "kind=robot" a podle toho naučit klienta na zprávy reagovat.</li>
+</ul>
+<p><strong>Finální struktura serveru</strong></p>
+<p>Polovinu srazu nám zabrala analýza návrhu fungování serveru. V rámci analýzy jsme se shodly na třech prvcích, ke kterým musí patřit veškerá funkčnost tohoto nástroje:</p>
+<ol>
+<li>Server dělá něco pro klienta, který se k němu právě připojil (pošle mu robota, první stav hry, první karty etc.)</li>
+<li>Server dostává zprávy od klienta a nějak s nimi nakládá (vybrané karty, nehraju dál, etc.)</li>
+<li>Server posílá aktualizovaný stav hry všem připojeným klientům.</li>
+</ol>
+<p>Na tomto základě postavíme celý náš server.</p></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/co-dela-server-zpravy-context-manager-a-jak-porovnavat-hodnoty-v-pythonu&amp;t=RoboProjekt%3A%20Co%20d%C4%9Bl%C3%A1%20server%3A%20zpr%C3%A1vy%2C%20context%20manager%20a%20jak%20porovn%C3%A1vat%20hodnoty%20v%20Pythonu" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/co-dela-server-zpravy-context-manager-a-jak-porovnavat-hodnoty-v-pythonu&amp;text=RoboProjekt%3A%20Co%20d%C4%9Bl%C3%A1%20server%3A%20zpr%C3%A1vy%2C%20context%20manager%20a%20jak%20porovn%C3%A1vat%20hodnoty%20v%20Pythonu" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

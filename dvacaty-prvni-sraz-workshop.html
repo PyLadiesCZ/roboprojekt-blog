@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Dvacátý první sraz - AsyncIO a WebSockets - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Dvacátý první sraz - AsyncIO a WebSockets - RoboProjekt">
+        <meta name="twitter:card" content="summary">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Dvacátý první sraz&nbsp;- AsyncIO&nbsp;a WebSockets</h1>
+        <p class="supressed">
+            <time datetime="2019-03-12T17:00:00+01:00" pubdate>03/12/19</time>
+            <br>
+            <a href="#about">Anežka Müller</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><p>Dnešní sraz byl malinko nestandardní. Protože jsme se v projektu posunuly do fáze, kdy už by bylo dobré začít pracovat na spojení jednotlivých částí naší hry dohromady a zařídit, aby mezi sebou komunikovaly, rozhod se Petr udělat pro nás workshop zaměřený na <strong>asynchronní programování</strong> a <strong>WebSockets</strong>. Protože jsou to témata, která nemusí být zajímavá jen pro nás z RoboProjektu, otevřel workshop i pro další zájemce a sešli jsme se všichni tentokrát v Red Hatu, abychom měli dostatek místa. </p>
+<p>V rámci čtyřhodinového setkání jsme si nejprve vysvětlili a na jednoduchém příkladu ukázali, co to znamená asynchronní programování a k čemu je dobré. Podívali jsme se blíže na knihovnu <a href="https://docs.python.org/3/library/asyncio.html">AsyncIO</a>, která umožňuje napsat kód tak, aby počítač dělal více věcí zároveň, respektive zařídit, aby během toho, kdy u jednoho úkolu počítač na něco čeká, pracoval na něčem jiném. Vysvětlili jsme si základní principy, jak s touto knihovnou pracovat, a zkusili i nějaké malé praktické ukázky. 
+Pro ty, koho by téma zajímalo hlouběji, k AsyncIO jsou dostupné podrobně zpracované materiály na stránkách <a href="https://naucse.python.cz/lessons/intro/async/">Nauč se Python</a>. 
+Petr také bude mít na letošním <a href="https://cz.pycon.org/2019/">PyCon CZ</a> přednášku o tom, jak vypadá AsyncIO uvnitř, jak uvnitř funguje. </p>
+<p>V druhé části workshopu jsme se zaměřili na WebSockets, což je protokol, který umožňuje  nepřetržitou obousměrnou komunikaci mezi serverem a klientem na portu HTTP. Použili jsme knihovnu <a href="https://aiohttp.readthedocs.io/en/stable/">aiohttp</a>, která umí pracovat s HTTP a WebSockets v rámci asynchronního paradigmatu, kterému jsme se věnovali v předchozí části. Pomocí této knihovny jsme si vytvořili jednoduchý server a klienta a nastavili mezi nimi vzájemnou komunikaci. Podklady k této části workshopu jsou dostupné na <a href="https://github.com/encukou/ws-chat">GithHubu</a> a v dokumentaci aiohttp najdeme i jednoduché návody na to, jak vytvořit <a href="https://docs.aiohttp.org/en/v3.0.1/web.html">server</a> i <a href="https://docs.aiohttp.org/en/v3.0.1/client.html#aiohttp-client">klienta</a>.</p>
+<p>Záznam celého workshopu najdete zde:
+<figure><iframe width="640" height="360" src="https://www.youtube.com/embed/0EdYPukCQHg" frameborder="0" autoplay encrypted-media picture-in-picture allowfullscreen></iframe></figure></p></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/dvacaty-prvni-sraz-workshop&amp;t=RoboProjekt%3A%20Dvac%C3%A1t%C3%BD%20prvn%C3%AD%20sraz%20-%20AsyncIO%20a%20WebSockets" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/dvacaty-prvni-sraz-workshop&amp;text=RoboProjekt%3A%20Dvac%C3%A1t%C3%BD%20prvn%C3%AD%20sraz%20-%20AsyncIO%20a%20WebSockets" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

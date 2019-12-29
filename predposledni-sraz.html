@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Předposlední sraz - Finishujeme! - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Předposlední sraz - Finishujeme! - RoboProjekt">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:description" content="Předposlední sraz - Finishujeme! - RoboProjekt">
+        <meta property="og:image" content="./images/screenshot_win.png">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Předposlední sraz&nbsp;- Finishujeme!</h1>
+        <p class="supressed">
+            <time datetime="2019-11-19T18:00:00+01:00" pubdate>11/19/19</time>
+            <br>
+            <a href="#about">Anežka Müller</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><p>Původně byl náš projektový kurz zamýšlený jako semestrální. 
+Ukázalo se, že to bude mnohem víc práce, než jsme si dovedly představit, takže se scházíme už déle než rok. 
+Abychom stanovily nějaký konec, dohodly jsem se, že Roboprojekt uzavřeme během listopadu. 
+Čekala nás tedy dvě poslední setkání na doladění a učesání aktuálního stavu.</p>
+<p>Při procházení posledních úprav jsme narazily na kus kódu, jehož zápisu většina z nás nerozuměla. </p>
+<pre class="highlight"><code><span></span><span class="k">return</span> <span class="n">default</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</code></pre>
+
+
+<p>Petr nám vysvětlil, že jde o specifický druh operátoru.
+Operátory můžeme dělit podle počtu operandů, se kterými pracují. 
+Běžne se i v kódu setkáváme s operátory <strong>unární</strong>, například <code>-1</code>, a <strong>binární</strong> (<code>1 + 1</code>, <code>3 % 6</code>, nebo <code>True or False</code>). 
+Zde se jedná o <strong>ternární operátor</strong>, takovým se v Pythonu říká také podmíněné výrazy, <strong>conditional expressions</strong>. 
+V podstatě umožňují napsat podmínkovou if-else část kódu pouze na jeden řádek. 
+Vysvětleno například <a href="https://www.geeksforgeeks.org/ternary-operator-in-python/">zde</a>.</p>
+<p>V našem případě jde tedy jen o jiný zápis</p>
+<pre class="highlight"><code><span></span><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">default</span>
+<span class="k">else</span><span class="p">:</span> 
+    <span class="k">return</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</code></pre>
+
+
+<p>Dobrá praxe ve sdílených projektech nicméně je používat zápis, který je srozumitelný většině. 
+Přestože jsme se tedy naučily něco nového, bylo by lepší použít druhou, běžnější variantu.</p>
+<h3>Věci k dořešení do budoucna</h3>
+<p>Sepsaly jsme do projektu několik věcí, které ještě nejsou v ideálním stavu, i bez nich je ale možné vypustit projekt do světa.
+Mezi takové patří složka s mapami, které jsou již vytvořené.
+Aktuálně jsou všechny ve stejném adresáři a je v nich trochu nepořádek.
+Stálo by za to mapy rozdělit do smysluplných celků, dát stranou testovací mapy a vlastně celkově mapy udělat hezčí, což vyžaduje nějakou práci s grafikou stávajícíh obrázků.</p>
+<p>Dalším bodem k řešení je odpojování a opětovné připojování klientů do hry. 
+V nyní navrženém řešení to nefunguje optimálně. 
+Když se klient odpojí a znovu připojí v aktuálně běžícím kole, může si znovu vybírat karty, i když už předtím potvrdil výběr. </p>
+<p>V budoucnu by také bylo dobré, aby se na serveru dalo hrát více her. 
+Variant je více, neklademe si ale ambice toto vyřešit do příštího, posledního setkání. </p>
+<h3>Game Log</h3>
+<p>Když jsme poprvé hru spustily tak, že se dala hrát, shodly jsme se, že by bylo fajn, aby byl na herní ploše znatelný průběh jednotlivých fází herního kola.
+Zatím se vše vyhodnocovalo zaráz a byl viditelný vždy jen konečný stav.
+Dohodly jsme se, že vytvoříme <strong>game log</strong>, což bude soupis jednotlivých kroků tak, jak se mají dít postupně v herním kole. 
+Potřebujeme ho, abychom byly schopny "animovat" pohyb na herní ploše, aby bylo viditelné, kam se roboti točí, hýbají apod.</p>
+<p>Podstatou řešení, které jsme dokončily za pomoci Petra na dnešním srazu, je to, že změny stavu hry vytvoří zmiňovaný game log, který budou dostávat višchni klienti. 
+Nebudou pokaždé dostávat celý log znovu, ale vždy jen tu část, která ještě nebyla poslaná. 
+Část logu, kterou dostanou, se pak bude krok po kroku zpracovávat, provádět a vykreslovat, čímž dojde k postupné "animaci" na herní ploše.
+Dokončení game logu nám zabralo skoro celý zbytech schůzky, ale nakonec bylo dosaženo vítězství! :)</p>
+<figure class="figure"><a href="./images/screenshot_win.png" target="_blank" title="screenshot_win"><img alt="screenshot_win" src="https://roboprojekt.pyladies.cz/images/thumbnails/screenshot_win.png" class="figure-img img-fluid img-rounded"></a></figure>
+<h3>Jak celý projekt uzavřeme?</h3>
+<p>Dohodly jsme se, že poslední schůzku budeme mít příští týden, a doladíme na ní věci nezbytné k tomu, aby byl projekt uveřejnitelný. 
+Jako oficiální závěr pak bude mít na listopadovém brněnském <a href="https://pyvo.cz/brno-pyvo/">Pyvu</a> Karolina krátkou přednášku o Roboprojektu z technického pohledu, o jeho budoucnosti a o tom, jak se do něj může kdokoliv zapojit. </p></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/predposledni-sraz&amp;t=RoboProjekt%3A%20P%C5%99edposledn%C3%AD%20sraz%20-%20Finishujeme%21" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/predposledni-sraz&amp;text=RoboProjekt%3A%20P%C5%99edposledn%C3%AD%20sraz%20-%20Finishujeme%21" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

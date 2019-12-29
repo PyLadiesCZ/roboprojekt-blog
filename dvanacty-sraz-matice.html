@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Dvanáctý sraz - matice - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Dvanáctý sraz - matice - RoboProjekt">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:description" content="Dvanáctý sraz - matice - RoboProjekt">
+        <meta property="og:image" content="./images/bile.jpg">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Dvanáctý sraz&nbsp;- matice</h1>
+        <p class="supressed">
+            <time datetime="2018-12-18T18:00:00+01:00" pubdate>12/18/18</time>
+            <br>
+            <a href="#about">Iveta Česalová</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><p>Po počátečním zmatku, kdy si Petr zapomněl svůj počítač, jsme poslední sraz roku zahájily opět rekapitulací, co kdo dělal. Doposud byla hra rozdělena na čtyři moduly – backend, frontend, game a testy. Nyní je v backendu pouze třída Robot, State a funkce pro načtení souřadnic, cesty k robotům, počtu políček a počáteční stav hry.</p>
+<p>V repozitáři přibylo několik souborů. Loading.py obsahuje funkce, které kompletně načtou mapu se všemi potřebnými komponenty a vlastnostmi a soubor Util.py zase třídy Tile a Direction. Soubor Validator.py kontroluje, zda je mapa správně vytvořena.</p>
+<h4>Kouzelné podtržítko</h4>
+<p>Pokud chceme, aby někdo ve zbytku kódu nepoužíval konkrétní proměnnou (slovník, seznam...), dáme před ni podtržítko, jako např u <code>_board</code>. Značí věci, které jsou pro nějakou třídu interní a ten, kdo nemá dobrý důvod pracovat s vnitřnostmi určité třídy, měl by použít něco jiného. Podtržítkem říkám – vyhrazuji si právo cokoli změnit.</p>
+<pre class="highlight"><code><span></span><span class="k">class</span> <span class="nc">State</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">robots</span><span class="p">,</span> <span class="n">sizes</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_board</span> <span class="o">=</span> <span class="n">board</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">robots</span> <span class="o">=</span> <span class="n">robots</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sizes</span> <span class="o">=</span> <span class="n">sizes</span>
+</code></pre>
+
+
+<h4>Nekombinovat více knihoven</h4>
+<p>Není dobré v kódu kombinovat více knihoven, když lze použít jen jednu :-) Konkrétně v souboru export_img.py, který nám automaticky převádí soubory SVG do PNG formátu jsou použity knihovny <em>os</em> a <em>subprocess</em>, tvorba adresáře příkazem <code>os.mkdir()</code> lze nahradit <code>Path.mkdir()</code> a není potřeba importovat os.</p>
+<h4>Matice</h4>
+<p>Velkým tématem srazu byly <strong>MATICE</strong>. Řešíme totiž problém ohledně změny velikosti obrazovky a aby se mapa správně měnila. Matice je schéma čísel či matematických objektů, používají se na transformaci grafiky.</p>
+<p><strong>Druhy transformace</strong>: posun, zvětšení, rotace, zkosení, zrcadlení.</p>
+<p><em>Maticové násobení</em> – transformace se zkombinují.</p>
+<p>Máme obrázek o souřadnicích x, y a vynásobím je maticí, která reprezentuje posun či jinou transformaci. „z“ bude vždy 1.
+Petr nám to vysvětloval na dvou čtvercích, skládajících se z koleček. Bílá kolečka jsou původní, modrá transformované pomocí matice. Matici můžu v kódu jednoduše měnit.
+Jednoduchý návod k nalezení <a href="https://en.wikipedia.org/wiki/Transformation_matrix#/media/File:2D_affine_transformation_matrix.svg">zde</a>.</p>
+<p>Původní matice a výpis bílých koleček:</p>
+<figure class="figure"><a href="./images/bile.jpg" target="_blank" title="bile"><img alt="bile" src="./images/bile.jpg" class="figure-img img-fluid img-rounded"></a></figure>
+<p><strong>Transformace</strong></p>
+<figure class="figure"><a href="./images/transformace.jpg" target="_blank" title="transformace"><img alt="transformace" src="./images/transformace.jpg" class="figure-img img-fluid img-rounded"></a></figure>
+<h4>Pyglet a knihovna OpenGL, aneb jak nastavit transformační matici pro celou scénu.</h4>
+<p>Pomocí funkce <code>pyglet.gl.glPushMatrix()</code> řeknu – zapamatuj si počáteční stav. Naopak na konci <code>pyglet.gl.glPopMatrix()</code> vrátí do původního stavu. Mezitím můžu upravovat transformační matici dle potřeby.</p>
+<p>Mezi základnější funkce patří:</p>
+<p><code>pyglet.gl.glTranslatef()</code> – posun</p>
+<p><code>pyglet.gl.glRotate()</code> – rotace</p>
+<p><code>pyglet.gl.glScale()</code> - změna měřítka</p>
+<figure class="figure"><a href="./images/gl.jpg" target="_blank" title="gl"><img alt="gl" src="./images/gl.jpg" class="figure-img img-fluid img-rounded"></a></figure>
+<p>A jak vyřešit potřebnou změnu velikosti obrazovky? Pomocí <code>pyglet.gl.glScalef()</code></p>
+<pre class="highlight"><code><span></span><span class="nd">@window.event</span>
+<span class="k">def</span> <span class="nf">on_draw</span><span class="p">():</span>
+    <span class="n">window</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="n">pyglet</span><span class="o">.</span><span class="n">gl</span><span class="o">.</span><span class="n">glPushMatrix</span><span class="p">()</span>
+    <span class="n">zoom</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
+        <span class="n">window</span><span class="o">.</span><span class="n">height</span><span class="o">/</span><span class="mi">200</span><span class="p">,</span>
+        <span class="n">window</span><span class="o">.</span><span class="n">width</span><span class="o">/</span><span class="mi">200</span>
+    <span class="p">)</span>
+    <span class="n">pyglet</span><span class="o">.</span><span class="n">gl</span><span class="o">.</span><span class="n">glScalef</span><span class="p">(</span><span class="n">zoom</span><span class="p">,</span> <span class="n">zoom</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">sprite</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+            <span class="n">sprite</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+            <span class="n">sprite</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</code></pre>
+
+
+<figure class="figure"><img alt="zoom" src="./images/zoom.jpg" class="figure-img img-fluid img-rounded"></figure>
+<p>Na začátku kurzu jsme plánovaly jeho trvání do konce prosince, ovšem bylo to přehnaně optimistické. V dalším roce nás bude o něco méně a pravděpodobně se nebudeme scházet každý týden, takže nečekejte pravidelný blog :-)</p></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/dvanacty-sraz-matice&amp;t=RoboProjekt%3A%20Dvan%C3%A1ct%C3%BD%20sraz%20-%20matice" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/dvanacty-sraz-matice&amp;text=RoboProjekt%3A%20Dvan%C3%A1ct%C3%BD%20sraz%20-%20matice" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

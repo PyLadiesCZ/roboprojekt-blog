@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Pátý sraz - první důležité úkoly - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Pátý sraz - první důležité úkoly - RoboProjekt">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:description" content="Pátý sraz - první důležité úkoly - RoboProjekt">
+        <meta property="og:image" content="./images/moduly.jpg">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Pátý sraz&nbsp;- první důležité úkoly</h1>
+        <p class="supressed">
+            <time datetime="2018-10-30T18:00:00+01:00" pubdate>10/30/18</time>
+            <br>
+            <a href="#about">Iveta Česalová</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><p>Z předminulé hodiny s Petrem jsme měly za úkol vytvořit slovník políček (STAV = slovník políček klíč: (x, y) hodnota: seznam efektů) a vykreslit v Pygletu mapu s jednou vrstvou bez otáčení prvků. Jelikož spousta z nás s tím měla problémy, probrali jsme na začátku srazu krok po kroku jak na to.
+Na githubu byly nahrané dvě verze kódu, od Terky a Karoliny, které úkol zvládly. Zvolili jsme ponechat <a href="https://github.com/PyLadiesCZ/roboprojekt/blob/35a98aa967386d82a4dbca23a0ade65cc8b96767/karolina_state.py">Karolinin kód</a>.
+Postupně jsme procházely, co je v kódu a Petr zmínil, co je třeba opravit (sjednotit terminologii, pojmenování proměnných, správně přeložit do angličtiny, stejně jako komentáře…)</p>
+<p>A nastala otázka - Co dál? Jak si rozdělíme úkoly?</p>
+<ul>
+<li>Načíst mapu s více vrstvami</li>
+<li>Načíst mapu s otočenými políčky</li>
+<li>Napsat testy</li>
+<li>Celý dosavadní kód rozdělit na jednotlivé funkce</li>
+<li>Popisek základního repozitáře v Githubu</li>
+</ul>
+<p>Důležitou věcí, jak pokračovat v našem projektu je jeho rozdělení na 4 moduly:
+<strong>Backend</strong> – načte mapu, tedy náš slovník Stav, <strong>Frontend</strong> – vykreslí mapu, <strong>Game</strong> – spustí hru, <strong>Testy</strong> – vyzkouší, jestli funguje, co je v backendu.
+Až budou tyto moduly hotové, smažeme původní script  kde je celý kód.</p>
+<figure class="figure"><img alt="moduly" src="./images/moduly.jpg" class="figure-img img-fluid img-rounded"></figure>
+<p>V další části jsme se naučily něco nového, využití knihoven <strong>enum</strong> a <strong>dataclasses</strong>. Kdo neměl nainstalované, použil v příkazovém řádku následující příkazy:
+<code>python -m pip install dataclasses</code>
+<code>python -m pip install enum</code></p>
+<p>Tyto knihovny nám umožní jednodušeji psát výčtové typy a datové třídy. Kdo nezná třídy, zopakuje si ze začátečnického kurzu <a href="https://naucse.python.cz/course/pyladies/sessions/class/">Třídy</a></p>
+<p>Poté jsme v editoru vytvořily nový soubor – demo.py kde máme třídu Direction, která dědí z výčtového typu enum.Enum. Definovaly jsme si funkci, která vyhodnotí směr (nejdřív se sečtou hodnoty a zbytek po dělení 4 =&gt; získáme směr).</p>
+<figure class="figure"><img alt="demo" src="./images/demo.jpg" class="figure-img img-fluid img-rounded"></figure>
+<p>Dále následovalo vysvětlování modulu <strong>dataclasses</strong>. Tento modul poskytuje dekorátor a funkce pro automatické přidávání generovaných speciálních metod, jako jsou <code>__init__()</code> a <code>__repr__()</code> do uživatelsky definovaných tříd. 
+Vytvořily jsme si soubor demo_dataclasses.py, kde máme třídu datového typu. Karta má jednotlivé vlastnosti (prioritu, efekt) určitého typu.
+Více informací o dataclasses <a href="https://docs.python.org/3/library/dataclasses.html">zde</a>
+Nevím, jak to pochopily ostatní, ale asi nám to Petr ještě dovysvětlí, k čemu to přesně slouží :-)</p>
+<figure class="figure"><img alt="dataclasses" src="./images/dataclasses.jpg" class="figure-img img-fluid img-rounded"></figure>
+<p>Do příště máme každá svůj úkol, rozdělení máme na githubu v záložce Issues.</p></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/paty-sraz-enum-dataclasses&amp;t=RoboProjekt%3A%20P%C3%A1t%C3%BD%20sraz%20-%20prvn%C3%AD%20d%C5%AFle%C5%BEit%C3%A9%20%C3%BAkoly" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/paty-sraz-enum-dataclasses&amp;text=RoboProjekt%3A%20P%C3%A1t%C3%BD%20sraz%20-%20prvn%C3%AD%20d%C5%AFle%C5%BEit%C3%A9%20%C3%BAkoly" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

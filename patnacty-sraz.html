@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Patnáctý sraz - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Patnáctý sraz - RoboProjekt">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:description" content="Patnáctý sraz - RoboProjekt">
+        <meta property="og:image" content="./images/hvezdicka.png">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Patnáctý sraz</h1>
+        <p class="supressed">
+            <time datetime="2019-01-22T18:00:00+01:00" pubdate>01/22/19</time>
+            <br>
+            <a href="#about">Anežka Müller</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><p>Tentokrát v kompletní sestavě. Na začátku jsme se shodly, že pro lepší porozumění tomu, kam se ve vývoji ubíráme, by stálo za to sepsat, jak má vlastně probíhat herní kolo, jaké kroky na sebe mají navazovat a co bude výsledkem. Ne konkrétně, jaké procesy se dějí na pozadí, skutečně jen jednotlivé fáze herního kola tak, jak by měly jít po sobě. Přestože jsme hru hrály a každá z nás měla představu, jak by hra měla probíhat, i toto jednoduché cvičení nám ukázalo, že některé věci nejsou napsané tak, jak by měly.</p>
+<p>Řešily jsme také, že jednotlivé fáze hry, kdy roboti něco dělají, se ve hře jako takové musí dělat pomaleji, aby byly zaznamenatelné pohledem na herní plochu, případně aby hru provázel i textový zápis, co se děje. Ten by měl být součástí interaktivního rozhraní a měl by se objevit místo karet, ze kterých se vybírá program do jednotlivých registrů.</p>
+<p>Dohodly jsme se, jak budeme postupovat, pokud robot ve hře ztratí všechny 3 životy. Vzhledem k tomu, že se to může ve hře stát poměrně rychle, přišlo nám škoda, aby daný hráč už nemohl hrát. Robot se tedy nevyřadí ze hry, ale pokaždé, když by měl ztratit další život, dostane permanentně jedno zranění, které nelze vyléčit.</p>
+<p>Po úvodním ujasňování průběhu hry jsme se dostaly ke kódu. Karolina upozornila na některé řádky, které se v kódu několikrát (v některém případě hodněkrát) opakují. Zbavit se jich můžeme tím, že z nich uděláme funkce a pomocí zkratek, které nás Petr naučil v předchozích lekcích, můžeme i dané funkce znatelně zjednodušit. Například funkce</p>
+<pre class="highlight"><code><span></span><span class="k">def</span> <span class="nf">get_active_robots</span><span class="p">():</span>
+    <span class="n">active_robots</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">robot</span> <span class="ow">in</span> <span class="n">robots</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">robot</span><span class="o">.</span><span class="n">is_alive</span><span class="p">():</span>
+            <span class="n">active_robots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">robot</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">active_robots</span>
+</code></pre>
+
+
+<p>může vypadat i takhle:</p>
+<pre class="highlight"><code><span></span><span class="k">def</span> <span class="nf">get_active_robots</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">robot</span> <span class="k">for</span> <span class="n">robot</span> <span class="ow">in</span> <span class="n">robots</span> <span class="k">if</span> <span class="n">robot</span><span class="o">.</span><span class="n">is_alive</span><span class="p">()]</span>
+</code></pre>
+
+
+<p><strong>Co kam a odkud?</strong></p>
+<p>Kód naší hry je poměrně komplexní, jednotlivé části jsou spolu úzce provázané a občas není úplně jasné, kam by který kus kódu měl patřit a kde by se na něj mělo odkazovat, aby to zbytečně nekomplikovalo další vývoj. Například některá z metod políčka používá na provedení svého efektu metodu robota, která něco s robotem udělá, nevyužívá na to přímo některou z metod políčka. Dostaly jsme ohledně tohoto problému dvě rady. První je jednoduchá - říct si nahlas, jak se metoda jmenuje a co dělá. Na příkladu zabití robota - políčko umí sice robota zabít (<code>kill_robot()</code>), ale potřebuje si na to zavolat metodu robota, který sám ví, jak umřít (<code>robot.die()</code>). Políčko neví, jakým způsobem robot umí umřít, jde o implementační detail, který by měl být definován na jednom místě. Druhá rada říká, abychom psaly metody v kódu tak, aby bylo vždy co nejjednodušší přidat další prvek dané třídy. Ideální je zachovat funkčnost třídy na jednom místě. Tedy například všechna funkcionalita políček by měla být nadefinována v třídě políčka, aby se jednoduše dal přidat další typ. </p>
+<p><strong>Dekorátor property</strong></p>
+<p>Python na rozdíl od jiných jazyků umí pracovat s atributy tak, aby se daly vypočítat. O to se stará dekorátor <code>property</code>. Atribut pak můžeme napsat jako metodu a dáme-li jí tento dekorátor, Python ji bude brát jako atribut. Nemusíme ji volat, přistoupíme k ní jako k atributu a provede se akce definovaná metodou. Tento atribut je ale pouze ke čtení. Chceme-li ho změnit nebo nastavit, musíme použít setter, ve kterém metodu nadefinujeme znova. </p>
+<pre class="highlight"><code><span></span><span class="k">class</span> <span class="nc">Robot</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">Self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="n">Self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span>
+
+    <span class="nd">@position.setter</span>
+    <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">new_value</span>
+</code></pre>
+
+
+<p><strong>Co ještě umí hvězdička?</strong></p>
+<p>Na <a href="https://roboprojekt.pyladies.cz/jedenacty-sraz">jedenáctém srazu</a> jsme se naučily, že v pokud na určité místo v pythonním kódu dám hvězdičku, dějí se věci. Zatím víme, že hvězdička umí označit nějakou sekvenci kódu a určit tím, že se budou používat jednotlivé prvky dané skevence. 
+Hvězdička ale umí i jinou magii. Pokud ji použijeme v definici funkce, umí si vynutit pojmenovaný argument. 
+Na příkladu níže to tak znamená, že pokud se přidá do metody <code>walk</code> jakýkoliv další argument za hvězdičku, vždy musí být zavolán pojmenovaný.</p>
+<figure class="figure"><img alt="hvezdicka" src="./images/hvezdicka.png" class="figure-img img-fluid img-rounded"></figure>
+<p>K čemu je to dobré? Když budeme danou funkci volat, bude už přímo ze zápisu volání funkce jasné, co daný argument znamená, není potřeba dívat se do kódu a hledat dokumentační řetězec pro danou funkci. Hodí se to pro případ, kdy má funkce řadu různých argumentů - usnadňuje to pak další práci s nimi a nevznikají zbytečné nejasnosti a chyby.</p>
+<p><strong>Jak dělat věci lépe</strong></p>
+<p>V závěrečné debatě o změnách v kódu jsme se bavily o některých "best practices" při vývoji v týmu - například pokud přejmenováváme nějaké funkce nebo proměnné, se kterými mohou pracovat i ostatní, je dobré o tom dát vědět. Stejně tak, když začleňujeme změny, které nejsou ideální. V tom případě je dobré rovnou vytvořit Issue, které zmiňuje, co není v pořádku a co je třeba opravit. 
+Aby byl kód hezky čitelný a přehledný, je dobré dodržovat určité dané <a href="https://www.python.org/dev/peps/pep-0008/">konvence</a>. Kód jde naformátovat všelijak, Python se s tím popere, ale proto, aby se dalo s kódem dobře pracovat a jednoduše se v něm vyznat, jsou určité konvence velmi užitečné (například určité odsazování, mezery kolem operátorů apod.)</p></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/patnacty-sraz&amp;t=RoboProjekt%3A%20Patn%C3%A1ct%C3%BD%20sraz" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/patnacty-sraz&amp;text=RoboProjekt%3A%20Patn%C3%A1ct%C3%BD%20sraz" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

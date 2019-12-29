@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Dvacátý sraz - Testy - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Dvacátý sraz - Testy - RoboProjekt">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:description" content="Dvacátý sraz - Testy - RoboProjekt">
+        <meta property="og:image" content="./images/type.png">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Dvacátý sraz&nbsp;- Testy</h1>
+        <p class="supressed">
+            <time datetime="2019-03-05T18:00:00+01:00" pubdate>03/05/19</time>
+            <br>
+            <a href="#about">Anežka Müller</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><p>Na předchozích setkáních jsme se věnovaly podrobnému procházení kódu, který jsme doposud daly dohromady. Další velká část, jejíž rozbor nás ještě čeká, jsou testy. Už na minulém srazu jsme je malinko nakously, dnes jsme se ale na oblast testů zaměřily podrobněji.</p>
+<h3>Trochu jiné porovnávání</h3>
+<p>V našem projektu v rámci tvorby testovacího frameworku budeme potřebovat porovnávat dva stavy hry. Z úplných začátků PyLadies známe <a href="https://naucse.python.cz/course/pyladies/beginners/comparisons/">porovnávání</a>, jsme schopny pomocí porovnávacího operátoru <code>==</code> říci, zda se nějaké hodnoty rovnají nebo nerovnají. Výstupem je boolean hodnota <code>True</code> v případě rovnosti a <code>False</code> v případě nerovnosti. Pokud však potřebujeme porovnat například různé objekty stejné třídy, které v základním nastavení porovnávání budou vždy různé, potřebujeme operátor <code>==</code> předefinovat. Třeba v následujícím kódu řekneme, že všechny objekty třídy A jsou si rovny:</p>
+<pre class="highlight"><code><span></span><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+</code></pre>
+
+
+<p>Pokud nadefinujeme <code>__eq__</code>, automaticky se předefinuje i porovnávací operátor <code>__ne__</code>, tedy <code>!=</code>. Pokud bychom chtěly předefinovat i další porovnávací operátory, zde jsou jednotlivé zkratky:<br>
+<code>__lt__</code> je označení pro <code>&lt;</code><br>
+<code>__gt__</code> pro  <code>&gt;</code><br>
+<code>__le__</code> pro  <code>&lt;=</code><br>
+<code>__ge__</code> pro  <code>&gt;=</code></p>
+<h3>Odbočka - isinstance a issubclass</h3>
+<p>Při nastavení porovnávání v příkladu výše jsme v kódu použily <code>isinstance</code>. Protože potřebuji zjistit, zda se rovnají objekty dané třídy, není nejvhodnějším řešením jednoduše porovnat typy objektů pomocí <code>type</code>. Může se stát, že budu porovnávat objekty jedné třídy s jinou, která z té první dědí. Pak by porovnání <code>type</code> mělo za výsledek <code>False</code>, protože se skutečně jedná o jiné třídy. <code>isinstance</code> je ale schopno zjistit, zda se jedná o objekt dané třídy, i když se jedná o podtřídu. Použití <code>isinstance</code> je ale často pouze zkratkou, která ukazuje, že program není úplně dobře navržen a dal by se napsat lépe.
+Podobnou funkcí je <code>issubclass</code>, která přímo zjišťuje, zda je daná třída podtřídou druhé třídy. </p>
+<h3>Nedostatky v našem kódu</h3>
+<p>Ne všechny nedostatky a připomínky jsou specifické pro testy, přestože jsme na ně narazily při procházení testovacích modulů. Některé se dají aplikovat plošně na psaní kódu a vedou k jeho lepší čitelnosti a srozumitelnosti. </p>
+<h4>Názvy proměnných</h4>
+<p>První z této skupiny jsou názvy proměnných. Vytváříme-li nějakou proměnnou, která se bude používat v celém modulu, je dobré je pojmenovat dostatečně specificky tak, aby z ní bylo jasné, co skutečně obsahuje, ideálně včetně datového typu. Příklad z našeho kódu - na začátku jednoho z testovacích modulů vytváříme seznam cest k mapám, který byl pojmenován <code>maps</code>. Neobsahuje ale mapy, pouze cesty k nim. Název je tedy poměrně matoucí, mohly bychom spíše čekat, že seznam bude obsahovat například JSONy map. Mnohem lepší název je tedy <code>all_map_paths</code>, který jasně říká, co od proměnné můžeme čekat.
+Další problém s názvem proměnné jsme odhalily o kus dál. Všimly jsme si, že editor nám v kódu zabarvuje proměnnou <code>type</code> (viz obrázek). </p>
+<figure class="figure"><a href="./images/type.png" target="_blank" title="type"><img alt="type" src="https://roboprojekt.pyladies.cz/images/thumbnails/type.png" class="figure-img img-fluid img-rounded"></a></figure>
+<p>Nejedná se o klíčové slovo, můžeme ho použít jako název proměnné, ale je to již (podobně jako <code>print</code>) nadefinovaná funkce, kteráJaké testy by měly v projektu ještě být vrací typ objektu. Krom toho je to také třída. Například <code>int</code> je objekt třídy <code>type</code>. My ale <code>type</code> v našem kódu používáme ve vztahu k vlastnostem políček na mapě. To ale není vhodné, od <code>type</code> jsou podobně jako od <code>print</code> očekávány nějaké konkrétní výstupy, není tedy dobře tyto věci předefinovávat. Pokud chceme použít nějaké generické jméno, které by již mohlo mít nějakou hodnotu nebo funkci, je lépe toto jméno více specifikovat.</p>
+<h4>Komentáře a dokumentační řetězce</h4>
+<p>Při procházení jednoho z testovacích modulů se ukázalo, že neumíme správně pracovat s komentáři a dokumentačními řetězci. Narazily jsme například v těle kódu na komentář, který hovoří o celém souboru. Takový text je ale poměrně důležitý, říká, k čemu soubor slouží. Měl tedy být dokumentačním řetězcem celého modulu a měl by být umístěn hned na začátku celého souboru (ještě před importy).<br>
+Důležité je také rozlišovat mezi dokumentačními řetězci a komentáři. Dokumentační řetězec popisuje chování modulu, funkce nebo třídy a je umístěn na začátku té části kódu, ke které se vztahuje. Dokumentační řetězce slouží člověku, který danou věc používá, aby věděl, k čemu slouží.
+Oproti tomu komentáře slouží těm, kteří čtou kód a potřebují zjistit, jak funguje. Vysvětlují například různé proměnné, použití konkrétních věcí v kódu apod.<br>
+Důležité také je dokumentační řetězce i komentáře <strong>aktualizovat</strong>. S kódem pracujeme pořád, vylepšujeme ho a měníme. Na komentáře ale často zapomínáme. Může se tak stát, že v komentáři nebo dokumentačním řetězci narazíme na něco, co již dávno v kódu nepoužíváme. Pro člověka, který kód vidí poprvé nebo jej nezná tak dobře jako autor, může být taková věc hodně matoucí. Proto je potřeba při změnách kódu myslet i na úpravy doprovodných textů, aby dávaly smysl.</p>
+<h4>Zbytečné testy?</h4>
+<p>Občas jsme narazily i na testy, které nemají pro kód žádnou přidanou hodnotu. Je dobré si u každého testu říct, co přináší, zda to, co testují, je skutečně potřeba testovat apod. Pokud nedokážeme najít nic, čím by takový test mohl být užitečný, že to je jen test pro test, můžeme ho s čistým svědomím smazat. <br>
+Podobně je na tom i testování pomocných funkcí. Někdy může být dobré otestovat pomocnou funkci, na druhou stranu pokud zjistíme, že ji už nepotřebujeme, nestačí smazat pouze tuto pomocnou funkci, musíme také myslet na to, že je třeba smazat i její test. <br>
+Podobné testy mohou být i relikty z dřívějších fází vývoje, kdy byl stav kódu takový, že daná funkce byla důležitá, potřebovala otestovat a dávalo to smysl. Pokud se ve vývoji posuneme dále a test už se může zdát nadbytečný, protože netestuje nic důležitého, stále může mít v kódu svoje místo. Takovým testům se říká <strong>regresní</strong> testy a jejich úkolem je testovat, že se daná funkce nezmění. </p>
+<h4>Odbočka - Malá zákeřnost Pythonu 3</h4>
+<p>V naší sadě testů se objevoval jeden, který měl zajímavý výstup. Vždy prošel, pokud se spouštěl v Pythonu 3.6, a vždy spadl, pokud se spouštěl v nižší verzi.<br>
+V kódu hodně pracujeme se slovníky. V předchozích verzích Pythonu 3 neměly slovníky dané pořadí, vypisovaly se různě. Slovník sám si nepamatoval, v jakém pořadí se do něj vkládaly prvky, na pořadí, v jakém se vypíší, se tedy nedalo spoléhat. Fungovalo ale velmi rychle vyhledávání podle klíče. V Pythonu 2 se sice slovníky vypisovaly vždy stejně, ale zabíraly více paměti a vyhledávání v nich bylo pomalejší. Od verze Pythonu 3.6 jsou slovníky opět seřazené, protože někdo vymyslel, jak to udělat, aby byly stále rychlé, spotřebovávaly méně paměti, ale zároveň zůstaly stejně seřazené. Náš problém tedy spočíval právě v tom, že daný test počítal s konkrétním seřazením slovníku, v Pythonu 3.5 tedy občas padal.</p>
+<h3>Testujeme vše, co je třeba?</h3>
+<p>U testů obecně je dobré se zaměřit nejen na to, jaké testy máme a v jakém jsou stavu, ale také na to, jaké testy ještě nemáme a měly bychom mít. Absenci testů jednoduše nepoznáme. Je třeba si celý kód projít, zaměřit se na všechny důležité funkce v něm a podívat se, zda jsou (dostatečně) otestované.<br>
+Pokud bychom testy nepsaly, kód pravděpodobně bude fungovat dál, mohou se však do něj nepozorovaně vkrádat drobné chyby, které by nám mohly jednoho dne přerůst přes hlavu. Testy je tedy určitě dobré nepodceňovat. </p></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/dvacaty-sraz-testy&amp;t=RoboProjekt%3A%20Dvac%C3%A1t%C3%BD%20sraz%20-%20Testy" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/dvacaty-sraz-testy&amp;text=RoboProjekt%3A%20Dvac%C3%A1t%C3%BD%20sraz%20-%20Testy" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

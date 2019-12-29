@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Čtrnáctý sraz – opakování a vysvětlování - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Čtrnáctý sraz – opakování a vysvětlování - RoboProjekt">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:description" content="Čtrnáctý sraz – opakování a vysvětlování - RoboProjekt">
+        <meta property="og:image" content="./images/github.jpg">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Čtrnáctý sraz&nbsp;– opakování&nbsp;a vysvětlování</h1>
+        <p class="supressed">
+            <time datetime="2019-01-15T08:39:00+01:00" pubdate>01/15/19</time>
+            <br>
+            <a href="#about">Iveta Česalová</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><p>Tento týden jsme se sešly v komorním počtu, navíc bez Petra. Ale cíl srazu byl jasný – abychom všechny rozuměly stávajícímu kódu.
+Začaly jsme souborem <em>util.py</em> a procházely metodu po metodě jednotlivých tříd. Vášnivá diskuze nastala u třídy HoleTile, která volá metodu robota – <code>robot.die()</code>. Původně bylo v kódu napsáno, že si robot volal metodu díry, což Petrovi přišlo zvláštní :-) Nyní tedy metoda políčka vyvolá metodu robota, což je logičtější, než aby si robot vyvolal metodu políčka :-D</p>
+<pre class="highlight"><code><span></span><span class="k">class</span> <span class="nc">HoleTile</span><span class="p">(</span><span class="n">Tile</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">kill_robot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">robot</span><span class="p">):</span>
+        <span class="c1"># Call robot's method for dying</span>
+        <span class="k">return</span> <span class="n">robot</span><span class="o">.</span><span class="n">die</span><span class="p">()</span>
+</code></pre>
+
+
+<p>Byla to dlouhá hodina, ale smysluplná. Potom jsme se přesunuly k souboru <em>backend.py</em> a následovalo další vysvětlování, což souviselo s opětovným probíráním pravidel hry.
+Pokud robot umře, přiřadí se mu souřadnice [-1, -1], aby byl tedy mimo hrací plochu. Narazily jsme ovšem na problém, že když robot ožije, nemůžou se zobrazit dva roboti na sobě, pokud na jeho startovním políčku stojí jiný robot. Bude nutno se zamyslet, jak to vyřešit, jestli zobrazením dalšího okýnka, které se hráče zeptá, kam chce robota umístit, nebo náhodné rozmístění na volné startovní políčko…</p>
+<p>Dalším tématem bylo Rozhraní, aneb pull request s několika stovkami řádků. Pro přehlednost jsme narazily na jednu vychytávku, pokud se na githubu mění velké množství souborů, stačí zmáčknout <code>alt</code> a kliknout na šipku a všechno se sroluje a snáze najdeme soubor, který potřebujeme.</p>
+<figure class="figure"><a href="./images/github.jpg" target="_blank" title="github"><img alt="github" src="https://roboprojekt.pyladies.cz/images/thumbnails/github.jpg" class="figure-img img-fluid img-rounded"></a></figure>
+<p>Prošly jsme kód a ukázaly jsme si, co všechno funguje, jak už obrazovka reaguje na různé klávesy atd. Trochu jsme se pozastavily nad balíčkem karet. Budeme pokaždé rozdávat z nového, stejného balíčku karet, který se zamíchá a nebudou se tam vracet rozdané, které si hráč nevybere.</p>
+<p>Příště se sejdeme již v plném počtu a určitě nás Petr nakopne správným směrem, jak dále pokračovat :-)</p></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/ctrnacty-sraz-vysvetlovani&amp;t=RoboProjekt%3A%20%C4%8Ctrn%C3%A1ct%C3%BD%20sraz%20%E2%80%93%20opakov%C3%A1n%C3%AD%20a%20vysv%C4%9Btlov%C3%A1n%C3%AD" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/ctrnacty-sraz-vysvetlovani&amp;text=RoboProjekt%3A%20%C4%8Ctrn%C3%A1ct%C3%BD%20sraz%20%E2%80%93%20opakov%C3%A1n%C3%AD%20a%20vysv%C4%9Btlov%C3%A1n%C3%AD" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

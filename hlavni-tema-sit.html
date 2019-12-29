@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Hlavní téma - síť - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Hlavní téma - síť - RoboProjekt">
+        <meta name="twitter:card" content="summary">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Hlavní téma&nbsp;-&nbsp;síť</h1>
+        <p class="supressed">
+            <time datetime="2019-07-16T15:32:00+02:00" pubdate>07/16/19</time>
+            <br>
+            <a href="#about">Karolina Surma</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><h2>Tip na Markdown</h2>
+<p>Sraz začal výjimečně připomínkou k formátování zpráv na blogu.
+Máme tendenci psát dlouhé odstavce, se kterými si git a GitHub neví dobře rady.
+Když něco v textu, který se táhne na několik řádků, změníme, GitHub už neoznačí konkrétní změnu, ale pro jistotu podsvítí celý ten řádek. 
+Je proto lepší texty psát tak, ze každá věta bude na jednom řádku. 
+Čtenář blogu si toho nevšimne, protože na stránkách se vše poskládá dobře, a my máme nástroj, jak kontrolovat i drobné změny textu.</p>
+<h2>Úprava interface: nechceme pořád posílat zprávy serveru</h2>
+<p>Máme s interface problém: pořád posílá serveru zprávy. 
+I když hráč potvrdí svůj výběr, při každém zmáčknutí jakékoli klávesy posílá serveru zprávu se svým stavem. 
+To se nám nelíbí a chceme to změnit. 
+Zde ale přichází na řadu aspekt, o němž jsme doposud vůbec neuvažovaly, a to bezpečnost síťové komunikace.
+U komunikace server - klient chceme, aby server byl náš zdroj pravdy a byl ten prvek, který "šéfuje" všechno, co se k němu dostane. 
+Můžeme si představit, že se k našemu pythonnímu serveru někdo bude chtít napsat jiného klienta (třeba v jiném programovacím jazyce, např. webového v JavaScriptu nebo ovladače robotů z 3D tiskárny).
+Kdyby k tomu někdo napsal falešného klienta, který umí vyměnit karty za jiné, pozměnit nějaké atributy hry, nebo poslat přímo škodlivé zprávy, náš server musí vědět, že na takovou zprávu nemá reagovat. 
+Pokud zpráva od klienta nebude dávat smysl, je lepší ji ošetřit na straně serveru. 
+Takže náš problém není ve skutečnosti, že chceme přestat posílat zprávy z klienta, ale v tom, že server už nemá v jisté chvíli zprávy přijímat. 
+Vycházíme z předpokladu, že klient nám může poslat cokoliv. 
+Jakmile klient pošle informaci, že potvrdil výběr, ignorujeme další zprávy.</p>
+<h2>Jak zahrát hru?</h2>
+<p>Zprovozňujeme hru podle nástřelu serveru, který jsme společně vypracovaly minule. 
+S každým novým krokem vidíme, co všechno ještě není dotažené, a snažíme se to propojit. 
+Úpravy kódu potřebné pro to, aby každý robot hrál své karty a interface se pročistil po každém kole, trvaly téměř celý dnešní sraz.
+Už opět vidíme, proč je dobré si namyslet algoritmus dopředu.
+Potýkáme se čím dál víc s tím, že je náš kód už hodně složitý, měly bychom se proto zamyslet, jak ho zjednodušit a zdokumentovat. </p>
+<h2>Projekte, spusť se sám</h2>
+<p>Během analýzy, jak spustit funkční hru, jsme téměř hodinu spouštěly: v jednom terminálu server, ve druhém receiver (obecenstvo), ve třetím interface, ve čtvrtém druhý interface (simulace hry dvou hráčů). 
+Je to úmorné, pokud to člověk musí dělat pořád dokola. 
+A jako všechno, i to lze trochu usnadnit. Klienty můžeme přepsat do importovatelné podoby. 
+Importovatelná podoba je taková, která nevyvolává vedlejší efekty. Pythonní soubory se čtou řádek po řádku a příkazy provádí i při importu do jiného modulu. 
+Je proto zvykem ty příkazy, které vyvolávají vedlejší efekty, jako u nás spuštění webové aplikace nebo <code>ensure_future</code> od <em>asyncio</em>, zařádit do funkce <code>main()</code>. 
+Pak s kouzelným řádkem <code>if __name__ == "__main__":</code> můžeme modul bez potíží naimportovat do spouštěcího skriptu.</p>
+<p>Náš spouštěcí modul bude mít tedy naimportované moduly: <code>client_receiver</code>, <code>client_interface</code> a spustíme jejich <code>.main()</code> tolikrát, kolik chceme jednotlivých instancí. 
+U nás je to jednou receiver a dvakrát interface.
+Aby se nám vykreslila okénka, naimportujeme k tomu Pyglet a spustíme pygletí aplikaci.</p>
+<p>Co takto nejde ještě spustit, je server. 
+Musely bychom se podívat do dokumentace <em>aiohttp</em> nebo zamyslet nad vlákny, abychom ho zprovoznily.
+Zatím to tak necháme - redukce 4 terminálů do 2 je pořád pěkná časová úspora :).</p>
+<h2>Vytvoření třídy <code>Server()</code></h2>
+<p>Minule jsme předělaly naše <a href="https://roboprojekt.pyladies.cz/vyvijime-rozhrani">klienty na třídy</a>, jejichž instance vytváříme pro spuštění hry.
+Chtěly jsme podobně přepsat server, který je momentálně shlukem neprovázaných funkcí.
+Zde jsme narazily na problém s dekorátorem <code>@routes.get</code>, který po přepsání serveru přestal fungovat.
+Je to kus kódu, který zajišťuje, že se každý druh klienta připojí k metodě, která mu poskytne to, co potřebuje k vykreslení své části hry. 
+Každá "routa" má tedy nadefinovaný řetězec, kterým se obě strany propojí.
+Python nejprve čte "recept" na vytvoření třídy <code>Server</code> a až potom vytváří jeho konkrétní instanci. 
+Při čtení receptu ještě ale žádné <code>routes</code> nejsou (neexistuje konkrétní instance), a tak nám při použití <code>@routes.get</code> Python vynadá a nepovolí server pustit.</p>
+<p>Musíme ten kus kódu tedy rozepsat. 
+Podíváme se na dokumentaci k <code>aiohttp.web.Application().add_routes()</code>.
+Podle kapitoly <a href="https://docs.aiohttp.org/en/latest/web_quickstart.html#resources-and-routes">Resources and Routes</a> předěláme naše <em>routy</em> přímo do aplikace mimo samotnou třídu <code>Server</code>. </p>
+<pre class="highlight"><code><span></span><span class="k">def</span> <span class="nf">get_app</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_routes</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/receiver/"</span><span class="p">,</span> <span class="n">server</span><span class="o">.</span><span class="n">receiver</span><span class="p">),</span>
+            <span class="n">web</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/interface/"</span><span class="p">,</span> <span class="n">server</span><span class="o">.</span><span class="n">interface</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">app</span>
+</code></pre></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/hlavni-tema-sit&amp;t=RoboProjekt%3A%20Hlavn%C3%AD%20t%C3%A9ma%20-%20s%C3%AD%C5%A5" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/hlavni-tema-sit&amp;text=RoboProjekt%3A%20Hlavn%C3%AD%20t%C3%A9ma%20-%20s%C3%AD%C5%A5" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

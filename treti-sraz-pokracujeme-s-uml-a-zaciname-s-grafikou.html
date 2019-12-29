@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Třetí sraz - pokračujeme s UML a začínáme s grafikou - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Třetí sraz - pokračujeme s UML a začínáme s grafikou - RoboProjekt">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:description" content="Třetí sraz - pokračujeme s UML a začínáme s grafikou - RoboProjekt">
+        <meta property="og:image" content="./images/UML1.jpg">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Třetí sraz&nbsp;- pokračujeme&nbsp;s&nbsp;UML&nbsp;a začínáme&nbsp;s grafikou</h1>
+        <p class="supressed">
+            <time datetime="2018-10-16T08:39:00+02:00" pubdate>10/16/18</time>
+            <br>
+            <a href="#about">Helena Olbertová</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><p>V první části dvouhodinovky jsme se věnovaly aktivní týmové spolupráci při rozebírání <a href="https://en.wikipedia.org/wiki/Class_diagram">diagramu tříd</a> pro pohyb robotů, který máme rozdělaný už od minula. Poslední verzi nám Petr zase trošku zkorigoval a dál budeme na diagramu pracovat doma a příště. Aktuální diagram najdete tady:</p>
+<figure class="figure"><a href="./images/UML1.jpg" target="_blank" title="UML1"><img alt="UML1" src="https://roboprojekt.pyladies.cz/images/thumbnails/UML1.jpg" class="figure-img img-fluid img-rounded"></a></figure>
+<figure class="figure"><a href="./images/UML2.jpg" target="_blank" title="UML2"><img alt="UML2" src="https://roboprojekt.pyladies.cz/images/thumbnails/UML2.jpg" class="figure-img img-fluid img-rounded"></a></figure>
+<p>V druhé části dvouhodinovky přišla na řadu tvorba grafiky. Zatímco vymýšlíme, jak se budou naše herní figurky hýbat, musíme jim také připravit herní podklad. K tomuto účelu používáme pro tvorbu vektorové grafiky <a href="https://inkscape.org/">Inkscape</a> a pro skládání dlaždic do mapy <a href="https://www.mapeditor.org/">Tiled</a> (ideálně verzi 1.2 a novější).</p>
+<p><strong>Inkscape</strong> jsme si nastavily všechny stejně.
+Soubor → Nastavení dokumentu (nebo Ctrl + Shift + D) → Zobrazovací jednotky a Jednotky plátna nastaveno na px → velikost 64px x 64px.</p>
+<p>V tom stejném nastavení přidáme mřížku - třetí záložka Grids → nová čtvercová mřížka → Počátek X = 0, Počátek Y = 0, Mezery X = 1, Mezery Y = 1, Hlavní čára mřížky každých: 8</p>
+<p>Prvně zkoušíme, jak se v Inkscape kreslí tužkou a vyplňuje obvod a obsah. Potom každá Pylady dostala za úkol nějaký typ dlaždice, celkově jsme zatím připravily tyhle typy dlaždic:
+wall, flag, starting square, laser, laser base, pusher, repair, hole, ground, conveyor belt 1, conveyor belt 2.</p>
+<p>Všechny ukládáme ve vektorovém formátu SVG a navzájem si je sdílíme na Slacku, takže všechny máme k dispozici stejnou sadu dlaždic, kterou si ukládáme do složky Tiles. Nejsou to ještě konečné verze grafiky, ale už nám pomůžou orientačně rozložit mapu. Později budeme mít možnost je snadno nahradit nějakými více vychytanými s jednotnějším vzhledem.</p>
+<p>Alternativně, protože na některých operačních systémech takto uložené soubory zlobí (vykreslují se v Tiled se špatnou velikostí), se mohou obrázky z Inkscape vyexportovat do PNG. V menu Soubor najdeme Export PNG Image a na zobrazené boční liště vybereme tlačítka Page a Export. Takto vyexportované soubory se jednoduše naimportují do Tiled dle návodu níže.</p>
+<p>A teď hurá na druhý prográmek – <strong>Tiled</strong>.
+Dáme si Soubor → New → New Map (Ctrl + N), kde nastavíme
+Orientace: ortogonální,
+Formát vrstvy dlaždic: CSV,
+Pořadí vykreslování dlaždic: Doprava a dolů,
+Velikost mapy – Fixed 12 x 12 dlaždic,
+Velikost dlaždice: 64 px x 64 px.
+Projekt uložíme s libovolným názvem a koncovkou <a href="https://naucse.python.cz/course/pyladies/intro/json/">JSON</a>.</p>
+<p>Pokračujeme s importem našich dlaždic.
+Vpravo dole najdeme oddíl Sada dlaždic a stisknutím New Tileset pokračujeme na výběr názvu sady – dáváme „Robots“ a možnost Ze sady obrázků.
+Vpravo dole pod oddílem dlaždic klikáme na malinkou ikonu s klíčem, na popisku stojí Edit Tileset. To nám otevírá novou záložku, kde v horní liště klikneme na ikonku + s popiskem Přidání dlaždic. Najdeme adresu naší složky Tiles a označíme všechny obrázky dlaždic.
+Vracíme se do záložky s mapou a můžeme si trošku pohrát s naší první herní mapou. Z vektorové grafiky jsme získaly obrázky s průhledným pozadím a tak je můžeme pěkně vrstvit. Do spodní vrstvy se můžou dát třeba země, jáma, … Do další vrstvy další dlaždice typu zeď, posuvné pásy, lasery a podobně.
+Jednotlivé objekty je možné i libovolně otáčet.
+Náš výtvor můžeme nechat přes Soubor → Exportovat jako a nastavíme si typ JSON.</p>
+<p>Další část lekce jsme věnovaly průzkumu mapového souboru JSON v textovém editoru.</p>
+<p>Každý typ dlaždice má svoje ID – první má číslo 0 a je to abecedně název první dlaždice, další následují. V seznamu políček ale vidíme čísla typů dlaždic od 1, takže abecedně první typ dlaždice je v Tiled ID: 0 → v seznamu vidíme ID: 1.</p>
+<p>Teď se můžeme podívat do organizace vrstev – v Layers máme tentokrát jenom jednu vrstvu. Každé políčko mapy má svoje souřadnice – čísla běží jako seznam z levého horního rohu mapy doprava a pak následuje další řádek.</p>
+<p>Pokud máme komplikovanější mapu s více vrstvami a také otočenými dlaždicemi, můžeme v layers vidět více seznamů a v některých budou i veliká čísla, jako například 1610612738. To je číslo šestnáctkové soustavy. Rozluštit nám ho pomůže třeba Python přes příkaz hex(číslo).  </p>
+<p>Máme pro první řádek mapy například políčka:</p>
+<p>nic – dlaždice ID:1 (conveyor belt 2) – nic – ID 1 otočené doprava – nic - ID 1 otočené dolů – nic – ID 1 otočené doleva – nic - nic – nic- nic</p>
+<p>Zápis vypadá takto</p>
+<p>"data":[0, 2, 0, 2684354562, 0, 3221225474, 0, 1610612738, 0, 0, 0, 0 … a následují další řádky</p>
+<p>zadáme do Pythonu:</p>
+<pre class="highlight"><code><span></span><span class="o">&gt;&gt;&gt;</span><span class="n">cislo</span> <span class="o">=</span> <span class="mi">2684354562</span>
+<span class="o">&gt;&gt;&gt;</span><span class="nb">hex</span><span class="p">(</span><span class="n">cislo</span><span class="p">)</span>
+<span class="s1">'0xa0000002'</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">cislo</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFF</span> <span class="c1"># kouzelná formulka pro zjištění ID dlaždice</span>
+<span class="mi">2</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">cislo</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="mi">7</span><span class="p">)</span> <span class="c1"># kouzelná formulka pro zjištění otočení</span>
+<span class="mi">10</span>
+</code></pre>
+
+
+<p>S dalšími čísly dostáváme 12 a 6.</p>
+<p>Takže otočení doprava v tomto případě je hodnota 10, dolů 12 a doleva 6.</p>
+<p>A to bylo tentokrát vše.</p>
+<p>Příští lekce se bude věnovat GITu s Jirkou, máme si zopakovat lekce <a href="https://naucse.python.cz/course/pyladies/sessions/git/">Správa zdrojového kódu</a> a <a href="https://naucse.python.cz/course/pyladies/sessions/foss/">Spolupráce a Open-Source</a>.</p>
+<p>Za dva týdny bude následovat další lekce s Petrem, na kterou máme za úkol náš mapový podklad, prozatím s jednou vrstvou a bez otáčení prvků, uložit ve formátu JSON, naimportovat do Pythonu a mapu vykreslit v Pygletu.</p>
+<p>A jak na to? Chceme načíst herní plán jako slovník políček.</p>
+<p>STAV = slovník políček
+klíč: (x, y)
+hodnota: seznam efektů # ← číslo z JSON</p>
+<p>Nahrávaná mapa má pouze 1 vrstvu, bez otáčení dlaždic.</p></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/treti-sraz-pokracujeme-s-uml-a-zaciname-s-grafikou&amp;t=RoboProjekt%3A%20T%C5%99et%C3%AD%20sraz%20-%20pokra%C4%8Dujeme%20s%20UML%20a%20za%C4%8D%C3%ADn%C3%A1me%20s%20grafikou" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/treti-sraz-pokracujeme-s-uml-a-zaciname-s-grafikou&amp;text=RoboProjekt%3A%20T%C5%99et%C3%AD%20sraz%20-%20pokra%C4%8Dujeme%20s%20UML%20a%20za%C4%8D%C3%ADn%C3%A1me%20s%20grafikou" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

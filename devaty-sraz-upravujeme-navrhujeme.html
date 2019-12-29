@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Devátý sraz - Upravujeme a navrhujeme - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Devátý sraz - Upravujeme a navrhujeme - RoboProjekt">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:description" content="Devátý sraz - Upravujeme a navrhujeme - RoboProjekt">
+        <meta property="og:image" content="./images/tabulka.jpg">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Devátý sraz&nbsp;- Upravujeme&nbsp;a navrhujeme</h1>
+        <p class="supressed">
+            <time datetime="2018-11-27T18:00:00+01:00" pubdate>11/27/18</time>
+            <br>
+            <a href="#about">Anežka Müller</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><p>Na začátku srazu jsme dokončovaly řešení dlouhotrvajícího problému, jak na políčka, která umí ve hře hromadu věcí. Mimo jiné políčka mohou mít zdi, které neblokují jen robota v pohybu, ale zejména nás docela blokovaly v dalším vývoji, protože jsme nevěděly, jak na ně. Řešení padlo na <a href="https://roboprojekt.pyladies.cz/osmy-sraz-malo-ukolu">minulém srazu</a>, tedy vyřešit efekty políčka tím, že každé políčko bude mít typ a vlastnosti definované přímo v popisu při tvorbě mapy a budou pak součástí výstupu v JSON. Odtud se budou dát načíst pro použití ve hře, potřebná data pak bude obsahovat třída <code>Tile</code>, kterou je o ně třeba rozšířit. Tím se pak mohou řešit i zdi, tedy třída <code>Tile</code> může obsahovat metodu ověřující, zda se lze pohnout z daného políčka nebo na dané políčko. Až to bude fungovat, můžeme se pustit do dalších efektů.</p>
+<p>Poté jsme se posunuly k úpravám stávajícího kódu. První věc jsme si ukazovaly na příkladu načítání vstupu. Obecně je dobré psát programy tak, aby byly univerzálnější. V současnou chvíli naše hra pracuje pouze s formátem dat v JSON. Z JSON získáváme slovník <code>data</code> obsahující hromadu informací, které pak dál zpracováváme v různých funkcích, a také z něj získáváme konkrétnější informace. Pokud bychom chtěly pracovat s jiným vstupem, bude obtížnější tuto část kódu měnit, protože má více výstupů. <strong>Je dobré stavět program z částí, které je možné jednoduše vyměnit.</strong> V našem případě by tedy bylo ideální mít funkci, která dostane jako vstup jméno souboru a vrátí stav hry. Vše, co potřebujeme používat v kódu dál, by měl stav hry obsahovat. Cílem je stavět program z celků, které jsou na sobě více nezávislé. Stavebních bloků, které mají jeden vstup a jeden výstup. Toto budeme v naší hře aplikovat tím, že oddělíme část, která načítá data, do samostatného modulu, nebude tedy součástí backendu, a také budeme psát komplexnější funkce. Abychom si zajistily, že používáme minimální rozhraní, jen to, co je skutečně nutné, bylo by dobré importovat přímo funkce, ne celé moduly. 
+Důležité je také vyhnout se cyklickým importům. To se nám stalo při načítání konstant. Řešením pro tento případ může být vytvoření separátního modulu s konstantami, abychom se vyhnuly problému, ve kterém ze stávajících modulů je mít, aby vše fungovalo bez problémů. Není také zpravidla dobré importovat v rámci funkce, většinou bývají lepší možnosti. </p>
+<p>V rámci úprav a oprav byla také zmíněna <strong>reprezentace směru</strong>. Nyní máme v kódu směr reprezentovaný stupni a čísly. Když je zkombinujeme se směry otočení (doleva, doprava, o 180°), veškerý pohyb, který pro hru potřebujeme, reprezentuje je tato tabulka:</p>
+<figure class="figure"><img alt="tabulka" src="./images/tabulka.jpg" class="figure-img img-fluid img-rounded"></figure>
+<p>V backendu se objevil následující if:</p>
+<pre class="highlight"><code><span></span><span class="k">if</span> <span class="nv">direction</span> <span class="o">==</span> <span class="mi">0</span>:
+    <span class="nv">y</span> <span class="o">+=</span> <span class="nv">distance</span>
+<span class="nv">elif</span> <span class="nv">direction</span> <span class="o">==</span> <span class="mi">90</span>:
+    <span class="nv">x</span> <span class="o">+=</span> <span class="nv">distance</span>
+<span class="nv">elif</span> <span class="nv">direction</span> <span class="o">==</span> <span class="mi">180</span>:
+    <span class="nv">y</span> <span class="o">-=</span> <span class="nv">distance</span>
+<span class="nv">elif</span> <span class="nv">direction</span> <span class="o">==</span> <span class="mi">270</span>:
+    <span class="nv">x</span> <span class="o">-=</span> <span class="nv">distance</span>
+</code></pre>
+
+
+<p>Lepší provedení by bylo pomocí třídy otočení, která by uměla věci znázorněné v tabulce. Je třeba se rozmyslet, co bude lepší jako atribut a co jako metoda. Vytvoření této třídy je jeden z úkolů do příště. </p>
+<p>Po úpravách a vylepšeních jsme se dostaly k dalšímu vývoji. Úkolem z minulého setkání bylo navrhnout pro naši hru <strong>rozhraní</strong>. Sešlo se několik nápadů, nejpropracovanější návrh přinesla Katka:</p>
+<p><a href="./images/rozhrani.jpg" target="_blank" title="rozhrani"><img alt="rozhrani" src="https://roboprojekt.pyladies.cz/images/thumbnails/rozhrani.jpg" class="img-fluid img-rounded">
+</a><a href="./images/rozhrani_2.jpg" target="_blank" title="rozhrani_2"><img alt="rozhrani_2" src="https://roboprojekt.pyladies.cz/images/thumbnails/rozhrani_2.jpg" class="img-fluid img-rounded"></a></p>
+<p>Petr přišel s návrhem, že by bylo dobré mít dvě nezávislá okénka, jedno čistě na zobrazení mapy a druhé s interaktivní částí, kde se hra ovládá. Má to několik výhod, ať už při prezentaci projektu nebo jeho tvorbě - separátně se to bude lépe kreslit a také udržovat oddělené. Vykreslení mapy už máme, v tuto chvíli je tedy potřeba zkusit napsat program, který vykreslí (zatím statickou) verzi interaktivního rozhraní. Jako pracovní postup Petr navrhoval nakreslit si novou část v Inkscape pro představu, jak celá věc bude vypadat na obrazovce, a až pak začít kódovat.</p>
+<p>V rámci rozhraní jsme také řešily, jakým způsobem se budou vybírat karty. Možností je více, přetažení myší, výběr pořadí karty stiskem čísla na klávesnici, kdy se pak karta automaticky posune na první volné místo v registru, nebo kliknutí nejprve na kartu a poté na požadovanou pozici.</p>
+<p>Součástí hry by mohl být i výběr robota, kde by se ke každému krom jeho obrázku ukazoval i krátký text, příběh daného robota. Padaly i nápady do budoucna, například práce se skrýváním karet nebo speciální vlastnosti robotů, to ale pro tuto chvíli řešit nebudeme :)</p>
+<p>Na závěr jsme se bavily také o <strong>licenci</strong>, kterou by náš projekt měl mít. Jako autorky projektu si ji můžeme samy zvolit. Musíme se tedy rozhodnout, jak chceme, aby náš projekt lidi používali a co s ním budou moci dělat. Budeme se rozhodovat mezi dvěma druhy open source licencí, které se liší podle toho, pod jakou licencí může daný projekt kdokoliv další rozšiřovat. Na tomto se tedy musíme také v dohledné době dohodnout.</p></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/devaty-sraz-upravujeme-navrhujeme&amp;t=RoboProjekt%3A%20Dev%C3%A1t%C3%BD%20sraz%20-%20Upravujeme%20a%20navrhujeme" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/devaty-sraz-upravujeme-navrhujeme&amp;text=RoboProjekt%3A%20Dev%C3%A1t%C3%BD%20sraz%20-%20Upravujeme%20a%20navrhujeme" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

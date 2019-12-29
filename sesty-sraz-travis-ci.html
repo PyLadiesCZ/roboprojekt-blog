@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Šestý sraz - Travis CI - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Šestý sraz - Travis CI - RoboProjekt">
+        <meta name="twitter:card" content="summary">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Šestý sraz&nbsp;- Travis&nbsp;CI</h1>
+        <p class="supressed">
+            <time datetime="2018-11-06T21:17:00+01:00" pubdate>11/06/18</time>
+            <br>
+            <a href="#about">Zuzana Kletzanderová</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><p>V úvodu našeho dalšího srazu jsme si ujasnily komunikaci týmu kolem celého projektu. Hlavní bod diskuze - neurážej se kvůli opravě tvého kódu! :) Dále aby byl lepší přehled o tom kdo na čem pracuje, v jakém je to stavu a aby byl <em>celkově</em> lepší přehled co se v projektu děje, jsme se domluvily, že budeme vše řešit především na Slacku.</p>
+<p>Hlavním bodem našeho setkání bylo, pod vedením Jirky, jak funguje integrace GitHub-u a jak nám pomůže v testování <strong>Travis CI</strong>.</p>
+<p>Ze začátečnického kurzu už víme, jak může vypadat test na kód, který napíšeme. Například pomocí příkazu 'assert'. Testy rozdělujeme na manuální a automatické (pytest). Hlavní je to, že testy umožňují říct, zda je kód v pořádku, nebo jestli s ním musíme dále něco dělat. S testy nečekáme až bude finální verze, ale testujeme už jednotlivé změny, které děláme.</p>
+<p>A teď něco k <strong>Travis CI</strong> (Continuous Integration):</p>
+<ul>
+<li>je to služba, která spouští automatizované testy na GitHubu, které běží kontinuálně s tím co jsme na GitHub-u přidaly </li>
+<li><a href="https://travis-ci.org">travis-ci.org</a> má službu poskytovanou zdarma pro veřejné repozitáře, <a href="https://travis-ci.com">travis-ci.com</a> je placená verze pro privátní účely</li>
+<li>a co Travis dělá? Travis si na testování vytvoří virtuální počítač, stáhne si zdrojový kód a v rámci zdrojového kódu provede příkazy, které chceme</li>
+<li>Travis se konfiguruje pomocí souboru <code>.travis.yml</code> umístěným v kořenovém adresáři projektu. V souboru je uvedeno vše potřebné pro správné spuštění testů, včetně instalace závislostí atd. Mimo jiné se jedná o jazyk pro jaký se má nastavit prostředí, v jaké verzi (těch může být kolik potřebujeme), instalace závislostí (v našem případě pythoních modulů) a skript,  který po spuštění provede všechny testy. </li>
+</ul>
+<p>Toto je příklad, který  použijeme v našem RoboProjektu:</p>
+<pre class="highlight"><code><span></span><span class="n">language</span><span class="o">:</span> <span class="n">python</span>
+<span class="n">python</span><span class="o">:</span>
+<span class="o">-</span> <span class="s1">'3.5'</span>
+<span class="o">-</span> <span class="s1">'3.6'</span>
+<span class="n">install</span><span class="o">:</span>
+<span class="o">-</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="na">txt</span>
+<span class="n">script</span><span class="o">:</span>
+<span class="o">-</span> <span class="n">pytest</span> <span class="o">-</span><span class="n">v</span>
+</code></pre>
+
+
+<p>Po spuštění testu na <a href="https://travis-ci.org">travis-ci.org</a> můžeme vidět , zda test proběhl správně, nebo jestli někde nastala chyba. Na pravé straně vidíme <strong>My repositories</strong>,  kde je přehled našich testů. Po rozkliknutí testu vidíme, že proběhla změna např. na větvi <strong>master</strong>, kdo změnu vytvořil, jak dlouho test trval, kdy byl vytvořen atd. Když máme test ve více verzích apod., tak se nám zobrazí <strong>Build jobs</strong>, kde vybereme pro nás vhodný výběr např. verze Pythonu. Poté máme k dispozici také <strong>Job log</strong>, který vygeneruje x řádků s tím, že většina jich je servisních, v první části vidíme server, kde byl test spuštěn, pak klon kódu z GitHub-u a instrukce které jsou dány ze souboru '.travis.yml'. V další části už je test, kde vidíme, zda test prošel (s chybou 0) a jak dlouho trval, nebo se zobrazí chyba.</p>
+<p>Postup pro spuštění Travis CI je tedy:</p>
+<ul>
+<li>jdeme na <a href="https://travis-ci.org">travis-ci.org</a></li>
+<li>přihlásíme se přes <a href="https://github.com">GitHub</a></li>
+<li>zapneme webhook pro repozitář (tím zapneme integraci mezi GitHub-em a Travis CI), nebo proběhne automaticky</li>
+<li>teď kliknout na tlačítko Aktivace a vybereme repozitáře z GitHub-u, které chceme používat s Travis CI</li>
+<li>přidáme soubor <code>.travis.yml</code> do git-u, dáme commit a push </li>
+<li>zkontrolujeme na Travis CI stav</li>
+</ul>
+<p>Testy, které proběhly,  můžeme vidět na GitHub-u v seznamu commitů. Když někdo udělá Pull Request, tak jde vidět, jestli testy procházejí správně nebo ne.</p></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/sesty-sraz-travis-ci&amp;t=RoboProjekt%3A%20%C5%A0est%C3%BD%20sraz%20-%20Travis%20CI" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/sesty-sraz-travis-ci&amp;text=RoboProjekt%3A%20%C5%A0est%C3%BD%20sraz%20-%20Travis%20CI" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

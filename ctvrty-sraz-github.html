@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Čtvrtý sraz - GitHub - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Čtvrtý sraz - GitHub - RoboProjekt">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:description" content="Čtvrtý sraz - GitHub - RoboProjekt">
+        <meta property="og:image" content="./images/kod.jpg">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Čtvrtý sraz&nbsp;- GitHub</h1>
+        <p class="supressed">
+            <time datetime="2018-10-23T18:05:00+02:00" pubdate>10/23/18</time>
+            <br>
+            <a href="#about">Hanka Střondalová</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><p>A jsme zpět. Co dnes? užitečný a u začátečníků respekt vzbuzující ... GIT... Abychom mohly naplno rozjet náš projekt, potřebujeme si naše kódy sdílet jako opravdové programátorky.</p>
+<p>Tentokráte se hodiny ujal Jirka a začal to jak se patří a to malým opáčkem. V rychlosti jsme si s ním projely informace, které jsme už dříve obdržely jako účastnice základního kurzu, ale co si budeme povídat - připomenutí se hodí vždy: git init, git status, git add, git commit, pozor změna - git diff, užitečný git log, grafický pomocníček gitk. To hlavní, k čemu jsme dnes směřovaly, je spolupráce na GitHub.</p>
+<p>Jirka nám vysvětloval pomalu a jistě (to abychom mu hned na začátku asi neutekly - nebo po něm něco rovnou nehodily :-)), že hlavními výhodami pro nás na GitHubu bude mergovaní našich výtvorů a nápadů. Každou větev (branch), kterou si uděláme a která bude obsahovat naše změny a nápady, prostřednictvím GitHubu někdo další zkontroluje a spojí, takže výsledek budeme mít každá k dispozici z pohodlí svého gauče.</p>
+<p>Něco málo o GitHubu:
+Samotný repozitář nemáme pouze na svém počítači a tudíž je pravděpodobnost, že o něj s odchodem našich notebooků do křemíkového nebe, nepřijdeme.
+GitHub je možno využívat zdarma a samozřejmě i v placené verzi, což zatím nepotřebujeme. Je zde také možná spolupráce dvojího typu - "firemní" a "open source" - u firemní spolupráce máme větší práva a naše změny jsou zaslány rovnou do hlavního repozitáře (git push). U open source spolupráce se musí naše změny nejdříve zaslat do našeho forku (git push [mé jméno]) a odsud následně pomocí Pull Request bude začleněno do hlavního repozitáře.)</p>
+<p>Jirka nám GitHub představil pomalu a po kouscích - vysvětlil nám, kde co v grafickém rozhraní najdeme a co to všechno znamená.</p>
+<p>Jednou ze záložek jsou například Issues neboli úkoly: každý má své číslo, můžeme je filtrovat podle různých parametrů - podle autora, milestone či assignees, což nám říká, komu byl úkol přidělen.</p>
+<p>Hlavním bodem večera byl "pull request". Projely jsme postupně celý proces krok po kroku, a abychom si to řádně vyzkoušely, vytvořily jsme si i testovací organizaci, kde se nemusíme bát, že něco pokazíme.</p>
+<p>Pro “firemní” spolupráci:
+Nejdříve je třeba provést klonování repozitáře, které provedeme pomocí zeleného tlačítka Clone or Download - to je možné dvojím způsobem buď přes SSH key (programátorům se nechce pořád dokola přihlašovat, tak mají klíč :-)) a nebo přes HTTPS adresu, kterou budeme využívat my.
+HTTPS adresu zkopírujeme a do příkazové řádky zadáme git clone <em>https://github.com/název</em>, tímto nám proběhne naklonování repozitáře k nám na počítač. Tam provádíme libovolné změny, o které se zrovna chceme podělit se svým týmem. Pomocí příkazů git status si zobrazíme stav souborů v repozitáři a cokoliv, co je nové, přidáme (git add) a okomentujeme změny (git commit). Klidně pro klid duše použijeme znovu příkaz git status. Po kontrole se  můžeme  posunout dál a poslat naši změnu na GitHub. Master branch (větev) je chráněna a taknemůžeme posílat naše změny napřímo, ale musíme si vytvořit větev vlastní. Použijeme příkaz git push origin src:dst (zdrojová:cílová větev), například git push origin master:pridani_vlajky. Následně jsme  vyzváni k přihlášení pomocí našeho uživatelského jména a hesla.</p>
+<figure class="figure"><img alt="master - pridani_vlajky" src="./images/kod.jpg" class="figure-img img-fluid img-rounded"></figure>
+<p>K vytvoření pull requestu je třeba otevřít web GitHubu a v našem repozitáři si zavolat na pomoc tlačítko Compare &amp; Pull request</p>
+<figure class="figure"><img alt="Compare &amp; Pull request" src="./images/comparepull.jpg" class="figure-img img-fluid img-rounded"></figure>
+<p>Zobrazí se prostor na naše poznámky a zároveň můžeme pull requestu přiřadit další parametry, můžeme určit uživatele, kteří pro nás udělají review aneb kontrolu změn.
+Dokončíme pull request (Create pull request) a čekáme na potvrzení, zda nedochází ke kolizi a kontrolu našich "assignees", které (kteří) následně potvrdí sloučení naší změny s cílovým repozitářem (confirm merge). Pokud bychom ještě něco ve svém repozitáři /na své větvi před mergem měnily, je dobré tyto změny ukládat do té samé větve.  Po definitivním sloučení větví je fajn po sobě uklízet a naši větev smazat.</p>
+<p>Když se repozitář na GitHubu průběžně mění a chceme si aktualizovat i svůj repozitář v počítači, použijeme k tomu příkaz git pull.
+“Open source” přístup je trochu jiný. Začíná se tím, že dáme na GitHubu fork, do počítače si naklonujeme repozitář pomocí stejného příkazu git clone <em>https://github.com/název</em>.
+V příkazové řádce se přepnu do naklonované složky a pomocí git remote add [me jmeno] <em>https://github.com/[me jmeno]/naklonovaný repozitář</em>, si vytvoříme náš fork (stačí jednou na začátku). U sebe na počítači si vytvoříme novou větev a do ní ukládáme změny, obrázky, kódy a podle potřeby přidáváme do gitu (git add) a uděláme commit.
+Následuje git push [me jmeno] -  čímž se na mém githubu objeví možnost pull requestu a zbytek už znáte :-)</p></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/ctvrty-sraz-github&amp;t=RoboProjekt%3A%20%C4%8Ctvrt%C3%BD%20sraz%20-%20GitHub" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/ctvrty-sraz-github&amp;text=RoboProjekt%3A%20%C4%8Ctvrt%C3%BD%20sraz%20-%20GitHub" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

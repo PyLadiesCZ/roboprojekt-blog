@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Jedenáctý sraz - MVC a spousta práce - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Jedenáctý sraz - MVC a spousta práce - RoboProjekt">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:description" content="Jedenáctý sraz - MVC a spousta práce - RoboProjekt">
+        <meta property="og:image" content="./images/mvc.jpg">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Jedenáctý sraz&nbsp;-&nbsp;MVC&nbsp;a spousta práce</h1>
+        <p class="supressed">
+            <time datetime="2018-12-11T18:00:00+01:00" pubdate>12/11/18</time>
+            <br>
+            <a href="#about">Anežka Müller</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><p>Vzhledem k tomu, že aktuální stav projektu sám generuje další a další úkoly a problémy k řešení, stejně jako schůzka minulá, i toto setkání se na začátku neslo v duchu řešení toho, na co jsme narazily při práci v uplynulém týdnu.</p>
+<p>Úspěchem od minulé lekce je, že se roboti zastavují o zdi, pracujeme na rozdělení backendu na více modulů, snažíme se o aktualizaci glosáře pojmů, který nám bude užitečný při práci s kódem, pojmenovávání funkcí a tvorbě dokumentačních řetězců, aby názvosloví bylo jednotné, a přibyl také validátor map. </p>
+<p>Protože bychom měly rády v projektu většinu věcí automatizovanou, jedním z úkolů byl i automatický převod obrázků z vektorového SVG do PNG. Objevil se ale problém se spouštěním Inkscape z příkazové řádky. V Linuxu to funguje jednoduše - když člověk napíše do terminálu Inkscape, program se spustí. To bohužel není přenositelné do Windows. Nezbývá tedy, než vypsat všechny možné cesty, které může Win použít, aby kód fungoval i s tímto OS. 
+Také bychom chtěly, aby se pak vygenerované soubory PNG ukládaly do jiného adresáře, je tedy třeba ve funkci pro převod nejen nastavit novou příponu souboru, ale i novou složku.
+Užitečným pomocníkem zde je knihovna <a href="https://docs.python.org/3/library/pathlib.html">pathlib</a>, která umí například jednoduše měnit příponu, rozkouskovat cestu, zaměnit její části a tím pádem vytvořit cestu novou. Umí také vytvořit adresáře dané cesty a <a href="https://github.com/pyvec/cheatsheets/blob/master/pathlib/pathlib-cs.pdf">další šikovné věci</a>.</p>
+<p><strong>Hvězdičková magie</strong></p>
+<p>Při vytváření funkce na automatické generování souborů PNG jsme narazily na to, že potřebujeme jako argument funkce použít postupně všechny prvky seznamu, o kterém nevíme, kolik těch prvků celkově má. Pro tento případ lze použít hvězdičku. Hvězdička pak jednotlivé prvky seznamu naskládá jako argumenty dané funkce. </p>
+<pre class="highlight"><code><span></span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="n">d</span> <span class="o">+</span> <span class="n">e</span> <span class="o">+</span> <span class="n">f</span>
+
+<span class="n">arguments</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="o">*</span><span class="n">arguments</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre>
+
+
+<p>Hvězdička lze využít například i při tvorbě seznamu, princip je stejný, postupně použije jednotlivé prvky. Tedy <code>print([1, *arguments, 8, 9])</code> vypíše <code>[1, 2, 3, 4, 5, 6, 7, 8]</code>, zatímco bez hvězdičky by se vložil celý seznam arguments jako prvek nového seznamu, tedy <code>[1, [2, 3, 4, 5, 6, 7], 8]</code>.
+Hvězdička takto funguje na vše, co se dá rozložit na jednotlivé prvky, tedy i na řetězce. Hvězdička tedy označuje nějakou sekvenci a používá jednotlivé prvky dané sekvence. </p>
+<p><strong>Stav hry</strong></p>
+<p>V současné chvíli je kód napsaný tak, že vytváří stav hry, který obsahuje herní plán (rozmístění jednotlivých políček), jeho velikost a také všechny roboty. Myšlenka je taková, že se při jakékoliv změně vytvoří nový stav hry. Tento přístup jsme zvolily na jednom z prvních setkání. V současnou chvíli ale stav hry vrací pouze funkce pro vytvoření stavu počátečního, vše ostatní s ním jen dále pracuje a upravuje ho, ale nevrací stav nový. Do budoucna bude třeba tuto problematiku řešit, až budeme chtít posílat stav hry na jiný počítač pro variantu multiplayeru, v současné fázi vývoje to však ještě není třeba. Je to ale něco, na co dříve či později narazíme.</p>
+<p><strong>Rozhraní pro ovládání hry</strong></p>
+<p>Na minulém srazu jsme se dohodly, že rozhraní pro ovládání hry bude vykresleno v samostatném okně. Do tohoto úkolu se pustila Terka. Pro ovládání hry zvolila klávesy. To ovšem generuje problém, jak sdělit programu, která klávesa je zmáčknutá. Existují dvě varianty. Lze vuyžít nadefinování uživatelem, kdy by si hráč sám určil, které klávesy chce pro ovládání používat, nebo varianty, kdy systém říká, jaký uživatel zadal text, nikoliv jakou zmáčkl klávesu. Tento přístup však neumožňuje pracovat s tím, když uživatel klávesu pustí, zpracovává jen vstup v podobě řetězce, který by se objevil v textovém editoru.</p>
+<p><em>Jak navrhovat rozhraní</em></p>
+<p>Při návrhu uživatelského rozhraní se osvědčil tzv. MVC návrhový vzor, zkratka pro <strong>“Model - View - Controller”</strong>.
+Model v našem případě reprezentuje data. Jaké karty má hráč, kolik má který robot životů, kolik už nasbíral vlajek apod. Toto rozhraní pak dokážu vykreslit, což bude naše View. Operace “Vykreslit” vezme model a vykreslí ho do okénka. 
+Když uživatel udělá nějakou změnu, udělá se na modelu a vykreslí se nový stav. Většinou se volí přístup, kdy vykreslování a reakce na události jsou od sebe oddělené, jsou to dvě různé funkce nebo i různé moduly. Reakce na události by tedy byl náš Controller, pokud bychom se držely MVC terminologie. 
+Změny ve hře mohou pocházet i odjinud než z controlleru a view může zobrazovat různé věci. Obrázek níže tak ukazuje aplikaci MVC na náš současný kód, kdy View zobrazuje dvě různé věci, ovládání hry a herní plochu. Navíc máme stranou načítání, které umí vytvořit část modelu, konkrétně herní plán bez robotů. Ty potom dodá backend.</p>
+<figure class="figure"><a href="./images/mvc.jpg" target="_blank" title="MVC"><img alt="MVC" src="https://roboprojekt.pyladies.cz/images/thumbnails/mvc.jpg" class="figure-img img-fluid img-rounded"></a></figure>
+<p>V současnou chvíli také pracujeme pouze s jedním stavem, který měníme, což bylo zmíněno výše. Ve chvíli, kdy budeme pracovat s tím, že se model bude synchronizovat mezi více počítači. Pak bude třeba, aby každá změna, která upravuje stav, zavolala funkci, která řekne, že se stav změnil a pošle novou verzi stavu. Je dobré mít změny oddělené a co nejmenší. 
+Změny modelu lze řešit několika způsoby: úprava atributu/proměnné (jak to děláme teď), notifikace o změně, metoda modelu (nezáleží na tom, jak jsou data v modelu reprezentována, pracujeme pouze s tím, co se má stát) nebo vytvoření objektu, který reprezentuje změnu, což je dobré, pokud změna ovlivňuje více věcí, než model. Toto jsou věci, které budeme v budoucnu potřebovat nějak vyřešit. </p>
+<p><strong>Políčka</strong></p>
+<p>Často se vracíme k problematice zdí a narazily jsme na ni i na této lekci. Tentokrát se jednalo o vzhled mapy. Zeď se nyní dá na políčko dát kamkoliv a v některém případě, kde na sebe zdi navazují, to může generovat nehezké vyobrazení (viz obrázek). </p>
+<figure class="figure"><img alt="zdi" src="./images/zed.png" class="figure-img img-fluid img-rounded"></figure>
+<p>Petr přišel s návrhem, kdy by nejen u zdi, ale i u laseru pomohlo, kdyby v budoucnu bylo odděleno to, jak mapa vypadá v editoru a jak bude poté vypadat ve hře. Například u laserů, kde hraje zásadní roli, kterým směrem laser střílí, by v editoru mohly být šipky, aby bylo vidět, že je laser správně otočený. Ve hře už by to viditelné nebylo. Stejně tak by to mohlo fungovat u zdí. Při tvorbě mapy by bylo jasné, součástí kterého je políčka, ale nerovnosti jako na obrázku výše už by nebyly vyobrazené v samotné hře. Například lze udělat obrázek posunutý o několik pixelů, takže bude vypadat, jako by zeď byla skutečně na hranici mezi dvěma políčky. Opět něco, co nás čeká v budoucnu. </p>
+<p><strong>Dědičnost</strong></p>
+<p>Jako jeden z dalších úkolů je rozpracovat efekty políček. Pro naši hru bude dobré zopakovat si dědičnost mezi třídami a vytvořit jednotlivá políčka jako podtřídy naší třídy <code>Tile</code>, ze které budou dědit. Třída Tile tak bude obsahovat všechny metody, které mohou v jejích podtřídách nastat, ale bez vracení konkrétního efektu. Konkrétně pak metoda bude rozepsána až v dané podtřídě. Bohužel jsme dědičnost proletěly jen z rychlíku, tak bude tento úkol do příště poměrně náročný :) </p>
+<p>Spolu s ním nás čeká ještě dokončit rozdělení kódu na moduly, další práce s roboty a také s rozhraním hry. Potřebujeme dále zařídit, aby se dala měnit velikost vykreslených oken a zároveň se tomu přizpůsoboval jejich obsah. Stále máme i několik dlouhodobých úkolů, práce tedy není málo :) </p></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/jedenacty-sraz&amp;t=RoboProjekt%3A%20Jeden%C3%A1ct%C3%BD%20sraz%20-%20MVC%20a%20spousta%20pr%C3%A1ce" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/jedenacty-sraz&amp;text=RoboProjekt%3A%20Jeden%C3%A1ct%C3%BD%20sraz%20-%20MVC%20a%20spousta%20pr%C3%A1ce" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>

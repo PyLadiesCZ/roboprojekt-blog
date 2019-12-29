@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Hrajeme! - RoboProjekt</title>
+
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Slabo+13px:400,700&amp;subset=latin,latin-ext">
+
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/code.css">
+        <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/main.css">
+            <link rel="stylesheet" href="https://roboprojekt.pyladies.cz/theme/css/site.css">
+
+                <link rel="alternate" type="application/rss+xml" title="RoboProjekt - všechny články" href="https://roboprojekt.pyladies.cz/feed.xml">
+
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://roboprojekt.pyladies.cz/favicon.ico">
+
+    <meta property="og:title" content="Hrajeme! - RoboProjekt">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:description" content="Hrajeme! - RoboProjekt">
+        <meta property="og:image" content="./images/game_screenshot.png">
+    </head>
+    <body>
+        <div class="container article">
+<div class="site-navigation">
+    <a href="https://roboprojekt.pyladies.cz" class="btn btn-primary">
+        <i class="fa fa-home"></i> RoboProjekt
+    </a>
+</div>
+
+<div class="article-container">
+    <div class="header">
+        <h1>Hrajeme!</h1>
+        <p class="supressed">
+            <time datetime="2019-09-10T18:00:00+02:00" pubdate>09/10/19</time>
+            <br>
+            <a href="#about">Anežka Müller</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <div><p>Dnes jsme se sešly bez Petra, ale s návodem, jak spustit hru skutečně jako multiplayer!
+Podařilo se nám po drobných počátečních klopýtnutích úspěšně překonat nástrahy firewallu a jiných překážek ve spojení počítačů a hru skutečně spustit!
+A nejen spustit, ale i dohrát do fáze, kdy jedna z nás vyhrála.</p>
+<p>Aktuálně je hra nastavená tak, že i po vítězství jednoho z hráčů pokračuje dál.
+Většina věcí funguje dle našich představ, krom několika drobností, které budeme ještě upravovat.
+Hrály jsme celkem asi hodinu, než jsme narazily na chybu, kvůli které hra spadla.
+Zbytek setkání jsme tedy věnovaly tomu, abychom zjistily, co je špatně a jak to opravit :) 
+Zkoumáním chybové hlášky jsme došly k tomu, že si naše hra neumí poradit s tím, když robot umře během provádění příkazu jednoho registru. 
+Například má jít o tři políčka rovně, ale hned na prvním je díra - po prvním kroku tedy umře, ale hra nyní počítá s tím, že musí pohyb dokončit a chce robota přesunout na další koordináty, které se ale v okamžiku smrti nastaví na <code>None</code>. 
+Alespoň se tak domníváme. 
+Bohužel se nám nyní vykresluje naráz výsledek provedení všech tahů herního kola a nemáme ještě zpracovaný log, špatně se nám tedy zpětně rekonstruují pohyby robotů.
+Budeme ale pracovat s touto teorií a uvidíme :)</p>
+<figure class="figure"><a href="./images/game_screenshot.png" target="_blank" title="herni_screenshot"><img alt="herni_screenshot" src="https://roboprojekt.pyladies.cz/images/thumbnails/game_screenshot.png" class="figure-img img-fluid img-rounded"></a></figure>
+<p>Než jsme setkání rozpustily, otevřely jsme téma, v jaké fázi budeme s výsledkem RoboProjektu spokojeny. 
+Každá z nás to má trošku jinak, budeme se nad tím tedy ještě muset zamyslet a vytyčit nějakou konkrétní uspokojivou podobu hry, abychom byly schopny někdy vůbec dosáhnout cíle :) </p></div>
+    </div>
+
+
+    <hr>
+
+    <div id="share" class="share">
+        <a href="//www.facebook.com/sharer.php?u=https%3A//roboprojekt.pyladies.cz/herni-sraz&amp;t=RoboProjekt%3A%20Hrajeme%21" target="_blank" class="btn btn-primary-outline">
+            <i class="fa fa-facebook-square"></i> Facebook
+        </a>
+        <a href="//twitter.com/share?url=https%3A//roboprojekt.pyladies.cz/herni-sraz&amp;text=RoboProjekt%3A%20Hrajeme%21" target="_blank" class="btn btn-info-outline">
+            <i class="fa fa-twitter-square"></i> Twitter
+        </a>
+    </div>
+
+</div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>© 2018—2019 <a href="https://roboprojekt.pyladies.cz">PyLadies Brno</a></p>
+        </div>
+
+        <script async src="//platform.twitter.com/widgets.js"></script>
+    </body>
+</html>
